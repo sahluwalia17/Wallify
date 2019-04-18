@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, request
 import webbrowser
 import requests
 from urllib.parse import quote
+import urllib.request
 import json
 
 app = Flask(__name__)
@@ -60,6 +61,12 @@ def callback():
     for i in links:
             if i not in filteredlinks:
                     filteredlinks.append(i)
+
+    print(filteredlinks)
+
+    for x in range(0,18):
+        link = filteredlinks[x]
+        urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
 
     return render_template("wallify.html")
 
