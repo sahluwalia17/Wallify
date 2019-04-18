@@ -1,9 +1,18 @@
-from flask import Flask, render_template, redirect
-from urllib.parse import quote
+from flask import Flask, render_template, redirect, request
 import webbrowser
 import requests
+from urllib.parse import quote
+import json
 
 app = Flask(__name__)
+
+clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
+clientSecret = "be75f467163b4812aee28c45e3bcf860"
+baseURL = "https://accounts.spotify.com/authorize"
+redirectURL = "http://127.0.0.1:5000/callback/q"
+scope = "user-top-read"
+spotifyTokenURL = "https://accounts.spotify.com/api/token"
+spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?limit=50"
 
 @app.route("/")
 def index():
@@ -11,11 +20,6 @@ def index():
 
 @app.route("/authorize")
 def authorize():
-    clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
-    baseURL = "https://accounts.spotify.com/authorize"
-    redirectURL = "http://127.0.0.1:5000/callback/q"
-    scope = "user-top-read"
-
     auth_query_parameters = {
         "response_type": "code",
         "redirect_uri": redirectURL,
@@ -30,7 +34,22 @@ def authorize():
 
 @app.route("/callback/q")
 def callback():
-    return render_template("wallify.html")
+    auth_token = request.args['code']
+
+    code_payload = {
+                "grant_type": "authorization_code",
+                "code": str(auth_token),
+                "redirect_uri": redirectURL,
+                "client_id": clientId,
+                "client_secret": clientSecret
+            }
+
+    post_request = requests.post(spotifyTokenURL, data=code_payload)
+    response_data = json.loads(post_request.text)
+    access_token = response_data["access_token"]
+    authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
+    top_tracks = requests.get(spotifyAPI, headers = authorization_header)
+    tracks_data = json.loads(top_tracks.text)
 
 if __name__ == "__main__":
     app.run(debug=True)
