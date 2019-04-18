@@ -7,6 +7,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    return render_template("index.html")
+
+@app.route("/authorize")
+def authorize():
     clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
     baseURL = "https://accounts.spotify.com/authorize"
     redirectURL = "http://127.0.0.1:5000/callback/q"
@@ -24,9 +28,9 @@ def index():
 
     return redirect(auth_url)
 
-@app.route("/")
+@app.route("/callback/q")
 def callback():
-    return render_template("index.html")
+    return render_template("wallify.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
