@@ -51,5 +51,17 @@ def callback():
     top_tracks = requests.get(spotifyAPI, headers = authorization_header)
     tracks_data = json.loads(top_tracks.text)
 
+    links = []
+    filteredlinks = []
+    for x in range(0,50):
+            for y in range(0,1):
+                    links.append(tracks_data["items"][x]["album"]["images"][1]["url"])
+
+    for i in links:
+            if i not in filteredlinks:
+                    filteredlinks.append(i)
+
+    return render_template("wallify.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
