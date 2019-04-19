@@ -4,6 +4,7 @@ import requests
 from urllib.parse import quote
 import urllib.request
 import json
+import pyrebase
 
 app = Flask(__name__)
 
@@ -15,8 +16,20 @@ scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?limit=50"
 
+config = {
+    "apiKey": "AIzaSyCRMgLW8c35OXRacxb-fBzyz1XAUOUM8Nw",
+    "authDomain": "wallify-bea20.firebaseapp.com",
+    "databaseURL": "https://wallify-bea20.firebaseio.com",
+    "projectId": "wallify-bea20",
+    "storageBucket": "wallify-bea20.appspot.com",
+    "messagingSenderId": "974113509801"
+}
+
+fb = pyrebase.initialize_app(config)
+authentication = fb.auth
+
 @app.route("/")
-def index():
+def index():#add authentication part here
     return render_template("index.html")
 
 @app.route("/authorize")
