@@ -20,5 +20,3 @@ user = authentication.create_user_with_email_and_password(email, password);
 authentication.get_account_info(user['idToken'])
 print(user)
 
-if __name__ == '__main__':
-	print("jkl")
