@@ -1,13 +1,17 @@
 import pyrebase
 
 config = {
-	"apiKey": "AIzaSyCRMgLW8c35OXRacxb-fBzyz1XAUOUM8Nw",
+	"apiKey": None,
     "authDomain": "wallify-bea20.firebaseapp.com",
     "databaseURL": "https://wallify-bea20.firebaseio.com",
     "projectId": "wallify-bea20",
     "storageBucket": "wallify-bea20.appspot.com",
     "messagingSenderId": "974113509801"
 }
+
+with open ("config.txt") as f:
+	apiKey = str(f.readline())
+	config["apiKey"] = apiKey
 
 fb = pyrebase.initialize_app(config)
 
