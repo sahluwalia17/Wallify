@@ -32,11 +32,39 @@ with open ("config.txt") as f:
 fb = pyrebase.initialize_app(config)
 authentication = fb.auth
 
-@app.route("/")
+@app.route("/", methods = ['POST', 'GET'])
 def index():#add authentication part here
     invalid = "Please enter a valid email"
     weak = "Password length must be at least 6 characters"
     exist = "This email is already in use"
+    name_of_button = ""#call this like submit_button in html
+    #this doesn't work into html is finalized
+    if request.method ==  'POST':
+        if request.form[name_of_button] == 'Login': #this needs to be determined in html
+            #do login
+        elif request.form[name_of_button] == 'Sign up':
+            try:
+                user = authentication.create_user_with_email_and_password(email,password)
+                #refactor template to go to wallify page
+                return render_template("wallify.html")
+
+            except Exception as e:
+                get_error = e.args[1]
+                error = json.loads(get_error)['error']
+                #print(error['message'])
+                msg = error['message']
+                #the render_template will be done in html the i = and w = and x = will bring up bars
+                #WORK WITH PUJA ON THIS
+                if msg == "INVALID_EMAIL":
+                    return render_template("index.html", i=invalid)
+                    #pass
+                    #reload the page with a header this is done in html
+                elif "WEAK_PASSWORD" in msg:
+                    return render_template("index.html", w=weak)
+                    #pass
+                elif msg == "EMAIL_EXISTS":
+                    return render_template("index.html", x=exist)
+
     return render_template("index.html")
 
 @app.route("/authorize")
