@@ -34,6 +34,9 @@ authentication = fb.auth
 
 @app.route("/")
 def index():#add authentication part here
+    invalid = "Please enter a valid email"
+    weak = "Password length must be at least 6 characters"
+    exist = "This email is already in use"
     return render_template("index.html")
 
 @app.route("/authorize")
