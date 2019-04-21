@@ -30,22 +30,26 @@ with open ("config.txt") as f:
     config["apiKey"] = apiKey
 
 fb = pyrebase.initialize_app(config)
-authentication = fb.auth
+authentication = fb.auth()
 
-@app.route("/", methods = ['POST', 'GET'])
+@app.route("/", methods = ["POST", "GET"])
 def index():#add authentication part here
+    print("made it")
     invalid = "Please enter a valid email"
     weak = "Password length must be at least 6 characters"
     exist = "This email is already in use"
     incorrect = "Either email or passwords is incorrect"
-    if request.method ==  'POST':
+    #print ("made it")
+    if request.method ==  "POST":
+        print ("jkl")
         if request.form["signin"] == 'Sign In': #this needs to be determined in html
+            
             email = request.form['email']#'name' depends on html tag
             password = request.form['pwd']#'password' depends on html tag
             try:
                 user = authentication.sign_in_with_email_and_password(email,password)
-                authorize()
-                return
+                #authorize()
+                return redirect(url_for('authorize'))
             except Exception as e:
                 print (e)
                 #return render_template("index.html", r=incorrect)#all this depends on html
@@ -56,7 +60,7 @@ def index():#add authentication part here
                 user = authentication.create_user_with_email_and_password(email,password)
                 #refactor template to go to wallify page
                 #return render_template("wallify.html")
-                authorize()
+                return redirect(url_for('authorize'))
                 return
             except Exception as e:
                 """
