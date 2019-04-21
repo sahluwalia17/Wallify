@@ -54,8 +54,9 @@ def index():#add authentication part here
             try:
                 user = authentication.create_user_with_email_and_password(email,password)
                 #refactor template to go to wallify page
-                return render_template("wallify.html")
-
+                #return render_template("wallify.html")
+                authorize()
+                return
             except Exception as e:
                 get_error = e.args[1]
                 error = json.loads(get_error)['error']
