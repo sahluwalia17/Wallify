@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html>
+<head>
+<style>
+.column {
+  width:950px;
+  float:left;
+}
+</style>
+</head>
 <body>
   <h1>WALLIFY PICTURES</h1>
-  <img src="{{url_for('static', filename='1.jpg')}}"/>
-  <img src="{{url_for('static', filename='2.jpg')}}"/>
-  <img src="{{url_for('static', filename='3.jpg')}}"/>
-  <img src="{{url_for('static', filename='4.jpg')}}"/>
-  <img src="{{url_for('static', filename='5.jpg')}}"/>
-  <img src="{{url_for('static', filename='6.jpg')}}"/>
-  <img src="{{url_for('static', filename='7.jpg')}}"/>
-  <img src="{{url_for('static', filename='8.jpg')}}"/>
-  <img src="{{url_for('static', filename='9.jpg')}}"/>
-  <img src="{{url_for('static', filename='10.jpg')}}"/>
-  <img src="{{url_for('static', filename='11.jpg')}}"/>
-  <img src="{{url_for('static', filename='12.jpg')}}"/>
-  <img src="{{url_for('static', filename='13.jpg')}}"/>
-  <img src="{{url_for('static', filename='14.jpg')}}"/>
-  <img src="{{url_for('static', filename='15.jpg')}}"/>
-  <img src="{{url_for('static', filename='16.jpg')}}"/>
-  <img src="{{url_for('static', filename='17.jpg')}}"/>
-  <img src="{{url_for('static', filename='18.jpg')}}"/>
+  <div class="centered">
+    <div class="column">
+      <img id="drag1" src="{{url_for('static', filename='1.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag2" src="{{url_for('static', filename='2.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag3" src="{{url_for('static', filename='3.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag4" src="{{url_for('static', filename='4.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag5" src="{{url_for('static', filename='5.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag6" src="{{url_for('static', filename='6.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+    </div>
+    <div class="column">
+      <img id="drag1" src="{{url_for('static', filename='7.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag2" src="{{url_for('static', filename='8.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag3" src="{{url_for('static', filename='9.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag4" src="{{url_for('static', filename='10.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag5" src="{{url_for('static', filename='11.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag6" src="{{url_for('static', filename='12.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+    </div>
+    <div class="column">
+      <img id="drag1" src="{{url_for('static', filename='13.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag2" src="{{url_for('static', filename='14.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag3" src="{{url_for('static', filename='15.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag4" src="{{url_for('static', filename='16.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag5" src="{{url_for('static', filename='17.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag6" src="{{url_for('static', filename='18.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+    </div>
+  </div>
 </body>
 </html>
