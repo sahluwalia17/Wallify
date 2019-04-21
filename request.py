@@ -39,14 +39,17 @@ def index():#add authentication part here
     exist = "This email is already in use"
     incorrect = "Either email or passwords is incorrect"
     if request.method ==  'POST':
-        if request.form["signin"] == 'Login': #this needs to be determined in html
+        if request.form["signin"] == 'Sign In': #this needs to be determined in html
             email = request.form['email']#'name' depends on html tag
             password = request.form['pwd']#'password' depends on html tag
             try:
                 user = authentication.sign_in_with_email_and_password(email,password)
+                authorize()
+                return
             except Exception as e:
-                return render_template("index.html", r=incorrect)#all this depends on html
-        elif request.form["signup"] == 'Sign up':
+                print (e)
+                #return render_template("index.html", r=incorrect)#all this depends on html
+        elif request.form["signup"] == 'Sign Up':
             email = request.form['email']#html tag <input... name = 'name'...>
             password = request.form['pwd']#html tag<input... name_ = 'password'...>
             try:
@@ -56,6 +59,7 @@ def index():#add authentication part here
                 authorize()
                 return
             except Exception as e:
+                """
                 get_error = e.args[1]
                 error = json.loads(get_error)['error']
                 #print(error['message'])
@@ -71,7 +75,8 @@ def index():#add authentication part here
                     #pass
                 elif msg == "EMAIL_EXISTS":
                     return render_template("index.html", x=exist)
-
+                """
+                print (e)
     return render_template("index.html")
 
 @app.route("/authorize")

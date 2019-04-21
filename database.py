@@ -30,7 +30,10 @@ e = {"list of URIs": array}
 #the paramaters for child cannot contain periods
 new_email = email[:email.find('@')]
 u = re.sub('[^A-Za-z0-9]','',new_email)
-database.child("testing").child(u).set(e, user["idToken"])
+#can refer to u when accessing this now
+#database.child("testing").child(u).set(e, user["idToken"])
+array.append("asdf")
+database.child("testing").child(u).update(e, user["idToken"])
 
 """
 email = input("Please enter an email\n");
