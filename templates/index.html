@@ -6,15 +6,22 @@
   <body>
     <div id="backgroundImage">
     <div class="sign-in">
-      <form action="/" method:"post">
+      <form action="/" method="post">
         <img src = "../static/signin.PNG" alt = "logo">
-        <h1> Sign In </h1>
+        <h1> Get your Wallpaper! </h1>
         <input type="text" name = "email" placeholder="Email" required>
-        <input type="text" name= "pwd" placeholder="Password" required>
+        <input type="password" name= "pwd" placeholder="Password" required>
         <!--button type="submit" class="signinbtn">Sign In</button-->
-        <input type="submit" name = "signin" value="Sign In">
+        <div class = "side-by-side">
+          <div style="float:left">
+          <input type="submit" name = "sign" value="Sign In">
+          </div>
+          <div style="float:right">
+          <input type="submit" name = "sign" value="Sign Up">
+          </div>
+        </div>
         <h2><span>OR</span></h2>
-        <input type="submit" name = "signup" value="Sign Up">
+        <input type="submit" name = "sign" value="Guest">
       </form>
     </div>
   </div>
@@ -75,7 +82,7 @@
       margin-top:20px;
     }
 
-    .sign-in input{
+    .sign-in input[type=text]{
       width: 70%;
       padding: 12px;
       margin: 10px;
@@ -85,11 +92,32 @@
       font-family: sans regular;
     }
 
+    .sign-in input[type=password]{
+      width: 70%;
+      padding: 12px;
+      margin: 10px;
+      text-align: center;
+      box-sizing: border-box;
+      font-size: 13px;
+      font-family: sans regular;
+    }
+    .sign-in .side-by-side{
+      display: inline-block;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .sign-in .side-by-side input[type=submit]{
+      text-align: center;
+      width: 120px;
+
+    }
     .sign-in input[type=submit]{
       background-color: #065471;
       color:#FFC045;
       width: 70%;
       padding: 12px;
+      margin:10px;
       border-radius: 20px;
       cursor: pointer;
     }
@@ -120,11 +148,5 @@
         height:1px;
         background:#ccc;
     }
-    /*.signinbtn{
-      text-align: center;
-      padding: 12px;
-      margin: 10px;
-      box-sizing: content-box;
-    }*/
   </style>
 </html>
