@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
 import webbrowser
 import requests
 from urllib.parse import quote
@@ -128,6 +128,10 @@ def callback():
         link = filteredlinks[x]
         urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
 
+    return redirect(url_for('wallify'))
+
+@app.route("/wallify")
+def wallify():
     return render_template("wallify.html")
 
 if __name__ == "__main__":
