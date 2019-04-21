@@ -1,6 +1,64 @@
 <!DOCTYPE html>
 <html>
-<body>
-  <a href="/authorize">AUTHORIZE</a>
-</body>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+  </head>
+  <body>
+    <div class="sign-in">
+      <form action="/" method:"post">
+        <img src = "../static/signin.PNG" alt = "logo">
+        <h1> Sign In </h1>
+        <input type="text" placeholder="Email" required>
+        <input type="text" placeholder="Password" required>
+        <!--button type="submit" class="signinbtn">Sign In</button-->
+        <input type="submit" value="Sign In">
+      </form>
+    </div>
+  <!--a href="/authorize">AUTHORIZE</a-->
+  </body>
+  <style>
+    body{
+      background-color: #065471;
+    }
+    .sign-in{
+      background: white;
+    }
+    .sign-in{
+      position: absolute;
+      top:50%;
+      left:50%;
+      width:400px;
+      text-align: center;
+      color:black;
+      transform: translate(-50%,-50%);
+      border-radius: 7%;
+    }
+    .sign-in h1{
+      font-family: 'Nova Mono', monospace;
+      margin-top: 15px;
+    }
+    .sign-in img{
+      width:30%;
+      text-align: center;
+      margin-top:20px;
+    }
+    input[type=text]{
+      width:70%;
+      text-align: center;
+      padding: 12px;
+      margin:10px;
+    }
+    input{
+      width: 70%;
+      text-align: center;
+      padding: 12px;
+      margin: 10px;
+    }
+    /*.signinbtn{
+      text-align: center;
+      padding: 12px;
+      margin: 10px;
+      box-sizing: content-box;
+    }*/
+  </style>
 </html>
