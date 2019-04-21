@@ -38,19 +38,17 @@ def index():#add authentication part here
     weak = "Password length must be at least 6 characters"
     exist = "This email is already in use"
     incorrect = "Either email or passwords is incorrect"
-    name_of_button = ""#call this like submit_button in html
-    #this doesn't work into html is finalized
     if request.method ==  'POST':
-        if request.form[name_of_button] == 'Login': #this needs to be determined in html
-            email = request.form['name']#'name' depends on html tag
-            password = request.form['password']#'password' depends on html tag
+        if request.form["signin"] == 'Login': #this needs to be determined in html
+            email = request.form['email']#'name' depends on html tag
+            password = request.form['pwd']#'password' depends on html tag
             try:
                 user = authentication.sign_in_with_email_and_password(email,password)
             except Exception as e:
                 return render_template("index.html", r=incorrect)#all this depends on html
-        elif request.form[name_of_button] == 'Sign up':
-            email = request.form['name']#html tag <input... name = 'name'...>
-            password = request.form['password']#html tag<input... name_ = 'password'...>
+        elif request.form["signup"] == 'Sign up':
+            email = request.form['email']#html tag <input... name = 'name'...>
+            password = request.form['pwd']#html tag<input... name_ = 'password'...>
             try:
                 user = authentication.create_user_with_email_and_password(email,password)
                 #refactor template to go to wallify page
