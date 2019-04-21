@@ -5,9 +5,12 @@ Members:
 
 Project Name: Wallify
 <br/>Firebase: Database to store username/password
-<br/>React JS: Handles server side
-<br/>Django: Handle backend
+<br/>Flask: Handle backend and establish localhost
 <br/>HTML/CSS: Handles frontend
 
 Description
-Website that will compile user’s top songs and combine it into a wallpaper. Users will be able to shift pictures around to fully customize it. If the user clicks on one of the images, it will take them to the song. If preferred, users can set an option that will automatically refresh the program to get a new wallpaper with new songs. The purpose of this app is artistic a it allows users to express their musical tastes more visually. 
+<br/>Wallify is a webapp that will compile a user’s top songs and merge it into a wallpaper. Once assembled, users will be able to download the wallpaper that is arranged in order of ranking or have the option to fully customize the wallpaper and place album covers in the spots they desire. The last feature is an auto-update feature where the program will automatically run every set amount of time specified by the user (every day, every week, every month, etc). This auto-update will run the program and see if there have been any changes to the user's top tracks. If there is a single change, the user is notified through their email and given a copy of the new wallpaper and a link to Wallify if they choose to customize their wallpaper again.
+
+There are two sources of authentication to this:
+<br/>- Spotify authentication: This is for the user to authorize Wallify for the user-top-read scope so that we can send an API GET request and be able to parse the response body for the track information
+<br/>- Wallify authentication: This is for the user to provide Wallify with an email/password combination. The intent of this is so that Wallify can notify users through their email of any changes to their top tracks. This information will be stored in Firebase.
