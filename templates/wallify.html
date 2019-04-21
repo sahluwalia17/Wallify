@@ -6,34 +6,44 @@
   width:950px;
   float:left;
 }
+.mover {
+  width:200px; height:170px; line-height:4em; margin:10px;                              padding:5px; float:left;
+  border:1px dotted #333333; text-align:center;
+}
+#boxA{
+  background-image: url("/static/1.jpg")
+}
+#boxB{
+  background-image: url("/static/2.jpg")
+}
 </style>
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(dragEvent) {
+dragEvent.dataTransfer.setData("Id",    dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
+}
+
+function drop(dropEvent) {
+  var dropData = dropEvent.dataTransfer.getData("Id");
+  dropItems = dropData.split("|");
+  var prevElem = document.getElementById(dropItems[1]);
+  prevElem.getElementsByTagName("div")[0].id =      dropEvent.target.id;
+  dropEvent.target.id = dropItems[0];
+  dropEvent.preventDefault();
+}
+</script>
 </head>
 <body>
   <h1>WALLIFY PICTURES</h1>
-  <div class="centered">
-    <div class="column">
-      <img id="drag1" src="{{url_for('static', filename='1.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag2" src="{{url_for('static', filename='2.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag3" src="{{url_for('static', filename='3.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag4" src="{{url_for('static', filename='4.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag5" src="{{url_for('static', filename='5.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag6" src="{{url_for('static', filename='6.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+  <div class="column">
+    <div id="box1" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+      <div class="mover" id="boxA" draggable="true"      ondragstart="drag(event)" ></div>
     </div>
-    <div class="column">
-      <img id="drag1" src="{{url_for('static', filename='7.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag2" src="{{url_for('static', filename='8.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag3" src="{{url_for('static', filename='9.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag4" src="{{url_for('static', filename='10.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag5" src="{{url_for('static', filename='11.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag6" src="{{url_for('static', filename='12.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-    </div>
-    <div class="column">
-      <img id="drag1" src="{{url_for('static', filename='13.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag2" src="{{url_for('static', filename='14.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag3" src="{{url_for('static', filename='15.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag4" src="{{url_for('static', filename='16.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag5" src="{{url_for('static', filename='17.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
-      <img id="drag6" src="{{url_for('static', filename='18.jpg')}}" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+    <div id="box2" ondragover="event.preventDefault()"     ondrop="drop(event)">
+      <div class="mover" id="boxB" draggable="true"      ondragstart="drag(event)"></div>
     </div>
   </div>
 </body>
