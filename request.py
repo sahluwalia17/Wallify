@@ -84,6 +84,7 @@ def index():#add authentication part here
                 print (e)
         elif request.form["sign"] == 'Guest':
             return redirect(url_for('authorize'))
+            
     return render_template("index.html")
 
 @app.route("/authorize")
