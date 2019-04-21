@@ -1,6 +1,130 @@
 <!DOCTYPE html>
 <html>
-<body>
-  <a href="/authorize">AUTHORIZE</a>
-</body>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+  </head>
+  <body>
+    <div id="backgroundImage">
+    <div class="sign-in">
+      <form action="/" method:"post">
+        <img src = "../static/signin.PNG" alt = "logo">
+        <h1> Sign In </h1>
+        <input type="text" name = "email" placeholder="Email" required>
+        <input type="text" name= "pwd" placeholder="Password" required>
+        <!--button type="submit" class="signinbtn">Sign In</button-->
+        <input type="submit" name = "signin" value="Sign In">
+        <h2><span>OR</span></h2>
+        <input type="submit" name = "signup" value="Sign Up">
+      </form>
+    </div>
+  </div>
+  <!--a href="/authorize">AUTHORIZE</a-->
+  </body>
+  <style>
+
+/*  body{
+    background-color: #065471;
+    background: url(../static/wallpaper.png);
+    background-size: 100% auto;
+    height: 100%;
+    width: auto;
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-image:url(../static/wallpaper.png);
+    background: rgba(255, 255,255, 0.5);
+  }*/
+
+    #backgroundImage:before{
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      background-image: url(../static/wallpaper.png);
+      opacity: 0.6;
+      background-size:     cover;
+      background-repeat:   no-repeat;
+    }
+
+    .sign-in{
+      background: white;
+      position: absolute;
+      top:50%;
+      left:50%;
+      width:400px;
+      padding-bottom: 20px;
+      text-align: center;
+      color:black;
+      transform: translate(-50%,-50%);
+      border-radius: 7%;
+      display: flex;
+      -webkit-box-shadow: 2px 2px 17px 11px rgba(0,0,0,0.4);
+      -moz-box-shadow: 2px 2px 17px 11px rgba(0,0,0,0.4);
+      box-shadow: 2px 2px 17px 11px rgba(0,0,0,0.4);
+    /*  box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, .3);*/
+    }
+    .sign-in h1{
+      font-family: 'Nova Mono', monospace;
+      margin-top: 15px;
+    }
+    .sign-in img{
+      width:30%;
+      text-align: center;
+      margin-top:20px;
+    }
+
+    .sign-in input{
+      width: 70%;
+      padding: 12px;
+      margin: 10px;
+      text-align: center;
+      box-sizing: border-box;
+      font-size: 13px;
+      font-family: sans regular;
+    }
+
+    .sign-in input[type=submit]{
+      background-color: #065471;
+      color:#FFC045;
+      width: 70%;
+      padding: 12px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    h2 {
+      position:relative;
+      text-align:center;
+      font-size: 12px;
+      font-weight: normal;
+      color: #a6a6a6;
+    }
+
+    h2 span {
+        display:inline-block;
+        padding:0 10px;
+        background:#fff;
+    }
+
+
+    h2:before {
+        content:"";
+        display:block;
+        position:absolute;
+        z-index:-1;
+        left:20%;
+        right:20%;
+        top:50%;
+        height:1px;
+        background:#ccc;
+    }
+    /*.signinbtn{
+      text-align: center;
+      padding: 12px;
+      margin: 10px;
+      box-sizing: content-box;
+    }*/
+  </style>
 </html>
