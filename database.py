@@ -1,5 +1,6 @@
 import pyrebase
 import json
+import re
 
 config = {
 	"apiKey": None,
@@ -15,9 +16,23 @@ with open ("config.txt") as f:
 	config["apiKey"] = apiKey
 
 fb = pyrebase.initialize_app(config)
-
 authentication = fb.auth()
+#email = input("Please enter an email\n")
+#password = input("Please enter password\n")
+#user = authentication.create_user_with_email_and_password(email, password);
+#print (user)
+user = authentication.sign_in_with_email_and_password("albert.zhong1999@gmail.com", "asdfghjkl")
+email = "albert.zhong1999@gmail.com"
+database = fb.database()
+array = []
+array.append("jkljlk")
+e = {"list of URIs": array}
+#the paramaters for child cannot contain periods
+new_email = email[:email.find('@')]
+u = re.sub('[^A-Za-z0-9]','',new_email)
+database.child("testing").child(u).set(e, user["idToken"])
 
+"""
 email = input("Please enter an email\n");
 password = input("Please enter password\n");
 #user = authentication.create_user_with_email_and_password(email, password);
@@ -30,7 +45,7 @@ password = input("Please enter password\n");
 #5) INVALID EMAIL
 
 #this is the signup page
-"""
+
 try:
 	user = authentication.create_user_with_email_and_password(email,password)
 	#refactor template to go to wallify page
@@ -49,7 +64,7 @@ except Exception as e:
 	elif "WEAK_PASSWORD" in msg:
 		pass
 	elif msg == "EMAIL_EXISTS"
-"""
+
 #authentication.get_account_info(user['idToken'])
 #print(user)
 
@@ -62,3 +77,5 @@ except Exception as e:
 	error = json.loads(get_error)['error']
 	msg = error['message']
 	print (msg)
+"""
+
