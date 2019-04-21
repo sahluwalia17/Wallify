@@ -42,7 +42,7 @@ def index():#add authentication part here
     #print ("made it")
     if request.method ==  "POST":
         print ("jkl")
-        if request.form["signin"] == 'Sign In': #this needs to be determined in html
+        if request.form["sign"] == 'Sign In': #this needs to be determined in html
             
             email = request.form['email']#'name' depends on html tag
             password = request.form['pwd']#'password' depends on html tag
@@ -53,15 +53,16 @@ def index():#add authentication part here
             except Exception as e:
                 print (e)
                 #return render_template("index.html", r=incorrect)#all this depends on html
-        elif request.form["signup"] == 'Sign Up':
+        elif request.form["sign"] == 'Sign Up':
             email = request.form['email']#html tag <input... name = 'name'...>
             password = request.form['pwd']#html tag<input... name_ = 'password'...>
             try:
-                user = authentication.create_user_with_email_and_password(email,password)
+                #user = authentication.create_user_with_email_and_password(email,password)
+                user = authentication.create_user_with_email_and_password(email, password)
                 #refactor template to go to wallify page
                 #return render_template("wallify.html")
                 return redirect(url_for('authorize'))
-                return
+                #return render_template("index.html")
             except Exception as e:
                 """
                 get_error = e.args[1]
