@@ -14,7 +14,7 @@ baseURL = "https://accounts.spotify.com/authorize"
 redirectURL = "http://127.0.0.1:5000/callback/q"
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
-spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?limit=50"
+spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
 config = {
     "apiKey": None,
