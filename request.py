@@ -1,9 +1,10 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
 import webbrowser
 import requests
 from urllib.parse import quote
 import urllib.request
 import json
+import pyrebase
 
 app = Flask(__name__)
 
@@ -13,10 +14,73 @@ baseURL = "https://accounts.spotify.com/authorize"
 redirectURL = "http://127.0.0.1:5000/callback/q"
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
-spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?limit=50"
+spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
-@app.route("/")
-def index():
+config = {
+    "apiKey": None,
+    "authDomain": "wallify-bea20.firebaseapp.com",
+    "databaseURL": "https://wallify-bea20.firebaseio.com",
+    "projectId": "wallify-bea20",
+    "storageBucket": "wallify-bea20.appspot.com",
+    "messagingSenderId": "974113509801"
+}
+
+with open ("config.txt") as f:
+    apiKey = str(f.readline())
+    config["apiKey"] = apiKey
+
+fb = pyrebase.initialize_app(config)
+authentication = fb.auth()
+
+@app.route("/", methods = ["POST", "GET"])
+def index():#add authentication part here
+    print("made it")
+    invalid = "Please enter a valid email"
+    weak = "Password length must be at least 6 characters"
+    exist = "This email is already in use"
+    incorrect = "Either email or passwords is incorrect"
+    #print ("made it")
+    if request.method ==  "POST":
+        print ("jkl")
+        if request.form["signin"] == 'Sign In': #this needs to be determined in html
+            
+            email = request.form['email']#'name' depends on html tag
+            password = request.form['pwd']#'password' depends on html tag
+            try:
+                user = authentication.sign_in_with_email_and_password(email,password)
+                #authorize()
+                return redirect(url_for('authorize'))
+            except Exception as e:
+                print (e)
+                #return render_template("index.html", r=incorrect)#all this depends on html
+        elif request.form["signup"] == 'Sign Up':
+            email = request.form['email']#html tag <input... name = 'name'...>
+            password = request.form['pwd']#html tag<input... name_ = 'password'...>
+            try:
+                user = authentication.create_user_with_email_and_password(email,password)
+                #refactor template to go to wallify page
+                #return render_template("wallify.html")
+                return redirect(url_for('authorize'))
+                return
+            except Exception as e:
+                """
+                get_error = e.args[1]
+                error = json.loads(get_error)['error']
+                #print(error['message'])
+                msg = error['message']
+                #the render_template will be done in html the i = and w = and x = will bring up bars
+                #WORK WITH PUJA ON THIS
+                if msg == "INVALID_EMAIL":
+                    return render_template("index.html", i=invalid)
+                    #pass
+                    #reload the page with a header this is done in html
+                elif "WEAK_PASSWORD" in msg:
+                    return render_template("index.html", w=weak)
+                    #pass
+                elif msg == "EMAIL_EXISTS":
+                    return render_template("index.html", x=exist)
+                """
+                print (e)
     return render_template("index.html")
 
 @app.route("/authorize")
@@ -68,6 +132,10 @@ def callback():
         link = filteredlinks[x]
         urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
 
+    return redirect(url_for('wallify'))
+
+@app.route("/wallify")
+def wallify():
     return render_template("wallify.html")
 
 if __name__ == "__main__":
