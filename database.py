@@ -30,6 +30,7 @@ password = input("Please enter password\n");
 #5) INVALID EMAIL
 
 #this is the signup page
+"""
 try:
 	user = authentication.create_user_with_email_and_password(email,password)
 	#refactor template to go to wallify page
@@ -48,7 +49,16 @@ except Exception as e:
 	elif "WEAK_PASSWORD" in msg:
 		pass
 	elif msg == "EMAIL_EXISTS"
-
+"""
 #authentication.get_account_info(user['idToken'])
 #print(user)
 
+
+#testing sign in page
+try:
+	user = authentication.sign_in_with_email_and_password(email,password)
+except Exception as e:
+	get_error = e.args[1]
+	error = json.loads(get_error)['error']
+	msg = error['message']
+	print (msg)
