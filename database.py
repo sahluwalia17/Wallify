@@ -24,6 +24,7 @@ authentication = fb.auth()
 #print (user)
 user = authentication.sign_in_with_email_and_password("albert.zhong1999@gmail.com", "asdfghjkl")
 email = "albert.zhong1999@gmail.com"
+print(user)
 database = fb.database()
 array = []#list of songs
 array.append("jkljlk")

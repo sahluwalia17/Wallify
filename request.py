@@ -7,7 +7,7 @@ import json
 import pyrebase
 
 app = Flask(__name__)
-
+user = None #This becomes the user after signing in
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
