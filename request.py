@@ -31,6 +31,7 @@ with open ("config.txt") as f:
     config["apiKey"] = apiKey
 
 fb = pyrebase.initialize_app(config)
+#begin
 authentication = fb.auth()
 database = fb.database()
 database_key = None
