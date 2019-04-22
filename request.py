@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for
 import webbrowser
+import re
 import requests
 from urllib.parse import quote
 import urllib.request
@@ -30,12 +31,14 @@ with open ("config.txt") as f:
     config["apiKey"] = apiKey
 
 fb = pyrebase.initialize_app(config)
+#begin
 authentication = fb.auth()
-
+database = fb.database()
+database_key = None
 @app.route("/", methods = ["POST", "GET"])
 def index():#add authentication part here
     #print("made it")
-    invalid = "Please enter a valid email"
+    invalid = "Please enter a valid email or password"
     weak = "Password length must be at least 6 characters"
     exist = "This email is already in use"
     incorrect = "Either email or passwords is incorrect"
@@ -43,15 +46,19 @@ def index():#add authentication part here
     if request.method ==  "POST":
         #print ("jkl")
         if request.form["sign"] == 'Sign In': #this needs to be determined in html
-            
+            #print ("asdf")
             email = request.form['email']#'name' depends on html tag
             password = request.form['pwd']#'password' depends on html tag
             try:
+                global user
                 user = authentication.sign_in_with_email_and_password(email,password)
                 #authorize()
+                new_email = email[:email.find('@')]
+                global database_key
+                database_key = re.sub('[^A-Za-z0-9]','',new_email)
                 return redirect(url_for('authorize'))
             except Exception as e:
-                #print (e)
+                print (e)
                 return render_template("index.html", r=incorrect)#all this depends on html
         elif request.form["sign"] == 'Sign Up':
             email = request.form['email']#html tag <input... name = 'name'...>
@@ -61,6 +68,7 @@ def index():#add authentication part here
                 user = authentication.create_user_with_email_and_password(email, password)
                 #refactor template to go to wallify page
                 #return render_template("wallify.html")
+                database_key = re.sub('[^A-Za-z0-9]','',new_email)
                 return redirect(url_for('authorize'))
                 #return render_template("index.html")
             except Exception as e:
@@ -71,7 +79,7 @@ def index():#add authentication part here
                 msg = error['message']
                 #the render_template will be done in html the i = and w = and x = will bring up bars
                 #WORK WITH PUJA ON THIS
-                if msg == "INVALID_EMAIL":
+                if msg == "INVALID_EMAIL" or msg == "INVALID PASSWORD":
                     return render_template("index.html", i=invalid)
                     #pass
                     #reload the page with a header this is done in html
@@ -83,8 +91,8 @@ def index():#add authentication part here
                 
                 #print (e)
         elif request.form["sign"] == 'Guest':
+            #print ("pasdf")
             return redirect(url_for('authorize'))
-            
     return render_template("index.html")
 
 @app.route("/authorize")
@@ -131,11 +139,13 @@ def callback():
                     filteredlinks.append(i)
 
     print(filteredlinks)
-
+    final_links = []
     for x in range(0,18):
         link = filteredlinks[x]
+        final_links.append(link)
         urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
-
+    if user != None:
+        database.child(database_key).child("long term").set(final_links, user["idToken"])
     return redirect(url_for('wallify'))
 
 @app.route("/wallify")

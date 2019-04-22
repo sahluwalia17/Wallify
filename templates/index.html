@@ -8,32 +8,34 @@
     <!-- do not modify r,i,w,x
     only modify what it looks like -->
     <div class="sign-in">
-      {% if r %}
-        <div class="alert alert-danger">
-          <h2>{{r}}</h2>
-        </div>
-      {% endif %}
-      {% if i %}
-        <div class="alert alert-danger">
-          <h2>{{i}}</h2>
-        </div>
-      {% endif %}
-      {% if w %}
-        <div class="alert alert-danger">
-          <h2>{{w}}</h2>
-        </div>
-      {% endif %}
-      {% if x %}
-        <div class="alert alert-danger">
-          <h2>{{x}}</h2>
-        </div>
-      {% endif %}
+
+     
 
       <form action="/" method="POST">
         <img src = "../static/signin.PNG" alt = "logo">
         <h1> Get your Wallpaper! </h1>
-        <input type="text" name = "email" placeholder="Email" required>
-        <input type="password" name= "pwd" placeholder="Password" required>
+         {% if r %}
+        <div class="alert alert-danger">
+          <h3>{{r}}</h3>
+        </div>
+      {% endif %}
+      {% if i %}
+        <div class="alert alert-danger">
+          <h3>{{i}}</h3>
+        </div>
+      {% endif %}
+      {% if w %}
+        <div class="alert alert-danger">
+          <h3>{{w}}</h3>
+        </div>
+      {% endif %}
+      {% if x %}
+        <div class="alert alert-danger">
+          <h3>{{x}}</h3>
+        </div>
+      {% endif %}
+        <input type="text" name = "email" class ="email" placeholder="Email" >
+        <input type="password" name= "pwd" class= "pswd" placeholder="Password" >
         <!--button type="submit" class="signinbtn">Sign In</button-->  
      <div class = "side-by-side">
           <div style="float:left">
@@ -44,7 +46,16 @@
           </div>
         </div>
         <h2><span>OR</span></h2>
-        <input type="submit" name = "sign" value="Guest">
+        <input type="submit" name = "sign" class = "guest" value="Guest">
+        <!--
+        <script>
+          $(document).ready(function(){
+            $(".guest").click(function(){
+              $(".email").removeAttr("required");
+              $(".pswd").removeAttr("required");
+            });
+          });
+        </script>-->
 
       </form>
     </div>
@@ -171,5 +182,19 @@
         height:1px;
         background:#ccc;
     }
+
+    .sign-in h3{
+      color:red;
+      font-size: 12px;
+      font-weight: normal;
+      text-align: center;
+      margin: 10px;
+    }
+
+    .alert .alert-danger{
+      text-align: center;
+    }
+
+
   </style>
 </html>
