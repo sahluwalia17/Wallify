@@ -34,14 +34,14 @@ authentication = fb.auth()
 
 @app.route("/", methods = ["POST", "GET"])
 def index():#add authentication part here
-    print("made it")
+    #print("made it")
     invalid = "Please enter a valid email"
     weak = "Password length must be at least 6 characters"
     exist = "This email is already in use"
     incorrect = "Either email or passwords is incorrect"
     #print ("made it")
     if request.method ==  "POST":
-        print ("jkl")
+        #print ("jkl")
         if request.form["sign"] == 'Sign In': #this needs to be determined in html
             
             email = request.form['email']#'name' depends on html tag
@@ -51,8 +51,8 @@ def index():#add authentication part here
                 #authorize()
                 return redirect(url_for('authorize'))
             except Exception as e:
-                print (e)
-                #return render_template("index.html", r=incorrect)#all this depends on html
+                #print (e)
+                return render_template("index.html", r=incorrect)#all this depends on html
         elif request.form["sign"] == 'Sign Up':
             email = request.form['email']#html tag <input... name = 'name'...>
             password = request.form['pwd']#html tag<input... name_ = 'password'...>
@@ -64,7 +64,7 @@ def index():#add authentication part here
                 return redirect(url_for('authorize'))
                 #return render_template("index.html")
             except Exception as e:
-                """
+                
                 get_error = e.args[1]
                 error = json.loads(get_error)['error']
                 #print(error['message'])
@@ -80,8 +80,8 @@ def index():#add authentication part here
                     #pass
                 elif msg == "EMAIL_EXISTS":
                     return render_template("index.html", x=exist)
-                """
-                print (e)
+                
+                #print (e)
         elif request.form["sign"] == 'Guest':
             return redirect(url_for('authorize'))
             

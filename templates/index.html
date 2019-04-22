@@ -5,7 +5,30 @@
   </head>
   <body>
     <div id="backgroundImage">
+    <!-- do not modify r,i,w,x
+    only modify what it looks like -->
     <div class="sign-in">
+      {% if r %}
+        <div class="alert alert-danger">
+          <h2>{{r}}</h2>
+        </div>
+      {% endif %}
+      {% if i %}
+        <div class="alert alert-danger">
+          <h2>{{i}}</h2>
+        </div>
+      {% endif %}
+      {% if w %}
+        <div class="alert alert-danger">
+          <h2>{{w}}</h2>
+        </div>
+      {% endif %}
+      {% if x %}
+        <div class="alert alert-danger">
+          <h2>{{x}}</h2>
+        </div>
+      {% endif %}
+
       <form action="/" method="POST">
         <img src = "../static/signin.PNG" alt = "logo">
         <h1> Get your Wallpaper! </h1>
