@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for
 import webbrowser
+import re
 import requests
 from urllib.parse import quote
 import urllib.request
@@ -31,7 +32,8 @@ with open ("config.txt") as f:
 
 fb = pyrebase.initialize_app(config)
 authentication = fb.auth()
-
+database = fb.database()
+database_key = None
 @app.route("/", methods = ["POST", "GET"])
 def index():#add authentication part here
     #print("made it")
@@ -47,11 +49,15 @@ def index():#add authentication part here
             email = request.form['email']#'name' depends on html tag
             password = request.form['pwd']#'password' depends on html tag
             try:
+                global user
                 user = authentication.sign_in_with_email_and_password(email,password)
                 #authorize()
+                new_email = email[:email.find('@')]
+                global database_key
+                database_key = re.sub('[^A-Za-z0-9]','',new_email)
                 return redirect(url_for('authorize'))
             except Exception as e:
-                #print (e)
+                print (e)
                 return render_template("index.html", r=incorrect)#all this depends on html
         elif request.form["sign"] == 'Sign Up':
             email = request.form['email']#html tag <input... name = 'name'...>
@@ -61,6 +67,7 @@ def index():#add authentication part here
                 user = authentication.create_user_with_email_and_password(email, password)
                 #refactor template to go to wallify page
                 #return render_template("wallify.html")
+                database_key = re.sub('[^A-Za-z0-9]','',new_email)
                 return redirect(url_for('authorize'))
                 #return render_template("index.html")
             except Exception as e:
@@ -131,11 +138,15 @@ def callback():
                     filteredlinks.append(i)
 
     print(filteredlinks)
-
+    final_links = []
     for x in range(0,18):
         link = filteredlinks[x]
+        final_links.append(link)
         urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
-
+    if user == None:
+        print ("guest")
+    else:
+        database.child(database_key).child("long term").set(final_links, user["idToken"])
     return redirect(url_for('wallify'))
 
 @app.route("/wallify")
