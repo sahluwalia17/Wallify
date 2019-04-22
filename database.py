@@ -25,16 +25,25 @@ authentication = fb.auth()
 user = authentication.sign_in_with_email_and_password("albert.zhong1999@gmail.com", "asdfghjkl")
 email = "albert.zhong1999@gmail.com"
 database = fb.database()
-array = []
+array = []#list of songs
 array.append("jkljlk")
 e = {"list of URIs": array}
 #the paramaters for child cannot contain periods
 new_email = email[:email.find('@')]
 u = re.sub('[^A-Za-z0-9]','',new_email)
 #can refer to u when accessing this now
-#database.child("testing").child(u).set(e, user["idToken"])
+#database.child("testing").child(u).set(e, user["idToken"])#DO THIS IF ENTRY DOESN'T EXIST
 array.append("asdf")
-database.child("testing").child(u).update(e, user["idToken"])
+database.child("testing").child(u).update(e, user["idToken"])#ALWAYS UPDATE DATABASE LIKE THIS
+first = database.child("testing").get()#Testing will be called "users" in actual database
+#print (first.val())#Returns an ordered dictionary
+#looks like OrderedDict([('Albert', {'list of URIs': ['jkljlk']}), ('albertzhong1999', {'list of URIs': ['jkljlk', 'asdf']})])
+second = database.child("testing").child(u).get()#u will refernece the characters before @gmail.com
+#This should be the subchild of users
+#print(second.val()) #stil returns ordered dictionary
+list_of_uris = database.child("testing").child(u).child("list of URIs").get()
+print (type(list_of_uris.val()))#This returns a list
+#This should be the actual songs
 
 """
 email = input("Please enter an email\n");
