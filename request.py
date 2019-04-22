@@ -37,7 +37,7 @@ database_key = None
 @app.route("/", methods = ["POST", "GET"])
 def index():#add authentication part here
     #print("made it")
-    invalid = "Please enter a valid email"
+    invalid = "Please enter a valid email or password"
     weak = "Password length must be at least 6 characters"
     exist = "This email is already in use"
     incorrect = "Either email or passwords is incorrect"
@@ -45,7 +45,7 @@ def index():#add authentication part here
     if request.method ==  "POST":
         #print ("jkl")
         if request.form["sign"] == 'Sign In': #this needs to be determined in html
-            
+            #print ("asdf")
             email = request.form['email']#'name' depends on html tag
             password = request.form['pwd']#'password' depends on html tag
             try:
@@ -78,7 +78,7 @@ def index():#add authentication part here
                 msg = error['message']
                 #the render_template will be done in html the i = and w = and x = will bring up bars
                 #WORK WITH PUJA ON THIS
-                if msg == "INVALID_EMAIL":
+                if msg == "INVALID_EMAIL" or msg == "INVALID PASSWORD":
                     return render_template("index.html", i=invalid)
                     #pass
                     #reload the page with a header this is done in html
@@ -90,8 +90,8 @@ def index():#add authentication part here
                 
                 #print (e)
         elif request.form["sign"] == 'Guest':
+            #print ("pasdf")
             return redirect(url_for('authorize'))
-            
     return render_template("index.html")
 
 @app.route("/authorize")
@@ -143,9 +143,7 @@ def callback():
         link = filteredlinks[x]
         final_links.append(link)
         urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
-    if user == None:
-        print ("guest")
-    else:
+    if user != None:
         database.child(database_key).child("long term").set(final_links, user["idToken"])
     return redirect(url_for('wallify'))
 
