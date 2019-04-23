@@ -123,6 +123,13 @@ function download() {
           data: JSON.stringify({ints}),
           dataType: "json"
           });
+
+          var a = document.createElement('a');
+          a.href = "./final.jpg";
+          a.download = "final.jpg";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
 }
 function drop(dropEvent) {
   var dropData = dropEvent.dataTransfer.getData("Id");

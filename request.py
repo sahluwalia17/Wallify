@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, send_file
 import webbrowser
 import requests
 from urllib.parse import quote
@@ -72,6 +72,10 @@ def callback():
 
     return redirect(url_for('wallify'))
 
+@app.route("/final.jpg")
+def returnImage():
+    return send_file('final.jpg', attachment_filename='final.jpg')
+
 @app.route("/wallify")
 def wallify():
     return render_template("wallify.html")
@@ -83,27 +87,27 @@ def get_data():
         data = ints.get("ints")
 
         image1 = Image.open("./static/"+str(data[0]) + ".jpg")
-        image2 = Image.open("./static/"+str(data[1]) + ".jpg")
-        image3 = Image.open("./static/"+str(data[2]) + ".jpg")
+        image2 = Image.open("./static/"+str(data[6]) + ".jpg")
+        image3 = Image.open("./static/"+str(data[12]) + ".jpg")
 
-        image4 = Image.open("./static/"+str(data[3]) + ".jpg")
-        image5 = Image.open("./static/"+str(data[4]) + ".jpg")
-        image6 = Image.open("./static/"+str(data[5]) + ".jpg")
+        image4 = Image.open("./static/"+str(data[1]) + ".jpg")
+        image5 = Image.open("./static/"+str(data[7]) + ".jpg")
+        image6 = Image.open("./static/"+str(data[13]) + ".jpg")
 
-        image7 = Image.open("./static/"+str(data[6]) + ".jpg")
-        image8 = Image.open("./static/"+str(data[7]) + ".jpg")
-        image9 = Image.open("./static/"+str(data[8]) + ".jpg")
+        image7 = Image.open("./static/"+str(data[2]) + ".jpg")
+        image8 = Image.open("./static/"+str(data[8]) + ".jpg")
+        image9 = Image.open("./static/"+str(data[14]) + ".jpg")
 
-        image10 = Image.open("./static/"+str(data[9]) + ".jpg")
-        image11 = Image.open("./static/"+str(data[10]) + ".jpg")
-        image12 = Image.open("./static/"+str(data[11]) + ".jpg")
+        image10 = Image.open("./static/"+str(data[3]) + ".jpg")
+        image11 = Image.open("./static/"+str(data[9]) + ".jpg")
+        image12 = Image.open("./static/"+str(data[15]) + ".jpg")
 
-        image13 = Image.open("./static/"+str(data[12]) + ".jpg")
-        image14 = Image.open("./static/"+str(data[13]) + ".jpg")
-        image15 = Image.open("./static/"+str(data[14]) + ".jpg")
+        image13 = Image.open("./static/"+str(data[4]) + ".jpg")
+        image14 = Image.open("./static/"+str(data[10]) + ".jpg")
+        image15 = Image.open("./static/"+str(data[16]) + ".jpg")
 
-        image16 = Image.open("./static/"+str(data[15]) + ".jpg")
-        image17 = Image.open("./static/"+str(data[16]) + ".jpg")
+        image16 = Image.open("./static/"+str(data[5]) + ".jpg")
+        image17 = Image.open("./static/"+str(data[11]) + ".jpg")
         image18 = Image.open("./static/"+str(data[17]) + ".jpg")
 
         (width1, height1) = image1.size
