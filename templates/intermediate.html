@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+  </head>
+  <body>
+      <h1> Select Term </h1>
+      <h2> Select which time range you would like your wallpaper to reflect! </h2>
+   <form action="/callback/q" method="POST">
+    <div class = "container">
+      <a href="#"><div class = "button short-term">
+        <h3>Short Term</h3>
+        <p>(4 weeks)</p>
+        <img src="../static/clock.png"/>
+      </div></a>
+      <a href="#"><div class = "button medium-term">
+        <h4>Medium Term</h4>
+        <p>(6 months)</p>
+        <img src="../static/calendar.png"/>
+      </div></a>
+      <a href="#"><div class = "button long-term">
+        <h5>Long Term</h5>
+        <p>(several years)</p>
+        <img src="../static/2019.png"/>
+      </div></a>
+    </div>
+   </form>
+  </body>
+  <style>
+    body{
+      margin:0;
+      background-color:#065471;
+      color:#FFC045;
+    }
+    h1{
+      font-weight: normal;
+      font-family: 'Cormorant Unicase', serif;
+      text-align:center;
+      padding-top:30px;
+      margin:0px;
+      font-size:50px;
+    }
+
+    h2{
+      font-weight: normal;
+      font-family: 'Cormorant Unicase', serif;
+      font-size: 20px;
+      text-align:center;
+      padding-top:0px;
+      padding-bottom:50px;
+      margin:0px;
+    }
+
+    hr{
+      margin-top: 100px;
+      color: #d9d9d9;
+      margin-bottom:0px;
+    }
+
+  /*  .top-header{
+      background-color: #d9d9d9;
+      margin-top:0px;
+    }*/
+
+    .container{
+      margin-top:0px;
+      width:100%:
+      display:flex;
+      justify-content:center;
+
+    }
+
+    .button{
+      width:33.33%;
+      display:inline-block;
+      position:relative-block;
+      height:520px;
+      background-color:blue;
+      margin:0px;
+      float:left;
+      font-family: 'Nova Mono', monospace;
+      font-size:35px;
+      color: black;
+    }
+
+    .short-term img{
+      display:block;
+      width:70%;
+      margin-left:auto;
+      margin-right:auto;
+      padding-top:0px;
+    }
+
+    .short-term {
+      background-color:#ffad33;
+      padding-top:0px;
+
+    }
+
+    h3{
+      text-align:center;
+      padding-bottom:0px;
+      font-size: 40px;
+      margin:40px;
+
+    }
+
+    .medium-term img{
+      display:block;
+      width:70%;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .medium-term{
+      background-color:#00cccc;
+
+      /*padding-top:10%;*/
+    }
+
+    h4{
+      text-align:center;
+      padding-bottom:0px;
+      font-size: 40px;
+      margin:40px;
+
+
+    }
+
+    .long-term img{
+      display:block;
+      width:60%;
+      margin-left:auto;
+      margin-right:auto;
+      padding-top:20px;
+
+    }
+    .long-term{
+      background-color:#cc0099;
+
+      /*padding-top:17%*/
+    }
+
+    h5{
+      text-align:center;
+      font-size: 40px;
+      margin:40px;
+
+    }
+
+    p{
+      font-size:20px;
+      text-align:center;
+      padding-top:0px;
+    }
+</style>
+</html>
