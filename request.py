@@ -68,6 +68,7 @@ def index():#add authentication part here
                 user = authentication.create_user_with_email_and_password(email, password)
                 #refactor template to go to wallify page
                 #return render_template("wallify.html")
+                new_email = email[:email.find('@')]
                 database_key = re.sub('[^A-Za-z0-9]','',new_email)
                 return redirect(url_for('authorize'))
                 #return render_template("index.html")
