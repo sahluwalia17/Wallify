@@ -156,6 +156,34 @@ def get_data():
     result5.save('result5.jpg')
     result6.save('result6.jpg')
 
+    imageres = Image.open("result.jpg")
+    imageres2 = Image.open("result2.jpg")
+    imageres3 = Image.open("result3.jpg")
+    imageres4 = Image.open("result4.jpg")
+    imageres5 = Image.open("result5.jpg")
+    imageres6 = Image.open("result6.jpg")
+
+    (widthres1, heightres1) = imageres.size
+    (widthres2, heightres2) = imageres2.size
+    (widthres3, heightres3) = imageres3.size
+    (widthres4, heightres4) = imageres4.size
+    (widthres5, heightres5) = imageres5.size
+    (widthres6, heightres6) = imageres6.size
+
+
+    result_width = widthres1 + widthres2 + widthres3 + widthres4 + widthres5 + widthres6
+    result_heigth = heightres1
+
+    result = Image.new('RGB', (result_width, result_height))
+
+    result.paste(im = imageres, box=(0, 0))
+    result.paste(im = imageres2, box=(widthres1,0))
+    result.paste(im = imageres3, box=(widthres1 * 2,0))
+    result.paste(im = imageres4, box=(widthres1 * 3,0))
+    result.paste(im = imageres5, box=(widthres1 * 4,0))
+    result.paste(im = imageres6, box=(widthres1 * 5,0))
+
+    result.save('final.jpg')
     return "",200
 
 if __name__ == "__main__":
