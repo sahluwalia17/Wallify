@@ -110,12 +110,10 @@ var dragId;
 function allowDrop(ev) {
   ev.preventDefault();
 }
-
 function drag(dragEvent) {
   dragEvent.dataTransfer.setData("Id",    dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
   dragId = dragEvent.target.id;
 }
-
 function download() {
         $.ajax({
           type: "POST",
@@ -126,7 +124,6 @@ function download() {
           dataType: "json"
           });
 }
-
 function drop(dropEvent) {
   var dropData = dropEvent.dataTransfer.getData("Id");
   dropItems = dropData.split("|");
@@ -134,7 +131,6 @@ function drop(dropEvent) {
   var swap1 = parseInt(dropEvent.target.id.substring(3));
   var swap2 = parseInt(dragId.substring(3));
   var temp = swap1;
-
   ints[ints.indexOf(swap1)] = swap2;
   ints[ints.indexOf(swap2)] = temp;
   prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
