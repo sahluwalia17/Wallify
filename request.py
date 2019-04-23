@@ -115,7 +115,47 @@ def get_data():
 
     result_width = width1
     result_height = height1 + height2 + height3
-    
+
+
+    result = Image.new('RGB', (result_width, result_height))
+    result2 = Image.new('RGB', (result_width, result_height))
+    result3 = Image.new('RGB', (result_width, result_height))
+    result4 = Image.new('RGB', (result_width, result_height))
+    result5 = Image.new('RGB', (result_width, result_height))
+    result6 = Image.new('RGB', (result_width, result_height))
+
+    result.paste(im=image1, box=(0, 0))
+    result.paste(im=image2, box=(0, height1))
+    result.paste(im=image3, box=(0, 2 * height1))
+
+    result2.paste(im=image4, box=(0, 0))
+    result2.paste(im=image5, box=(0, height3))
+    result2.paste(im=image6, box=(0, 2 * height4))
+
+    result3.paste(im=image7, box=(0, 0))
+    result3.paste(im=image8, box=(0, height1))
+    result3.paste(im=image9, box=(0, 2 * height1))
+
+    result4.paste(im=image10, box=(0, 0))
+    result4.paste(im=image11, box=(0, height3))
+    result4.paste(im=image12, box=(0, 2* height4))
+
+    result5.paste(im=image13, box=(0, 0))
+    result5.paste(im=image14, box=(0, height3))
+    result5.paste(im=image15, box=(0, 2* height4))
+
+    result6.paste(im=image16, box=(0, 0))
+    result6.paste(im=image17, box=(0, height3))
+    result6.paste(im=image18, box=(0, 2* height4))
+
+
+    result.save('result.jpg')
+    result2.save('result2.jpg')
+    result3.save('result3.jpg')
+    result4.save('result4.jpg')
+    result5.save('result5.jpg')
+    result6.save('result6.jpg')
+
     return "",200
 
 if __name__ == "__main__":
