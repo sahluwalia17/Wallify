@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, url_for
 from PIL import Image
 import webbrowser
+import os
 import requests
 from urllib.parse import quote
 import urllib.request
@@ -184,7 +185,32 @@ def get_data():
     result.paste(im = imageres6, box=(widthres1 * 5,0))
 
     result.save('final.jpg')
-    return "",200
+
+    os.remove("result.jpg")
+    os.remove("result2.jpg")
+    os.remove("result3.jpg")
+    os.remove("result4.jpg")
+    os.remove("result5.jpg")
+    os.remove("result6.jpg")
+
+    os.remove("./static/1.jpg")
+    os.remove("./static/2.jpg")
+    os.remove("./static/3.jpg")
+    os.remove("./static/4.jpg")
+    os.remove("./static/5.jpg")
+    os.remove("./static/6.jpg")
+    os.remove("./static/7.jpg")
+    os.remove("./static/8.jpg")
+    os.remove("./static/9.jpg")
+    os.remove("./static/10.jpg")
+    os.remove("./static/11.jpg")
+    os.remove("./static/12.jpg")
+    os.remove("./static/13.jpg")
+    os.remove("./static/14.jpg")
+    os.remove("./static/15.jpg")
+    os.remove("./static/16.jpg")
+    os.remove("./static/17.jpg")
+    os.remove("./static/18.jpg")
 
 if __name__ == "__main__":
     app.run(debug=True)
