@@ -14,6 +14,7 @@ redirectURL = "http://127.0.0.1:5000/callback/q"
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
+data = []
 
 @app.route("/")
 def index():
@@ -73,6 +74,13 @@ def callback():
 @app.route("/wallify")
 def wallify():
     return render_template("wallify.html")
+
+@app.route("/your/flask/endpoint",methods=["POST"])
+def get_data():
+    if request.method == "POST":
+        ints = request.get_json()
+        data = ints.get("ints")
+    return "",200
 
 if __name__ == "__main__":
     app.run(debug=True)

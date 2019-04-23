@@ -103,7 +103,8 @@
   background-position: right;
 }
 </style>
-<script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
 var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 var dragId;
 function allowDrop(ev) {
@@ -113,6 +114,17 @@ function allowDrop(ev) {
 function drag(dragEvent) {
   dragEvent.dataTransfer.setData("Id",    dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
   dragId = dragEvent.target.id;
+}
+
+function download() {
+        $.ajax({
+          type: "POST",
+          contentType: "application/json;charset=utf-8",
+          url: "/your/flask/endpoint",
+          traditional: "true",
+          data: JSON.stringify({ints}),
+          dataType: "json"
+          });
 }
 
 function drop(dropEvent) {
@@ -128,13 +140,12 @@ function drop(dropEvent) {
   prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
   dropEvent.target.id = dropItems[0];
   dropEvent.preventDefault();
-  window.alert(ints);
 }
 </script>
 </head>
 <body>
   <h1>WALLIFY PICTURES</h1>
-  <a href="/download">DOWNLOAD</a>
+  <button onclick="download()">DOWNLOAD</button>
   <div class="column">
     <div id="boxA" ondragover="event.preventDefault()"      ondrop="drop(event)" >
       <div class="mover" id="box1" draggable="true"      ondragstart="drag(event)" ></div>
