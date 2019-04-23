@@ -120,7 +120,7 @@ function download() {
         $.ajax({
           type: "POST",
           contentType: "application/json;charset=utf-8",
-          url: "/your/flask/endpoint",
+          url: "/receive",
           traditional: "true",
           data: JSON.stringify({ints}),
           dataType: "json"

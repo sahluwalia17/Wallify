@@ -75,7 +75,7 @@ def callback():
 def wallify():
     return render_template("wallify.html")
 
-@app.route("/your/flask/endpoint",methods=["POST"])
+@app.route("/receive",methods=["POST"])
 def get_data():
     if request.method == "POST":
         ints = request.get_json()
