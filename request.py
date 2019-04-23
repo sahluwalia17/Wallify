@@ -24,6 +24,10 @@ def index():
 
 @app.route("/authorize")
 def authorize():
+    exists = os.path.isfile('final.jpg')
+    if exists:
+        os.remove("final.jpg")
+    
     auth_query_parameters = {
         "response_type": "code",
         "redirect_uri": redirectURL,
