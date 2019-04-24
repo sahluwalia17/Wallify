@@ -11,6 +11,7 @@ import pyrebase
 
 app = Flask(__name__)
 user = None #This becomes the user after signing in
+auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
@@ -19,7 +20,8 @@ redirectURL = "http://127.0.0.1:5000/callback/q"
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 
-spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50"
+#spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
+
 
 config = {
     "apiKey": None,
@@ -48,7 +50,6 @@ def index():#add authentication part here
     incorrect = "Either email or passwords is incorrect"
     #print ("made it")
     if request.method ==  "POST":
-        #print ("jkl")
         if request.form["sign"] == 'Sign In': #this needs to be determined in html
             #print ("asdf")
             email = request.form['email']#'name' depends on html tag
@@ -77,7 +78,7 @@ def index():#add authentication part here
                 return redirect(url_for('authorize'))
                 #return render_template("index.html")
             except Exception as e:
-                
+
                 get_error = e.args[1]
                 error = json.loads(get_error)['error']
                 #print(error['message'])
@@ -93,7 +94,7 @@ def index():#add authentication part here
                     #pass
                 elif msg == "EMAIL_EXISTS":
                     return render_template("index.html", x=exist)
-                
+
                 #print (e)
         elif request.form["sign"] == 'Guest':
             #print ("pasdf")
@@ -114,17 +115,14 @@ def authorize():
 
     return redirect(auth_url)
 
-@app.route("/callback/q")
-def callback():
-    auth_token = request.args['code']
-
+def spotify(spotifyAPI):
     code_payload = {
-                "grant_type": "authorization_code",
-                "code": str(auth_token),
-                "redirect_uri": redirectURL,
-                "client_id": clientId,
-                "client_secret": clientSecret
-            }
+        "grant_type": "authorization_code",
+        "code": str(auth_token),
+        "redirect_uri": redirectURL,
+        "client_id": clientId,
+        "client_secret": clientSecret
+    }
 
     post_request = requests.post(spotifyTokenURL, data=code_payload)
     response_data = json.loads(post_request.text)
@@ -145,13 +143,40 @@ def callback():
 
     print(filteredlinks)
     final_links = []
-    for x in range(0,18):
+    for x in range(0,len(filteredlinks)):
         link = filteredlinks[x]
         final_links.append(link)
         urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
     if user != None:
-        database.child(database_key).child("long term").set(final_links, user["idToken"])
-    return redirect(url_for('wallify'))
+        if "long_term" in spotifyAPI:
+        	database.child(database_key).child("long term").set(final_links, user["idToken"])
+        elif "medium_term" in spotifyAPI:
+        	database.child(database_key).child("mid term").set(final_links, user["idToken"])
+        elif "short_term" in spotifyAPI:
+        	database.child(database_key).child("mid term").set(final_links, user["idToken"])
+
+    #return redirect(url_for('wallify'))
+
+@app.route("/choices", methods=["POST","GET"])
+def intermediate():
+	if request.method == "POST":
+		if request.form["option"] == "Recent Bops":
+			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+			return redirect(url_for('wallify'))
+		elif request.form["option"] == "Semester Jams":
+			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+			return redirect(url_for('wallify'))
+		elif request.form["option"] == "Run It Back Turbo":
+			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+			return redirect(url_for('wallify'))
+	return render_template("intermediate.html")
+
+@app.route("/callback/q")
+def callback():
+	global auth_token
+	auth_token = request.args['code']
+	return redirect(url_for('intermediate'))
+    #return render_template("intermediate.html")
 
 @app.route("/final.jpg")
 def returnImage():

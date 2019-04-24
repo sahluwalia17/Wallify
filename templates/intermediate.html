@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+  </head>
+  <body>
+      <h1> Select Term </h1>
+      <h2> Select which time range you would like your wallpaper to reflect! </h2>
+   <form action="/choices" method="POST">
+    <div class = "container">
+      <input type="submit" name="option" class = "button short-term" value="Recent Bops">
+      <input type="submit" name="option" class = "button medium-term" value="Semester Jams">
+      <input type="submit" name="option" class = "button long-term" value="Run It Back Turbo">
+    </div>
+   </form>
+  </body>
+  <style>
+    body{
+      margin:0;
+      background-color:#065471;
+      color:#FFC045;
+    }
+    h1{
+      font-weight: normal;
+      font-family: 'Cormorant Unicase', serif;
+      text-align:center;
+      padding-top:30px;
+      margin:0px;
+      font-size:50px;
+    }
+
+    h2{
+      font-weight: normal;
+      font-family: 'Cormorant Unicase', serif;
+      font-size: 20px;
+      text-align:center;
+      padding-top:0px;
+      padding-bottom:50px;
+      margin:0px;
+    }
+
+    hr{
+      margin-top: 100px;
+      color: #d9d9d9;
+      margin-bottom:0px;
+    }
+
+    .container{
+      margin-top:0px;
+      width:100%:
+      display:flex;
+      justify-content:center;
+
+    }
+
+    .button{
+      width:33.33%;
+      display:inline-block;
+      position:relative-block;
+      height:520px;
+      background-color:blue;
+      margin:0px;
+      float:left;
+      font-family: 'Nova Mono', monospace;
+      font-size:35px;
+      color: black;
+      cursor: pointer;
+      border:none;
+    }
+
+    .container input[type="submit"]{
+      padding-bottom:380px;
+      font-size: 40px;
+      text-align:center;
+      font-weight:bold;
+      border:none;
+
+    }
+
+
+    .short-term {
+      background-color:#ffad33;
+      padding-top:0px;
+      background-image:url("../static/clock.png");
+      background-repeat:no-repeat;
+      background-position: 50% 170px;
+      background-size:70%;
+
+    }
+
+    .medium-term{
+      background-color:#00cccc;
+      padding-top:0px;
+      background-image:url("../static/calendar.png");
+      background-repeat:no-repeat;
+      background-position: 50% 170px;
+      background-size:70%;
+    }
+
+    .long-term{
+      background-color:#cc0099;
+      padding-top:0px;
+      background-image:url("../static/2019.png");
+      background-repeat:no-repeat;
+      background-position: 50% 170px;
+      background-size:64%;
+    }
+
+
+</style>
+</html>
