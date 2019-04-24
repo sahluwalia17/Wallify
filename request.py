@@ -73,7 +73,7 @@ def index():#add authentication part here
                 return redirect(url_for('authorize'))
                 #return render_template("index.html")
             except Exception as e:
-                
+
                 get_error = e.args[1]
                 error = json.loads(get_error)['error']
                 #print(error['message'])
@@ -89,7 +89,7 @@ def index():#add authentication part here
                     #pass
                 elif msg == "EMAIL_EXISTS":
                     return render_template("index.html", x=exist)
-                
+
                 #print (e)
         elif request.form["sign"] == 'Guest':
             #print ("pasdf")
@@ -155,13 +155,13 @@ def spotify(spoitfyAPI):
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
 	if request.method == "POST":
-		if request.form["option"] == "recent bops":
+		if request.form["option"] == "Recent Bops":
 			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
 			return redirect(url_for('wallify'))
-		elif request.form["option"] == "semester jams":
+		elif request.form["option"] == "Semester Jams":
 			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
 			return redirect(url_for('wallify'))
-		elif request.form["option"] == "throwbacks":
+		elif request.form["option"] == "Run It Back Turbo":
 			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
 			return redirect(url_for('wallify'))
 	return render_template("intermediate.html")

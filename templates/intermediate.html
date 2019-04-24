@@ -9,24 +9,9 @@
       <h2> Select which time range you would like your wallpaper to reflect! </h2>
    <form action="/choices" method="POST">
     <div class = "container">
-      <div class = "button short-term">
-        <h3>Short Term</h3>
-        <input type="submit" name="option" value="recent bops">
-        <p>(4 weeks)</p>
-        <img src="../static/clock.png"/>
-      </div></a>
-      <div class = "button medium-term">
-        <h4>Medium Term</h4>
-        <input type="submit" name="option" value="semester jams">
-        <p>(6 months)</p>
-        <img src="../static/calendar.png"/>
-      </div></a>
-      <div class = "button long-term">
-        <h5>Long Term</h5>
-        <input type="submit" name="option" value="throwbacks">
-        <p>(several years)</p>
-        <img src="../static/2019.png"/>
-      </div></a>
+      <input type="submit" name="option" class = "button short-term" value="Recent Bops">
+      <input type="submit" name="option" class = "button medium-term" value="Semester Jams">
+      <input type="submit" name="option" class = "button long-term" value="Run It Back Turbo">
     </div>
    </form>
   </body>
@@ -61,11 +46,6 @@
       margin-bottom:0px;
     }
 
-  /*  .top-header{
-      background-color: #d9d9d9;
-      margin-top:0px;
-    }*/
-
     .container{
       margin-top:0px;
       width:100%:
@@ -85,77 +65,41 @@
       font-family: 'Nova Mono', monospace;
       font-size:35px;
       color: black;
+      cursor: pointer;
     }
 
-    .short-term img{
-      display:block;
-      width:70%;
-      margin-left:auto;
-      margin-right:auto;
-      padding-top:0px;
+    .container input[type="submit"]{
+      padding-bottom:380px;
+      font-size: 40px;
+      text-align:center;
+      font-weight:bold;
     }
+
 
     .short-term {
       background-color:#ffad33;
       padding-top:0px;
-
-    }
-
-    h3{
-      text-align:center;
-      padding-bottom:0px;
-      font-size: 40px;
-      margin:40px;
-
-    }
-
-    .medium-term img{
-      display:block;
-      width:70%;
-      margin-left:auto;
-      margin-right:auto;
+      background-image:url("../static/clock.png");
+      background-repeat:no-repeat;
+      background-position: 50% 170px;
     }
 
     .medium-term{
       background-color:#00cccc;
-
-      /*padding-top:10%;*/
+      padding-top:0px;
+      background-image:url("../static/calendar.png");
+      background-repeat:no-repeat;
+      background-position: 50% 170px;
     }
 
-    h4{
-      text-align:center;
-      padding-bottom:0px;
-      font-size: 40px;
-      margin:40px;
-
-
-    }
-
-    .long-term img{
-      display:block;
-      width:60%;
-      margin-left:auto;
-      margin-right:auto;
-      padding-top:20px;
-
-    }
     .long-term{
       background-color:#cc0099;
-
-      /*padding-top:17%*/
-    }
-
-    h5{
-      text-align:center;
-      font-size: 40px;
-      margin:40px;
-
-    }
-
-    p{
-      font-size:20px;
-      text-align:center;
       padding-top:0px;
+      background-image:url("../static/2019.png");
+      background-repeat:no-repeat;
+      background-position: 50% 170px;
     }
+
+
 </style>
 </html>
