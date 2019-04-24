@@ -110,7 +110,7 @@ def authorize():
 
     return redirect(auth_url)
 
-def spotify(spoitfyAPI):
+def spotify(spotifyAPI):
     code_payload = {
         "grant_type": "authorization_code",
         "code": str(auth_token),
@@ -123,7 +123,7 @@ def spotify(spoitfyAPI):
     response_data = json.loads(post_request.text)
     access_token = response_data["access_token"]
     authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
-    top_tracks = requests.get(spoitfyAPI, headers = authorization_header)
+    top_tracks = requests.get(spotifyAPI, headers = authorization_header)
     tracks_data = json.loads(top_tracks.text)
 
     links = []
@@ -143,11 +143,11 @@ def spotify(spoitfyAPI):
         final_links.append(link)
         urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
     if user != None:
-        if "long_term" in redirecturl:
+        if "long_term" in spotifyAPI:
         	database.child(database_key).child("long term").set(final_links, user["idToken"])
-        elif "mid_term" in redirecturl:
+        elif "medium_term" in spotifyAPI:
         	database.child(database_key).child("mid term").set(final_links, user["idToken"])
-        elif "short_term" in redirecturl:
+        elif "short_term" in spotifyAPI:
         	database.child(database_key).child("mid term").set(final_links, user["idToken"])
 
     #return redirect(url_for('wallify'))
