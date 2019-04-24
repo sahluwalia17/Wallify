@@ -16,7 +16,7 @@ baseURL = "https://accounts.spotify.com/authorize"
 redirectURL = "http://127.0.0.1:5000/callback/q"
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
-spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
+#spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
 config = {
     "apiKey": None,
@@ -110,9 +110,7 @@ def authorize():
 
     return redirect(auth_url)
 
-def spotify(redirecturl):
-    #auth_token = request.args['code']
-
+def spotify(spoitfyAPI):
     code_payload = {
         "grant_type": "authorization_code",
         "code": str(auth_token),
@@ -125,7 +123,7 @@ def spotify(redirecturl):
     response_data = json.loads(post_request.text)
     access_token = response_data["access_token"]
     authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
-    top_tracks = requests.get(redirecturl, headers = authorization_header)
+    top_tracks = requests.get(spoitfyAPI, headers = authorization_header)
     tracks_data = json.loads(top_tracks.text)
 
     links = []
@@ -151,17 +149,21 @@ def spotify(redirecturl):
         	database.child(database_key).child("mid term").set(final_links, user["idToken"])
         elif "short_term" in redirecturl:
         	database.child(database_key).child("mid term").set(final_links, user["idToken"])
-    return redirect(url_for('wallify'))
+
+    #return redirect(url_for('wallify'))
 
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
 	if request.method == "POST":
 		if request.form["option"] == "recent bops":
 			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+			return redirect(url_for('wallify'))
 		elif request.form["option"] == "semester jams":
-			print ("mid-term")
+			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+			return redirect(url_for('wallify'))
 		elif request.form["option"] == "throwbacks":
-			print ("long-term")
+			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+			return redirect(url_for('wallify'))
 	return render_template("intermediate.html")
 
 @app.route("/callback/q")
