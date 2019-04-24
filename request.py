@@ -44,7 +44,6 @@ def index():#add authentication part here
     incorrect = "Either email or passwords is incorrect"
     #print ("made it")
     if request.method ==  "POST":
-        #print ("jkl")
         if request.form["sign"] == 'Sign In': #this needs to be determined in html
             #print ("asdf")
             email = request.form['email']#'name' depends on html tag
@@ -110,17 +109,16 @@ def authorize():
 
     return redirect(auth_url)
 
-@app.route("/callback/q")
-def callback():
-    auth_token = request.args['code']
+def spotify(redirecturl, auth_token):
+    #auth_token = request.args['code']
 
     code_payload = {
-                "grant_type": "authorization_code",
-                "code": str(auth_token),
-                "redirect_uri": redirectURL,
-                "client_id": clientId,
-                "client_secret": clientSecret
-            }
+        "grant_type": "authorization_code",
+        "code": str(auth_token),
+        "redirect_uri": redirecturl,
+        "client_id": clientId,
+        "client_secret": clientSecret
+    }
 
     post_request = requests.post(spotifyTokenURL, data=code_payload)
     response_data = json.loads(post_request.text)
@@ -141,13 +139,36 @@ def callback():
 
     print(filteredlinks)
     final_links = []
-    for x in range(0,18):
+    for x in range(0,len(filteredlinks)):
         link = filteredlinks[x]
         final_links.append(link)
         urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
     if user != None:
-        database.child(database_key).child("long term").set(final_links, user["idToken"])
+        if "long_term" in redirecturl:
+        	database.child(database_key).child("long term").set(final_links, user["idToken"])
+        elif "mid_term" in redirecturl:
+        	database.child(database_key).child("mid term").set(final_links, user["idToken"])
+        elif "short_term" in redirecturl:
+        	database.child(database_key).child("mid term").set(final_links, user["idToken"])
     return redirect(url_for('wallify'))
+
+#@app.route("/callback/q", methods = ["POST", "GET"])
+@app.route("/callback/q")
+def callback():
+
+    auth_token = request.args['code']
+    if auth_token == None:
+    	print ("damn")
+    print (str(auth_token))
+    if request.method == "POST":
+    	print (request)
+    	if request.form["option"] == "recent bops":
+    		spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50", auth_token)
+    	elif request.form["option"] == "semester jams":
+    		print ("mid-term")
+    	elif request.form["option"] == "throwbacks":
+    		print ("long-term")
+    return render_template("intermediate.html")
 
 @app.route("/wallify")
 def wallify():
