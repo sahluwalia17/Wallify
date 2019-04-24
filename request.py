@@ -9,6 +9,7 @@ import pyrebase
 
 app = Flask(__name__)
 user = None #This becomes the user after signing in
+auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
@@ -109,13 +110,13 @@ def authorize():
 
     return redirect(auth_url)
 
-def spotify(redirecturl, auth_token):
+def spotify(redirecturl):
     #auth_token = request.args['code']
 
     code_payload = {
         "grant_type": "authorization_code",
         "code": str(auth_token),
-        "redirect_uri": redirecturl,
+        "redirect_uri": redirectURL,
         "client_id": clientId,
         "client_secret": clientSecret
     }
@@ -124,7 +125,7 @@ def spotify(redirecturl, auth_token):
     response_data = json.loads(post_request.text)
     access_token = response_data["access_token"]
     authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
-    top_tracks = requests.get(spotifyAPI, headers = authorization_header)
+    top_tracks = requests.get(redirecturl, headers = authorization_header)
     tracks_data = json.loads(top_tracks.text)
 
     links = []
@@ -152,23 +153,23 @@ def spotify(redirecturl, auth_token):
         	database.child(database_key).child("mid term").set(final_links, user["idToken"])
     return redirect(url_for('wallify'))
 
-#@app.route("/callback/q", methods = ["POST", "GET"])
+@app.route("/choices", methods=["POST","GET"])
+def intermediate():
+	if request.method == "POST":
+		if request.form["option"] == "recent bops":
+			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+		elif request.form["option"] == "semester jams":
+			print ("mid-term")
+		elif request.form["option"] == "throwbacks":
+			print ("long-term")
+	return render_template("intermediate.html")
+
 @app.route("/callback/q")
 def callback():
-
-    auth_token = request.args['code']
-    if auth_token == None:
-    	print ("damn")
-    print (str(auth_token))
-    if request.method == "POST":
-    	print (request)
-    	if request.form["option"] == "recent bops":
-    		spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50", auth_token)
-    	elif request.form["option"] == "semester jams":
-    		print ("mid-term")
-    	elif request.form["option"] == "throwbacks":
-    		print ("long-term")
-    return render_template("intermediate.html")
+	global auth_token
+	auth_token = request.args['code']
+	return redirect(url_for('intermediate'))
+    #return render_template("intermediate.html")
 
 @app.route("/wallify")
 def wallify():
