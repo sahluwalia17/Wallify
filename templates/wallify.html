@@ -1,41 +1,193 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+var dragId;
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+function drag(dragEvent) {
+  dragEvent.dataTransfer.setData("Id",    dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
+  dragId = dragEvent.target.id;
+}
+function download() {
+        $.ajax({
+          type: "POST",
+          contentType: "application/json;charset=utf-8",
+          url: "/receive",
+          traditional: "true",
+          data: JSON.stringify({ints}),
+          dataType: "json"
+          });
+
+          var a = document.createElement('a');
+          a.href = "./final.jpg";
+          a.download = "final.jpg";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+}
+function drop(dropEvent) {
+  var dropData = dropEvent.dataTransfer.getData("Id");
+  dropItems = dropData.split("|");
+  var prevElem = document.getElementById(dropItems[1]);
+  var swap1 = parseInt(dropEvent.target.id.substring(3));
+  var swap2 = parseInt(dragId.substring(3));
+  var temp = swap1;
+  ints[ints.indexOf(swap1)] = swap2;
+  ints[ints.indexOf(swap2)] = temp;
+  prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
+  dropEvent.target.id = dropItems[0];
+  dropEvent.preventDefault();
+}
+</script>
+</head>
+<body>
+  <h1>WALLIFY PICTURES</h1>
+  <div class="wallpaper">
+    <div class="column">
+      <div id="boxA" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+        <div class="mover zoom" id="box1" draggable="true"      ondragstart="drag(event)" ></div>
+      </div>
+      <div id="boxB" ondragover="event.preventDefault()"     ondrop="drop(event)">
+        <div class="mover zoom" id="box2" draggable="true"      ondragstart="drag(event)"></div>
+      </div>
+      <div id="boxC" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+        <div class="mover zoom" id="box3" draggable="true"      ondragstart="drag(event)" ></div>
+      </div>
+      <div id="boxD" ondragover="event.preventDefault()"     ondrop="drop(event)">
+        <div class="mover zoom" id="box4" draggable="true"      ondragstart="drag(event)"></div>
+      </div>
+      <div id="boxE" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+        <div class="mover zoom" id="box5" draggable="true"      ondragstart="drag(event)" ></div>
+      </div>
+      <div id="boxF" ondragover="event.preventDefault()"     ondrop="drop(event)">
+        <div class="mover zoom" id="box6" draggable="true"      ondragstart="drag(event)"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div id="boxG" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+        <div class="mover zoom" id="box7" draggable="true"      ondragstart="drag(event)" ></div>
+      </div>
+      <div id="boxH" ondragover="event.preventDefault()"     ondrop="drop(event)">
+        <div class="mover zoom" id="box8" draggable="true"      ondragstart="drag(event)"></div>
+      </div>
+      <div id="boxI" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+        <div class="mover zoom" id="box9" draggable="true"      ondragstart="drag(event)" ></div>
+      </div>
+      <div id="boxJ" ondragover="event.preventDefault()"     ondrop="drop(event)">
+        <div class="mover zoom" id="box10" draggable="true"      ondragstart="drag(event)"></div>
+      </div>
+      <div id="boxK" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+        <div class="mover zoom" id="box11" draggable="true"      ondragstart="drag(event)" ></div>
+      </div>
+      <div id="boxL" ondragover="event.preventDefault()"     ondrop="drop(event)">
+        <div class="mover zoom" id="box12" draggable="true"      ondragstart="drag(event)"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div id="boxM" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+        <div class="mover zoom" id="box13" draggable="true"      ondragstart="drag(event)" ></div>
+      </div>
+      <div id="boxN" ondragover="event.preventDefault()"     ondrop="drop(event)">
+        <div class="mover zoom" id="box14" draggable="true"      ondragstart="drag(event)"></div>
+      </div>
+      <div id="boxO" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+        <div class="mover zoom" id="box15" draggable="true"      ondragstart="drag(event)" ></div>
+      </div>
+      <div id="boxP" ondragover="event.preventDefault()"     ondrop="drop(event)">
+        <div class="mover zoom" id="box16" draggable="true"      ondragstart="drag(event)"></div>
+      </div>
+      <div id="boxQ" ondragover="event.preventDefault()"      ondrop="drop(event)" >
+        <div class="mover zoom" id="box17" draggable="true"      ondragstart="drag(event)" ></div>
+      </div>
+      <div id="boxR" ondragover="event.preventDefault()"     ondrop="drop(event)">
+        <div class="mover zoom" id="box18" draggable="true"      ondragstart="drag(event)"></div>
+      </div>
+    </div>
+  </div>
+  <button onclick="download()">DOWNLOAD</button>
+</body>
 <style>
+body{
+  background-color: #065471;
+  background-image:url("../static/background.jpg");
+}
 .column {
   width:950px;
   float:left;
+  padding-left:14%;
 }
 .mover {
-  width:150px;
-  height:150px;
+width:150px;
+height:150px;
   float:left;
   text-align:center;
 }
+
+.zoom{
+ transition: transform .2s;
+ margin: 0 auto;
+}
+.zoom:hover{
+  -ms-transform: scale(1.5);
+ -webkit-transform: scale(1.5);
+ transform: scale(1.5);
+}
+
+button{
+ border-radius:none;
+ padding:20px;
+ margin-left:45%;
+ margin-top:40px;
+ background-color: #FFC045;
+ border:none;
+}
+
+h1{
+  font-family: 'Cormorant Unicase', serif;
+  color:#FFC045;
+  text-align: center;
+  font-size: 40px;
+}
+/*.wallpaper {
+  width:100%;
+  height:100%;
+}
+*/
 #box1{
   background-image: url("/static/1.jpg");
   background-size: cover;
   background-position: right;
+
 }
 #box2{
   background-image: url("/static/2.jpg");
   background-size: cover;
   background-position: right;
+
 }
 #box3{
   background-image: url("/static/3.jpg");
   background-size: cover;
   background-position: right;
+
 }
 #box4{
   background-image: url("/static/4.jpg");
   background-size: cover;
   background-position: right;
+
 }
 #box5{
   background-image: url("/static/5.jpg");
   background-size: cover;
   background-position: right;
+
 }
 #box6{
   background-image: url("/static/6.jpg");
@@ -103,111 +255,4 @@
   background-position: right;
 }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
-var dragId;
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-function drag(dragEvent) {
-  dragEvent.dataTransfer.setData("Id",    dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
-  dragId = dragEvent.target.id;
-}
-function download() {
-        $.ajax({
-          type: "POST",
-          contentType: "application/json;charset=utf-8",
-          url: "/receive",
-          traditional: "true",
-          data: JSON.stringify({ints}),
-          dataType: "json"
-          });
-
-          var a = document.createElement('a');
-          a.href = "./final.jpg";
-          a.download = "final.jpg";
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-}
-function drop(dropEvent) {
-  var dropData = dropEvent.dataTransfer.getData("Id");
-  dropItems = dropData.split("|");
-  var prevElem = document.getElementById(dropItems[1]);
-  var swap1 = parseInt(dropEvent.target.id.substring(3));
-  var swap2 = parseInt(dragId.substring(3));
-  var temp = swap1;
-  ints[ints.indexOf(swap1)] = swap2;
-  ints[ints.indexOf(swap2)] = temp;
-  prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
-  dropEvent.target.id = dropItems[0];
-  dropEvent.preventDefault();
-}
-</script>
-</head>
-<body>
-  <h1>WALLIFY PICTURES</h1>
-  <button onclick="download()">DOWNLOAD</button>
-  <div class="column">
-    <div id="boxA" ondragover="event.preventDefault()"      ondrop="drop(event)" >
-      <div class="mover" id="box1" draggable="true"      ondragstart="drag(event)" ></div>
-    </div>
-    <div id="boxB" ondragover="event.preventDefault()"     ondrop="drop(event)">
-      <div class="mover" id="box2" draggable="true"      ondragstart="drag(event)"></div>
-    </div>
-    <div id="boxC" ondragover="event.preventDefault()"      ondrop="drop(event)" >
-      <div class="mover" id="box3" draggable="true"      ondragstart="drag(event)" ></div>
-    </div>
-    <div id="boxD" ondragover="event.preventDefault()"     ondrop="drop(event)">
-      <div class="mover" id="box4" draggable="true"      ondragstart="drag(event)"></div>
-    </div>
-    <div id="boxE" ondragover="event.preventDefault()"      ondrop="drop(event)" >
-      <div class="mover" id="box5" draggable="true"      ondragstart="drag(event)" ></div>
-    </div>
-    <div id="boxF" ondragover="event.preventDefault()"     ondrop="drop(event)">
-      <div class="mover" id="box6" draggable="true"      ondragstart="drag(event)"></div>
-    </div>
-  </div>
-  <div class="column">
-    <div id="boxG" ondragover="event.preventDefault()"      ondrop="drop(event)" >
-      <div class="mover" id="box7" draggable="true"      ondragstart="drag(event)" ></div>
-    </div>
-    <div id="boxH" ondragover="event.preventDefault()"     ondrop="drop(event)">
-      <div class="mover" id="box8" draggable="true"      ondragstart="drag(event)"></div>
-    </div>
-    <div id="boxI" ondragover="event.preventDefault()"      ondrop="drop(event)" >
-      <div class="mover" id="box9" draggable="true"      ondragstart="drag(event)" ></div>
-    </div>
-    <div id="boxJ" ondragover="event.preventDefault()"     ondrop="drop(event)">
-      <div class="mover" id="box10" draggable="true"      ondragstart="drag(event)"></div>
-    </div>
-    <div id="boxK" ondragover="event.preventDefault()"      ondrop="drop(event)" >
-      <div class="mover" id="box11" draggable="true"      ondragstart="drag(event)" ></div>
-    </div>
-    <div id="boxL" ondragover="event.preventDefault()"     ondrop="drop(event)">
-      <div class="mover" id="box12" draggable="true"      ondragstart="drag(event)"></div>
-    </div>
-  </div>
-  <div class="column">
-    <div id="boxM" ondragover="event.preventDefault()"      ondrop="drop(event)" >
-      <div class="mover" id="box13" draggable="true"      ondragstart="drag(event)" ></div>
-    </div>
-    <div id="boxN" ondragover="event.preventDefault()"     ondrop="drop(event)">
-      <div class="mover" id="box14" draggable="true"      ondragstart="drag(event)"></div>
-    </div>
-    <div id="boxO" ondragover="event.preventDefault()"      ondrop="drop(event)" >
-      <div class="mover" id="box15" draggable="true"      ondragstart="drag(event)" ></div>
-    </div>
-    <div id="boxP" ondragover="event.preventDefault()"     ondrop="drop(event)">
-      <div class="mover" id="box16" draggable="true"      ondragstart="drag(event)"></div>
-    </div>
-    <div id="boxQ" ondragover="event.preventDefault()"      ondrop="drop(event)" >
-      <div class="mover" id="box17" draggable="true"      ondragstart="drag(event)" ></div>
-    </div>
-    <div id="boxR" ondragover="event.preventDefault()"     ondrop="drop(event)">
-      <div class="mover" id="box18" draggable="true"      ondragstart="drag(event)"></div>
-    </div>
-  </div>
-</body>
 </html>
