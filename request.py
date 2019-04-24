@@ -12,7 +12,7 @@ import pyrebase
 app = Flask(__name__)
 user = None #This becomes the user after signing in
 auth_token = None
-clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
+clientId = "45ba6741126e4af1b9suc7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
 #redirectURL = "http://127.0.0.1:5000/callback/q"
@@ -124,16 +124,13 @@ def spotify(spotifyAPI):
         "client_id": clientId,
         "client_secret": clientSecret
     }
-    try:
 
-        post_request = requests.post(spotifyTokenURL, data=code_payload)
-        response_data = json.loads(post_request.text)
-        access_token = response_data["access_token"]
-        authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
-        top_tracks = requests.get(spotifyAPI, headers = authorization_header)
-        tracks_data = json.loads(top_tracks.text)
-    except Exception as e:
-        print (e)
+    post_request = requests.post(spotifyTokenURL, data=code_payload)
+    response_data = json.loads(post_request.text)
+    access_token = response_data["access_token"]
+    authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
+    top_tracks = requests.get(spotifyAPI, headers = authorization_header)
+    tracks_data = json.loads(top_tracks.text)
 
     links = []
     filteredlinks = []
@@ -150,22 +147,17 @@ def spotify(spotifyAPI):
 
     print(filteredlinks)
     final_links = []
-    try:
-        for x in range(0,18):
-            link = filteredlinks[x]
-            final_links.append(link)
-            urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
-    except Exception as e:
-        print (e)
-
-    """
+    for x in range(0,len(filteredlinks)):
+        link = filteredlinks[x]
+        final_links.append(link)
+        urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
     if user != None:
         if "long_term" in spotifyAPI:
         	database.child(database_key).child("long term").set(final_links, user["idToken"])
         elif "medium_term" in spotifyAPI:
         	database.child(database_key).child("mid term").set(final_links, user["idToken"])
         elif "short_term" in spotifyAPI:
-        	database.child(database_key).child("mid term").set(final_links, user["idToken"])"""
+        	database.child(database_key).child("mid term").set(final_links, user["idToken"])
 
     #return redirect(url_for('wallify'))
 
