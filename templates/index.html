@@ -2,39 +2,39 @@
 <html>
   <head>
     <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
   </head>
   <body>
     <div id="backgroundImage">
     <!-- do not modify r,i,w,x
     only modify what it looks like -->
     <div class="sign-in">
-      {% if r %}
+      <form action="/" method="POST">
+        <img src = "../static/signin.PNG" alt = "logo">
+        <h1> Get your Wallpaper! </h1>
+         {% if r %}
         <div class="alert alert-danger">
-          <h2>{{r}}</h2>
+          <h3>{{r}}</h3>
         </div>
       {% endif %}
       {% if i %}
         <div class="alert alert-danger">
-          <h2>{{i}}</h2>
+          <h3>{{i}}</h3>
         </div>
       {% endif %}
       {% if w %}
         <div class="alert alert-danger">
-          <h2>{{w}}</h2>
+          <h3>{{w}}</h3>
         </div>
       {% endif %}
       {% if x %}
         <div class="alert alert-danger">
-          <h2>{{x}}</h2>
+          <h3>{{x}}</h3>
         </div>
       {% endif %}
-
-      <form action="/" method="POST">
-        <img src = "../static/signin.PNG" alt = "logo">
-        <h1> Get your Wallpaper! </h1>
-        <input type="text" name = "email" placeholder="Email" required>
-        <input type="password" name= "pwd" placeholder="Password" required>
-        <!--button type="submit" class="signinbtn">Sign In</button-->  
+        <input type="text" name = "email" class ="email" placeholder="Email" >
+        <input type="password" name= "pwd" class= "pswd" placeholder="Password" >
+        <!--button type="submit" class="signinbtn">Sign In</button-->
      <div class = "side-by-side">
           <div style="float:left">
           <input type="submit" name = "sign" value="Sign In">
@@ -44,7 +44,16 @@
           </div>
         </div>
         <h2><span>OR</span></h2>
-        <input type="submit" name = "sign" value="Guest">
+        <input type="submit" name = "sign" class = "guest" value="Guest">
+        <!--
+        <script>
+          $(document).ready(function(){
+            $(".guest").click(function(){
+              $(".email").removeAttr("required");
+              $(".pswd").removeAttr("required");
+            });
+          });
+        </script>-->
 
       </form>
     </div>
@@ -113,8 +122,9 @@
       text-align: center;
       box-sizing: border-box;
       font-size: 13px;
-      font-family: sans regular;
+      font-family: 'Cormorant Unicase', serif;
     }
+
 
     .sign-in input[type=password]{
       width: 70%;
@@ -123,8 +133,10 @@
       text-align: center;
       box-sizing: border-box;
       font-size: 13px;
-      font-family: sans regular;
+      font-family: 'Cormorant Unicase', serif;
     }
+
+
     .sign-in .side-by-side{
       display: inline-block;
       text-align: center;
@@ -133,8 +145,11 @@
 
     .sign-in .side-by-side input[type=submit]{
       width: 120px;
+      font-family: 'Cormorant Unicase', serif;
+      font-size:13px;
 
     }
+
     .sign-in input[type=submit]{
       background-color: #065471;
       color:#FFC045;
@@ -143,6 +158,8 @@
       margin:10px;
       border-radius: 20px;
       cursor: pointer;
+      font-family: 'Cormorant Unicase', serif;
+      font-size:13px;
     }
 
     h2 {
@@ -151,6 +168,7 @@
       font-size: 12px;
       font-weight: normal;
       color: #a6a6a6;
+      font-family: 'Cormorant Unicase', serif;
     }
 
     h2 span {
@@ -171,5 +189,20 @@
         height:1px;
         background:#ccc;
     }
+
+    .sign-in h3{
+      color:red;
+      font-size: 12px;
+      font-weight: normal;
+      text-align: center;
+      margin: 10px;
+      font-family: 'Cormorant Unicase', serif;
+    }
+
+    .alert .alert-danger{
+      text-align: center;
+    }
+
+
   </style>
 </html>
