@@ -158,14 +158,14 @@ def spotify(spotifyAPI):
     except Exception as e:
         print (e)
 
-    """
+    
     if user != None:
         if "long_term" in spotifyAPI:
         	database.child(database_key).child("long term").set(final_links, user["idToken"])
         elif "medium_term" in spotifyAPI:
         	database.child(database_key).child("mid term").set(final_links, user["idToken"])
         elif "short_term" in spotifyAPI:
-        	database.child(database_key).child("mid term").set(final_links, user["idToken"])"""
+        	database.child(database_key).child("mid term").set(final_links, user["idToken"])
 
     #return redirect(url_for('wallify'))
 
@@ -271,7 +271,7 @@ def get_data():
         result6.paste(im=image18, box=(0, 2* height4))
 
 
-        result.save('result.jpg')
+        result.save('result1.jpg')
         result2.save('result2.jpg')
         result3.save('result3.jpg')
         result4.save('result4.jpg')
@@ -307,31 +307,15 @@ def get_data():
 
         result.save('final.jpg')
 
-        os.remove("result.jpg")
-        os.remove("result2.jpg")
-        os.remove("result3.jpg")
-        os.remove("result4.jpg")
-        os.remove("result5.jpg")
-        os.remove("result6.jpg")
-
-        os.remove("./static/1.jpg")
-        os.remove("./static/2.jpg")
-        os.remove("./static/3.jpg")
-        os.remove("./static/4.jpg")
-        os.remove("./static/5.jpg")
-        os.remove("./static/6.jpg")
-        os.remove("./static/7.jpg")
-        os.remove("./static/8.jpg")
-        os.remove("./static/9.jpg")
-        os.remove("./static/10.jpg")
-        os.remove("./static/11.jpg")
-        os.remove("./static/12.jpg")
-        os.remove("./static/13.jpg")
-        os.remove("./static/14.jpg")
-        os.remove("./static/15.jpg")
-        os.remove("./static/16.jpg")
-        os.remove("./static/17.jpg")
-        os.remove("./static/18.jpg")
+        for i in range(1,7):
+            exists = os.path.isfile("result" + str(i)  +".jpg")
+            if exists:
+                os.remove("result" + str(i) + ".jpg")
+    # Store configuration file values)
+        for i in range (1,19):
+            exists = os.path.isfile("./static/"+str(i)+".jpg")
+            if exists:
+                os.remove("./static/"+str(i)+".jpg")
 
     return "",200
 
