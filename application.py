@@ -124,13 +124,16 @@ def spotify(spotifyAPI):
         "client_id": clientId,
         "client_secret": clientSecret
     }
+    try:
 
-    post_request = requests.post(spotifyTokenURL, data=code_payload)
-    response_data = json.loads(post_request.text)
-    access_token = response_data["access_token"]
-    authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
-    top_tracks = requests.get(spotifyAPI, headers = authorization_header)
-    tracks_data = json.loads(top_tracks.text)
+        post_request = requests.post(spotifyTokenURL, data=code_payload)
+        response_data = json.loads(post_request.text)
+        access_token = response_data["access_token"]
+        authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
+        top_tracks = requests.get(spotifyAPI, headers = authorization_header)
+        tracks_data = json.loads(top_tracks.text)
+    except Exception as e:
+        print (e)
 
     links = []
     filteredlinks = []
