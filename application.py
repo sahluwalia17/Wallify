@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, send_file
+from flask import Flask, render_template, redirect, request, url_for, send_file, jsonify
 import webbrowser
 import re
 import requests
@@ -15,11 +15,12 @@ auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
-#redirectURL = "http://127.0.0.1:5000/callback/q"
-redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+redirectURL = "http://127.0.0.1:5000/callback/q"
+#redirectURL = "https://wallifyy.herokuapp.com/callback/q"
 #change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
+dateTime = 50
 
 #spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
@@ -151,6 +152,7 @@ def spotify(spotifyAPI):
     print(filteredlinks)
     final_links = []
     try:
+        dateTime = int((t-datetime.datetime(1970,1,1)).total_seconds())
         for x in range(0,18):
             link = filteredlinks[x]
             final_links.append(link)
@@ -158,7 +160,7 @@ def spotify(spotifyAPI):
     except Exception as e:
         print (e)
 
-    
+
     if user != None:
         if "long_term" in spotifyAPI:
         	database.child(database_key).child("long term").set(final_links, user["idToken"])
@@ -196,7 +198,8 @@ def returnImage():
 
 @app.route("/wallify")
 def wallify():
-    return render_template("wallify.html")
+    time = int(dateTime)
+    return render_template('wallify.html', time=time)
 
 @app.route("/receive",methods=["POST"])
 def get_data():
