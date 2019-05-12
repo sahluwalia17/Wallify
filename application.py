@@ -8,6 +8,8 @@ import os
 import urllib.request
 import json
 import pyrebase
+import random
+import importlib
 
 app = Flask(__name__)
 user = None #This becomes the user after signing in
@@ -20,7 +22,10 @@ redirectURL = "http://127.0.0.1:5000/callback/q"
 #change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
-dateTime = 50
+f = open("test.txt","w+")
+dateTime = random.randint(1,10000000)
+f.write(str(dateTime))
+f.close()
 
 #spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
@@ -125,8 +130,8 @@ def spotify(spotifyAPI):
         "client_id": clientId,
         "client_secret": clientSecret
     }
+    dateTime = random.randint(1,100000)
     try:
-
         post_request = requests.post(spotifyTokenURL, data=code_payload)
         response_data = json.loads(post_request.text)
         access_token = response_data["access_token"]
@@ -152,7 +157,6 @@ def spotify(spotifyAPI):
     print(filteredlinks)
     final_links = []
     try:
-        dateTime = int((t-datetime.datetime(1970,1,1)).total_seconds())
         for x in range(0,18):
             link = filteredlinks[x]
             final_links.append(link)
