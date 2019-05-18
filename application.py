@@ -22,10 +22,8 @@ redirectURL = "http://127.0.0.1:5000/callback/q"
 #change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
-f = open("test.txt","w+")
-dateTime = random.randint(1,10000000)
-f.write(str(dateTime))
-f.close()
+
+dateTime = 0
 
 #spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
@@ -205,9 +203,23 @@ def wallify():
     time = int(dateTime)
     return render_template('wallify.html', time=time)
 
+@app.route("/receive_token",methods=["POST"])
+def get_token():
+    response = request.get_json()
+    parse = response.get("tokenARR")
+    token = parse[0]
+    f = open("test.txt","w+")
+    f.write(str(token))
+    f.close()
+    return "",200
+
+
 @app.route("/receive",methods=["POST"])
 def get_data():
     if request.method == "POST":
+        f = open("test.txt","w+")
+        f.close()
+
         ints = request.get_json()
         data = ints.get("ints")
 

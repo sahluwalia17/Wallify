@@ -1,9 +1,21 @@
 var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+var tokenARR = [];
 var dragId;
 
 function init()
 {
-  console.log(Math.floor((Math.random() * 100) + 1))
+  var token = Math.floor((Math.random() * 1000) + 1);
+  console.log(token);
+  window.alert(token);
+  tokenARR.push(token);
+  $.ajax({
+    type: "POST",
+    contentType: "application/json;charset=utf-8",
+    url: "/receive_token",
+    traditional: "true",
+    data: JSON.stringify({tokenARR}),
+    dataType: "json"
+    });
 }
 
 function allowDrop(ev) {
@@ -20,7 +32,8 @@ function download() {
           url: "/receive",
           traditional: "true",
           data: JSON.stringify({ints}),
-          dataType: "json"
+          dataType: "json",
+          cache: false
           });
 
           var a = document.createElement('a');
