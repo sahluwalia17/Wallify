@@ -1,12 +1,11 @@
 var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 var tokenARR = [];
+var token = 0;
 var dragId;
 
 function init()
 {
-  var token = Math.floor((Math.random() * 1000) + 1);
-  console.log(token);
-  window.alert(token);
+  token = Math.floor((Math.random() * 1000) + 1);
   tokenARR.push(token);
   $.ajax({
     type: "POST",

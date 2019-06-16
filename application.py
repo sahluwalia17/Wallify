@@ -12,6 +12,7 @@ import random
 import importlib
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 user = None #This becomes the user after signing in
 auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
@@ -22,8 +23,6 @@ redirectURL = "http://127.0.0.1:5000/callback/q"
 #change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
-
-dateTime = 0
 
 #spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
@@ -200,52 +199,37 @@ def returnImage():
 
 @app.route("/wallify")
 def wallify():
-    time = int(dateTime)
-    return render_template('wallify.html', time=time)
-
-@app.route("/receive_token",methods=["POST"])
-def get_token():
-    response = request.get_json()
-    parse = response.get("tokenARR")
-    token = parse[0]
-    f = open("test.txt","w+")
-    f.write(str(token))
-    f.close()
-    return "",200
-
+    return render_template('wallify.html')
 
 @app.route("/receive",methods=["POST"])
 def get_data():
     if request.method == "POST":
-        f = open("test.txt","w+")
-        f.close()
-
         ints = request.get_json()
         data = ints.get("ints")
 
-        image1 = Image.open("./static/"+str(data[0]) + ".jpg")
-        image2 = Image.open("./static/"+str(data[6]) + ".jpg")
-        image3 = Image.open("./static/"+str(data[12]) + ".jpg")
+        image1 = Image.open("./static/"+ str(data[0]) + ".jpg")
+        image2 = Image.open("./static/"+ str(data[6]) + ".jpg")
+        image3 = Image.open("./static/"+ str(data[12]) + ".jpg")
 
-        image4 = Image.open("./static/"+str(data[1]) + ".jpg")
-        image5 = Image.open("./static/"+str(data[7]) + ".jpg")
-        image6 = Image.open("./static/"+str(data[13]) + ".jpg")
+        image4 = Image.open("./static/"+ str(data[1]) + ".jpg")
+        image5 = Image.open("./static/"+ str(data[7]) + ".jpg")
+        image6 = Image.open("./static/"+ str(data[13]) + ".jpg")
 
-        image7 = Image.open("./static/"+str(data[2]) + ".jpg")
-        image8 = Image.open("./static/"+str(data[8]) + ".jpg")
-        image9 = Image.open("./static/"+str(data[14]) + ".jpg")
+        image7 = Image.open("./static/"+ str(data[2]) + ".jpg")
+        image8 = Image.open("./static/"+ str(data[8]) + ".jpg")
+        image9 = Image.open("./static/"+ str(data[14]) + ".jpg")
 
-        image10 = Image.open("./static/"+str(data[3]) + ".jpg")
-        image11 = Image.open("./static/"+str(data[9]) + ".jpg")
-        image12 = Image.open("./static/"+str(data[15]) + ".jpg")
+        image10 = Image.open("./static/"+ str(data[3]) + ".jpg")
+        image11 = Image.open("./static/"+ str(data[9]) + ".jpg")
+        image12 = Image.open("./static/"+ str(data[15]) + ".jpg")
 
-        image13 = Image.open("./static/"+str(data[4]) + ".jpg")
-        image14 = Image.open("./static/"+str(data[10]) + ".jpg")
-        image15 = Image.open("./static/"+str(data[16]) + ".jpg")
+        image13 = Image.open("./static/"+ str(data[4]) + ".jpg")
+        image14 = Image.open("./static/"+ str(data[10]) + ".jpg")
+        image15 = Image.open("./static/"+ str(data[16]) + ".jpg")
 
-        image16 = Image.open("./static/"+str(data[5]) + ".jpg")
-        image17 = Image.open("./static/"+str(data[11]) + ".jpg")
-        image18 = Image.open("./static/"+str(data[17]) + ".jpg")
+        image16 = Image.open("./static/"+ str(data[5]) + ".jpg")
+        image17 = Image.open("./static/"+ str(data[11]) + ".jpg")
+        image18 = Image.open("./static/"+ str(data[17]) + ".jpg")
 
         (width1, height1) = image1.size
         (width2, height2) = image2.size
