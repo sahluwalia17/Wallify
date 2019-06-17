@@ -1,15 +1,19 @@
-from flask import Flask, render_template, redirect, request, url_for, send_file
+from flask import Flask, render_template, redirect, request, url_for, send_file, jsonify
 import webbrowser
 import re
 import requests
 from urllib.parse import quote
 from PIL import Image
-import os
+from os import path
+import time
 import urllib.request
 import json
 import pyrebase
+import random
+import importlib
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 user = None #This becomes the user after signing in
 auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
@@ -124,8 +128,8 @@ def spotify(spotifyAPI):
         "client_id": clientId,
         "client_secret": clientSecret
     }
+    dateTime = random.randint(1,100000)
     try:
-
         post_request = requests.post(spotifyTokenURL, data=code_payload)
         response_data = json.loads(post_request.text)
         access_token = response_data["access_token"]
@@ -158,7 +162,7 @@ def spotify(spotifyAPI):
     except Exception as e:
         print (e)
 
-    
+
     if user != None:
         if "long_term" in spotifyAPI:
         	database.child(database_key).child("long term").set(final_links, user["idToken"])
@@ -196,11 +200,13 @@ def returnImage():
 
 @app.route("/wallify")
 def wallify():
-    return render_template("wallify.html")
+    return render_template('wallify.html')
 
 @app.route("/receive",methods=["POST"])
 def get_data():
     if request.method == "POST":
+        if path.exists("final.jpg"):
+            os.remove("final.jpg")
         ints = request.get_json()
         data = ints.get("ints")
 
@@ -278,7 +284,7 @@ def get_data():
         result5.save('result5.jpg')
         result6.save('result6.jpg')
 
-        imageres = Image.open("result.jpg")
+        imageres = Image.open("result1.jpg")
         imageres2 = Image.open("result2.jpg")
         imageres3 = Image.open("result3.jpg")
         imageres4 = Image.open("result4.jpg")
@@ -307,17 +313,10 @@ def get_data():
 
         result.save('final.jpg')
 
-        for i in range(1,7):
-            exists = os.path.isfile("result" + str(i)  +".jpg")
-            if exists:
-                os.remove("result" + str(i) + ".jpg")
-    # Store configuration file values)
-        for i in range (1,19):
-            exists = os.path.isfile("./static/"+str(i)+".jpg")
-            if exists:
-                os.remove("./static/"+str(i)+".jpg")
+        while not path.exists("final.jpg"):
+            time.sleep(1)
 
-    return "",200
+        return "",200
 
 if __name__ == "__main__":
     app.run(debug=True)
