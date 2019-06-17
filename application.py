@@ -4,7 +4,8 @@ import re
 import requests
 from urllib.parse import quote
 from PIL import Image
-import os
+from os import path
+import time
 import urllib.request
 import json
 import pyrebase
@@ -204,32 +205,34 @@ def wallify():
 @app.route("/receive",methods=["POST"])
 def get_data():
     if request.method == "POST":
+        if path.exists("final.jpg"):
+            os.remove("final.jpg")
         ints = request.get_json()
         data = ints.get("ints")
 
-        image1 = Image.open("./static/"+ str(data[0]) + ".jpg")
-        image2 = Image.open("./static/"+ str(data[6]) + ".jpg")
-        image3 = Image.open("./static/"+ str(data[12]) + ".jpg")
+        image1 = Image.open("./static/"+str(data[0]) + ".jpg")
+        image2 = Image.open("./static/"+str(data[6]) + ".jpg")
+        image3 = Image.open("./static/"+str(data[12]) + ".jpg")
 
-        image4 = Image.open("./static/"+ str(data[1]) + ".jpg")
-        image5 = Image.open("./static/"+ str(data[7]) + ".jpg")
-        image6 = Image.open("./static/"+ str(data[13]) + ".jpg")
+        image4 = Image.open("./static/"+str(data[1]) + ".jpg")
+        image5 = Image.open("./static/"+str(data[7]) + ".jpg")
+        image6 = Image.open("./static/"+str(data[13]) + ".jpg")
 
-        image7 = Image.open("./static/"+ str(data[2]) + ".jpg")
-        image8 = Image.open("./static/"+ str(data[8]) + ".jpg")
-        image9 = Image.open("./static/"+ str(data[14]) + ".jpg")
+        image7 = Image.open("./static/"+str(data[2]) + ".jpg")
+        image8 = Image.open("./static/"+str(data[8]) + ".jpg")
+        image9 = Image.open("./static/"+str(data[14]) + ".jpg")
 
-        image10 = Image.open("./static/"+ str(data[3]) + ".jpg")
-        image11 = Image.open("./static/"+ str(data[9]) + ".jpg")
-        image12 = Image.open("./static/"+ str(data[15]) + ".jpg")
+        image10 = Image.open("./static/"+str(data[3]) + ".jpg")
+        image11 = Image.open("./static/"+str(data[9]) + ".jpg")
+        image12 = Image.open("./static/"+str(data[15]) + ".jpg")
 
-        image13 = Image.open("./static/"+ str(data[4]) + ".jpg")
-        image14 = Image.open("./static/"+ str(data[10]) + ".jpg")
-        image15 = Image.open("./static/"+ str(data[16]) + ".jpg")
+        image13 = Image.open("./static/"+str(data[4]) + ".jpg")
+        image14 = Image.open("./static/"+str(data[10]) + ".jpg")
+        image15 = Image.open("./static/"+str(data[16]) + ".jpg")
 
-        image16 = Image.open("./static/"+ str(data[5]) + ".jpg")
-        image17 = Image.open("./static/"+ str(data[11]) + ".jpg")
-        image18 = Image.open("./static/"+ str(data[17]) + ".jpg")
+        image16 = Image.open("./static/"+str(data[5]) + ".jpg")
+        image17 = Image.open("./static/"+str(data[11]) + ".jpg")
+        image18 = Image.open("./static/"+str(data[17]) + ".jpg")
 
         (width1, height1) = image1.size
         (width2, height2) = image2.size
@@ -281,7 +284,7 @@ def get_data():
         result5.save('result5.jpg')
         result6.save('result6.jpg')
 
-        imageres = Image.open("result.jpg")
+        imageres = Image.open("result1.jpg")
         imageres2 = Image.open("result2.jpg")
         imageres3 = Image.open("result3.jpg")
         imageres4 = Image.open("result4.jpg")
@@ -310,17 +313,10 @@ def get_data():
 
         result.save('final.jpg')
 
-        for i in range(1,7):
-            exists = os.path.isfile("result" + str(i)  +".jpg")
-            if exists:
-                os.remove("result" + str(i) + ".jpg")
-    # Store configuration file values)
-        for i in range (1,19):
-            exists = os.path.isfile("./static/"+str(i)+".jpg")
-            if exists:
-                os.remove("./static/"+str(i)+".jpg")
+        while not path.exists("final.jpg"):
+            time.sleep(1)
 
-    return "",200
+        return "",200
 
 if __name__ == "__main__":
     app.run(debug=True)
