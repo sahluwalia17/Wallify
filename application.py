@@ -19,11 +19,13 @@ auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
-#redirectURL = "http://127.0.0.1:5000/callback/q"
+# redirectURL = "http://127.0.0.1:5000/callback/q"
 redirectURL = "https://wallifyy.herokuapp.com/callback/q"
 #change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
+refresh_token = ""
+refreshTime = 0
 
 #spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
@@ -121,20 +123,39 @@ def authorize():
     return redirect(auth_url)
 
 def spotify(spotifyAPI):
-    code_payload = {
-        "grant_type": "authorization_code",
-        "code": str(auth_token),
-        "redirect_uri": redirectURL,
-        "client_id": clientId,
-        "client_secret": clientSecret
-    }
+    global refreshTime
+    global refresh_token
+
+    if refreshTime == 0:
+        code_payload = {
+            "grant_type": "authorization_code",
+            "code": str(auth_token),
+            "redirect_uri": redirectURL,
+            "client_id": clientId,
+            "client_secret": clientSecret
+        }
+    elif refreshTime > 0:
+        code_payload = {
+            "grant_type": "refresh_token",
+            "refresh_token": refresh_token,
+            "client_id": clientId,
+            "client_secret": clientSecret
+        }
     dateTime = random.randint(1,100000)
     try:
         post_request = requests.post(spotifyTokenURL, data=code_payload)
+
         response_data = json.loads(post_request.text)
         access_token = response_data["access_token"]
+
+        if refreshTime == 0:
+            refresh_token = response_data["refresh_token"]
+            refreshTime = refreshTime + 1
+
         authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
+
         top_tracks = requests.get(spotifyAPI, headers = authorization_header)
+
         tracks_data = json.loads(top_tracks.text)
     except Exception as e:
         print (e)
@@ -165,33 +186,33 @@ def spotify(spotifyAPI):
 
     if user != None:
         if "long_term" in spotifyAPI:
-        	database.child(database_key).child("long term").set(final_links, user["idToken"])
+            database.child(database_key).child("long term").set(final_links, user["idToken"])
         elif "medium_term" in spotifyAPI:
-        	database.child(database_key).child("mid term").set(final_links, user["idToken"])
+            database.child(database_key).child("mid term").set(final_links, user["idToken"])
         elif "short_term" in spotifyAPI:
-        	database.child(database_key).child("mid term").set(final_links, user["idToken"])
+            database.child(database_key).child("mid term").set(final_links, user["idToken"])
 
     #return redirect(url_for('wallify'))
 
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
-	if request.method == "POST":
-		if request.form["option"] == "Recent Bops":
-			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
-			return redirect(url_for('wallify'))
-		elif request.form["option"] == "Semester Jams":
-			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
-			return redirect(url_for('wallify'))
-		elif request.form["option"] == "Run It Back Turbo":
-			spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
-			return redirect(url_for('wallify'))
-	return render_template("intermediate.html")
+    if request.method == "POST":
+        if request.form["option"] == "Recent Bops":
+            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+            return redirect(url_for('wallify'))
+        elif request.form["option"] == "Semester Jams":
+            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+            return redirect(url_for('wallify'))
+        elif request.form["option"] == "Run It Back Turbo":
+            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+            return redirect(url_for('wallify'))
+    return render_template("intermediate.html")
 
 @app.route("/callback/q")
 def callback():
-	global auth_token
-	auth_token = request.args['code']
-	return redirect(url_for('intermediate'))
+    global auth_token
+    auth_token = request.args['code']
+    return redirect(url_for('intermediate'))
     #return render_template("intermediate.html")
 
 @app.route("/final.jpg")
