@@ -13,6 +13,7 @@ import json
 import pyrebase
 import random
 import importlib
+import time
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -28,6 +29,7 @@ scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 refresh_token = ""
 refreshTime = 0
+token = 0
 
 #spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
@@ -221,7 +223,10 @@ def callback():
 
 @app.route("/final.jpg")
 def returnImage():
-    return send_file('./static/final.jpg', 'final.jpg')
+    time.sleep(1)
+    global token
+    name = "final" + str(token) + ".jpg"
+    return send_file('./static/' + name, 'final.jpg')
 
 @app.route("/wallify")
 def wallify():
@@ -235,6 +240,8 @@ def get_data():
         ints = request.get_json()
         data = ints.get("ints")
 
+        global token
+        token = random.randint(1,100)
 
         image1 = Image.open("./static/"+str(data[0]) + ".jpg")
         image2 = Image.open("./static/"+str(data[6]) + ".jpg")
@@ -344,8 +351,9 @@ def get_data():
         result.paste(im = imageres5, box=(widthres1 * 4,0))
         result.paste(im = imageres6, box=(widthres1 * 5,0))
 
-        result.save('final.jpg')
-        shutil.move("./final.jpg", "./static/final.jpg")
+        name = "final" + str(token) + ".jpg"
+        result.save(name)
+        shutil.move("./" + name, "./static/" + name)
 
         return "",200
 
