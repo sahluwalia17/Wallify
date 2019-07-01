@@ -1,10 +1,12 @@
 from flask import Flask, render_template, redirect, request, url_for, send_file, jsonify
+from flask_cachebuster import CacheBuster
 import webbrowser
 import re
 import requests
 from urllib.parse import quote
 from PIL import Image
 from os import path
+import shutil
 import time
 import urllib.request
 import json
@@ -219,7 +221,7 @@ def callback():
 
 @app.route("/final.jpg")
 def returnImage():
-    return send_file('final.jpg', attachment_filename='final.jpg')
+    return send_file('./static/final.jpg', 'final.jpg')
 
 @app.route("/wallify")
 def wallify():
@@ -232,6 +234,7 @@ def get_data():
             os.remove("final.jpg")
         ints = request.get_json()
         data = ints.get("ints")
+
 
         image1 = Image.open("./static/"+str(data[0]) + ".jpg")
         image2 = Image.open("./static/"+str(data[6]) + ".jpg")
@@ -307,12 +310,19 @@ def get_data():
         result5.save('result5.jpg')
         result6.save('result6.jpg')
 
-        imageres = Image.open("result1.jpg")
-        imageres2 = Image.open("result2.jpg")
-        imageres3 = Image.open("result3.jpg")
-        imageres4 = Image.open("result4.jpg")
-        imageres5 = Image.open("result5.jpg")
-        imageres6 = Image.open("result6.jpg")
+        shutil.move("./result1.jpg", "./static/result1.jpg")
+        shutil.move("./result2.jpg", "./static/result2.jpg")
+        shutil.move("./result3.jpg", "./static/result3.jpg")
+        shutil.move("./result4.jpg", "./static/result4.jpg")
+        shutil.move("./result5.jpg", "./static/result5.jpg")
+        shutil.move("./result6.jpg", "./static/result6.jpg")
+
+        imageres = Image.open("./static/result1.jpg")
+        imageres2 = Image.open("./static/result2.jpg")
+        imageres3 = Image.open("./static/result3.jpg")
+        imageres4 = Image.open("./static/result4.jpg")
+        imageres5 = Image.open("./static/result5.jpg")
+        imageres6 = Image.open("./static/result6.jpg")
 
         (widthres1, heightres1) = imageres.size
         (widthres2, heightres2) = imageres2.size
@@ -335,9 +345,7 @@ def get_data():
         result.paste(im = imageres6, box=(widthres1 * 5,0))
 
         result.save('final.jpg')
-
-        while not path.exists("final.jpg"):
-            time.sleep(1)
+        shutil.move("./final.jpg", "./static/final.jpg")
 
         return "",200
 
