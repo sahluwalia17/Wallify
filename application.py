@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, request, url_for, send_file, jsonify
-from flask_cachebuster import CacheBuster
 import webbrowser
 import re
 import requests
