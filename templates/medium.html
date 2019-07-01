@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/function.js?n=1"></script>
+</head>
+
+<body>
+    <script>init()</script>
+    <form action="/medium" method="POST">
+        <div class="top-button">
+            <button class="short-term-button" name="option" value="Short Term">
+                <h3>&#x27F5; Short Term</h3>
+            </button>
+            <button class="long-term-button" name="option" value="Long Term">
+                <h3>Long Term &#x27F6;</h3>
+            </button>
+        </div>
+    </form>
+    <div class="wallpaper">
+        <div class="column">
+            <div id="boxA" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box1" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxB" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box2" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxC" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box3" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxD" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box4" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxE" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box5" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxF" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box6" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+        </div>
+        <div class="column">
+            <div id="boxG" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box7" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxH" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box8" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxI" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box9" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxJ" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box10" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxK" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box11" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxL" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box12" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+        </div>
+        <div class="column">
+            <div id="boxM" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box13" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxN" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box14" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxO" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box15" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxP" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box16" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxQ" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box17" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+            <div id="boxR" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box18" draggable="true" ondragstart="drag(event)"></div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-navbar">
+        <div class="leftbar">
+            <form action="/short" method="POST">
+                <button class="intermediate" name="option" value="back">&#x21B2;</button>
+            </form>
+            <button onclick="download()" class="download">Download</button>
+        </div>
+        <div class="rightbar">
+            <h2>Wallify</h2>
+            <a href="https://github.com/sahluwalia17/Wallify" class="fa fa-github"></a>
+        </div>
+    </div>
+</body>
+<style>
+    body {
+        background-color: #FFE03F;
+    }
+
+    .top-button {
+        display: flex;
+        justify-content: space-between;
+        border: none;
+        padding-right: 30px;
+        padding-left:30px;
+        padding-top: 25px;
+    }
+
+    .short-term-button, .long-term-button {
+        width: 120px;
+        height: 40px;
+        background: #FFFFFF;
+        border: 1px solid #000000;
+        box-sizing: border-box;
+        border-radius: 12px;
+        cursor: pointer;
+        outline:none
+    }
+
+    .short-term-button:hover, .long-term-button:hover{
+        color:#10E7E2;
+
+    }
+
+    h3 {
+        font-family: 'Julius Sans One', sans-serif;
+        font-size: 10px;
+    }
+
+    .column {
+        width: 950px;
+        float: left;
+        /*padding-left:14%;*/
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .mover {
+        width: 150px;
+        height: 150px;
+        float: left;
+        text-align: center;
+    }
+
+    .zoom {
+        transition: transform .2s;
+        margin: 0 auto;
+    }
+
+    .zoom:hover {
+        -ms-transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+    }
+
+    .intermediate {
+        background-color: Transparent;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
+        overflow: hidden;
+        outline: none;
+        padding-right: 10px;
+        font-size: 20px;
+
+        /* color:black;
+        text-decoration: none; */
+    }
+
+    .download {
+        width: 110px;
+        height: 35px;
+        background: #FFFFFF;
+        border-radius: 90px;
+        font-family: 'Julius Sans One', sans-serif;
+        color: black;
+        border: none;
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 12px;
+        outline:none
+    }
+
+    .download:hover{
+        color:#10E7E2;
+    }
+
+    .wallpaper {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        right: 0;
+    }
+
+    .bottom-navbar {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        position: absolute;
+        top: 98%;
+        transform: translateY(-98%);
+        left: 0;
+        right: 0;
+    }
+
+    .leftbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-left: 25px;
+    }
+
+    .rightbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .fa {
+        font-size: 30px;
+        width: 30px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 70%;
+        columns: #000000;
+        color: black;
+        z-index: 99;
+        padding-right: 30px;
+    }
+
+    h2 {
+        font-family: 'Julius Sans One', sans-serif;
+        font-size: 20px;
+        padding-right: 15px;
+    }
+
+    #box1 {
+        background-image: url("/static/1.jpg");
+        background-size: cover;
+        background-position: right;
+
+    }
+
+    #box2 {
+        background-image: url("/static/2.jpg");
+        background-size: cover;
+        background-position: right;
+
+    }
+
+    #box3 {
+        background-image: url("/static/3.jpg");
+        background-size: cover;
+        background-position: right;
+
+    }
+
+    #box4 {
+        background-image: url("/static/4.jpg");
+        background-size: cover;
+        background-position: right;
+
+    }
+
+    #box5 {
+        background-image: url("/static/5.jpg");
+        background-size: cover;
+        background-position: right;
+
+    }
+
+    #box6 {
+        background-image: url("/static/6.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box7 {
+        background-image: url("/static/7.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box8 {
+        background-image: url("/static/8.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box9 {
+        background-image: url("/static/9.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box10 {
+        background-image: url("/static/10.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box11 {
+        background-image: url("/static/11.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box12 {
+        background-image: url("/static/12.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box13 {
+        background-image: url("/static/13.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box14 {
+        background-image: url("/static/14.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box15 {
+        background-image: url("/static/15.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box16 {
+        background-image: url("/static/16.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box17 {
+        background-image: url("/static/17.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+
+    #box18 {
+        background-image: url("/static/18.jpg");
+        background-size: cover;
+        background-position: right;
+    }
+</style>
+
+</html>
