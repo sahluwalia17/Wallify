@@ -5,12 +5,14 @@ import requests
 from urllib.parse import quote
 from PIL import Image
 from os import path
+import shutil
 import time
 import urllib.request
 import json
 import pyrebase
 import random
 import importlib
+import time
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -26,6 +28,7 @@ scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 refresh_token = ""
 refreshTime = 0
+token = 0
 
 #spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
@@ -225,7 +228,10 @@ def callback():
 
 @app.route("/final.jpg")
 def returnImage():
-    return send_file('final.jpg', attachment_filename='final.jpg')
+    time.sleep(1)
+    global token
+    name = "final" + str(token) + ".jpg"
+    return send_file('./static/' + name, 'final.jpg')
 
 @app.route("/short", methods=["POST", "GET"])
 def short(): 
@@ -271,6 +277,9 @@ def get_data():
             os.remove("final.jpg")
         ints = request.get_json()
         data = ints.get("ints")
+
+        global token
+        token = random.randint(1,100)
 
         image1 = Image.open("./static/"+str(data[0]) + ".jpg")
         image2 = Image.open("./static/"+str(data[6]) + ".jpg")
@@ -346,12 +355,19 @@ def get_data():
         result5.save('result5.jpg')
         result6.save('result6.jpg')
 
-        imageres = Image.open("result1.jpg")
-        imageres2 = Image.open("result2.jpg")
-        imageres3 = Image.open("result3.jpg")
-        imageres4 = Image.open("result4.jpg")
-        imageres5 = Image.open("result5.jpg")
-        imageres6 = Image.open("result6.jpg")
+        shutil.move("./result1.jpg", "./static/result1.jpg")
+        shutil.move("./result2.jpg", "./static/result2.jpg")
+        shutil.move("./result3.jpg", "./static/result3.jpg")
+        shutil.move("./result4.jpg", "./static/result4.jpg")
+        shutil.move("./result5.jpg", "./static/result5.jpg")
+        shutil.move("./result6.jpg", "./static/result6.jpg")
+
+        imageres = Image.open("./static/result1.jpg")
+        imageres2 = Image.open("./static/result2.jpg")
+        imageres3 = Image.open("./static/result3.jpg")
+        imageres4 = Image.open("./static/result4.jpg")
+        imageres5 = Image.open("./static/result5.jpg")
+        imageres6 = Image.open("./static/result6.jpg")
 
         (widthres1, heightres1) = imageres.size
         (widthres2, heightres2) = imageres2.size
@@ -373,10 +389,9 @@ def get_data():
         result.paste(im = imageres5, box=(widthres1 * 4,0))
         result.paste(im = imageres6, box=(widthres1 * 5,0))
 
-        result.save('final.jpg')
-
-        while not path.exists("final.jpg"):
-            time.sleep(1)
+        name = "final" + str(token) + ".jpg"
+        result.save(name)
+        shutil.move("./" + name, "./static/" + name)
 
         return "",200
 
