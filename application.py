@@ -125,6 +125,7 @@ def authorize():
     return redirect(auth_url)
 
 def spotify(spotifyAPI):
+    
     global refreshTime
     global refresh_token
 
@@ -145,6 +146,8 @@ def spotify(spotifyAPI):
         }
     dateTime = random.randint(1,100000)
     try:
+
+        
         post_request = requests.post(spotifyTokenURL, data=code_payload)
 
         response_data = json.loads(post_request.text)
@@ -201,13 +204,16 @@ def intermediate():
     if request.method == "POST":
         if request.form["option"] == "Recent Bops":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
-            return redirect(url_for('wallify'))
+            # return redirect(url_for('wallify'))
+            return redirect(url_for('short'))
         elif request.form["option"] == "Semester Jams":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
-            return redirect(url_for('wallify'))
+            # return redirect(url_for('wallify'))
+            return redirect(url_for('medium'))
         elif request.form["option"] == "Run It Back Turbo":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
-            return redirect(url_for('wallify'))
+            # return redirect(url_for('wallify'))
+            return redirect(url_for('long'))
     return render_template("intermediate.html")
 
 @app.route("/callback/q")
@@ -220,6 +226,39 @@ def callback():
 @app.route("/final.jpg")
 def returnImage():
     return send_file('final.jpg', attachment_filename='final.jpg')
+
+@app.route("/short", methods=["POST", "GET"])
+def short(): 
+    if request.method == "POST":
+        if request.form["option"] == "Medium Term":
+            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+            return redirect(url_for('medium'))
+        if request.form["option"] == "back":
+            return redirect(url_for('intermediate'))
+    return render_template('short.html')
+
+@app.route("/medium", methods=["POST", "GET"])
+def medium(): 
+    if request.method == "POST":      
+        if request.form["option"] == "Short Term":
+            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+            return redirect(url_for('short'))
+        if request.form["option"] == "Long Term":
+            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+            return redirect(url_for('long'))
+        if request.form["option"] == "back":
+            return redirect(url_for('intermediate'))
+    return render_template('medium.html')
+
+@app.route("/long", methods=["POST", "GET"])
+def long():   
+    if request.method == "POST":
+        if request.form["option"] == "Medium Term":
+            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+            return redirect(url_for('medium'))
+        if request.form["option"] == "back":
+            return redirect(url_for('intermediate'))
+    return render_template('long.html')
 
 @app.route("/wallify")
 def wallify():
