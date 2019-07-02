@@ -13,6 +13,7 @@ import pyrebase
 import random
 import importlib
 import time
+import sys
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -226,9 +227,9 @@ def callback():
     return redirect(url_for('intermediate'))
     #return render_template("intermediate.html")
 
-@app.route("/final.jpg")
+@app.route("/final" + str(token) + ".jpg")
 def returnImage():
-    time.sleep(1)
+    time.sleep(2)
     global token
     name = "final" + str(token) + ".jpg"
     return send_file('./static/' + name, 'final.jpg')
@@ -390,8 +391,9 @@ def get_data():
         name = "final" + str(token) + ".jpg"
         result.save(name)
         shutil.move("./" + name, "./static/" + name)
-
-        return "",200
+        time.sleep(2)
+        print('Hello world!' + str(token), file=sys.stderr)
+        return str(token),200
 
 if __name__ == "__main__":
     app.run(debug=True)

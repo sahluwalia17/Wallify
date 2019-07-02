@@ -1,6 +1,5 @@
 var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 var tokenARR = [];
-var token = 0;
 var dragId;
 
 function init()
@@ -25,6 +24,7 @@ function drag(dragEvent) {
   dragId = dragEvent.target.id;
 }
 function download() {
+        var token;
         $.ajax({
           type: "POST",
           contentType: "application/json;charset=utf-8",
@@ -32,15 +32,24 @@ function download() {
           traditional: "true",
           data: JSON.stringify({ints}),
           dataType: "json",
-          cache: false
+          cache: false,
+          success : function (response)
+              {
+                  token = response.toString();
+                  var a = document.createElement('a');
+                  a.href = "./final" + token + ".jpg";
+                  window.alert(a.href);
+                  a.download = "final" + token + ".jpg";
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+              }
           });
 
-          var a = document.createElement('a');
-          a.href = "./final.jpg";
-          a.download = "final.jpg";
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
+          while(token == null)
+          {
+            sleep(1000);
+          }
 }
 function drop(dropEvent) {
   var dropData = dropEvent.dataTransfer.getData("Id");
