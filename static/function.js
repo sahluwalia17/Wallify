@@ -2,7 +2,7 @@ var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 var tokenARR = [];
 var dragId;
 
-function init()
+/*function init()
 {
   token = Math.floor((Math.random() * 1000) + 1);
   tokenARR.push(token);
@@ -22,7 +22,7 @@ function allowDrop(ev) {
 function drag(dragEvent) {
   dragEvent.dataTransfer.setData("Id",    dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
   dragId = dragEvent.target.id;
-}
+}*/
 function download() {
         var token;
         $.ajax({
@@ -37,9 +37,8 @@ function download() {
               {
                   token = response.toString();
                   var a = document.createElement('a');
-                  a.href = "./final" + token + ".jpg";
-                  window.alert(a.href);
-                  a.download = "final" + token + ".jpg";
+                  a.href = "./final.jpg";
+                  a.download = "final.jpg";
                   document.body.appendChild(a);
                   a.click();
                   document.body.removeChild(a);
@@ -51,7 +50,7 @@ function download() {
             sleep(1000);
           }
 }
-function drop(dropEvent) {
+/*function drop(dropEvent) {
   var dropData = dropEvent.dataTransfer.getData("Id");
   dropItems = dropData.split("|");
   var prevElem = document.getElementById(dropItems[1]);
@@ -63,4 +62,4 @@ function drop(dropEvent) {
   prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
   dropEvent.target.id = dropItems[0];
   dropEvent.preventDefault();
-}
+}*/

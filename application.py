@@ -227,11 +227,11 @@ def callback():
     return redirect(url_for('intermediate'))
     #return render_template("intermediate.html")
 
-@app.route("/final" + str(token) + ".jpg")
+@app.route("/final.jpg")
 def returnImage():
     time.sleep(2)
     global token
-    name = "final" + str(token) + ".jpg"
+    name = "final.jpg"
     return send_file('./static/' + name, 'final.jpg')
 
 @app.route("/short", methods=["POST", "GET"])
@@ -388,11 +388,9 @@ def get_data():
         result.paste(im = imageres5, box=(widthres1 * 4,0))
         result.paste(im = imageres6, box=(widthres1 * 5,0))
 
-        name = "final" + str(token) + ".jpg"
+        name = "final.jpg"
         result.save(name)
         shutil.move("./" + name, "./static/" + name)
-        time.sleep(2)
-        print('Hello world!' + str(token), file=sys.stderr)
         return str(token),200
 
 if __name__ == "__main__":
