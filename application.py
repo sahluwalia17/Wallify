@@ -22,8 +22,8 @@ auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
-#redirectURL = "http://127.0.0.1:5000/callback/q"
-redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+redirectURL = "http://127.0.0.1:5000/callback/q"
+#redirectURL = "https://wallifyy.herokuapp.com/callback/q"
 #change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
@@ -52,6 +52,22 @@ fb = pyrebase.initialize_app(config)
 authentication = fb.auth()
 database = fb.database()
 database_key = None
+
+@app.after_request
+def add_header(response):
+    response.cache_control.public = True
+    response.no_cache = True
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    response.cache_control.max_age = 0
+
+    if 'Cache-Control' not in response.headers:
+        response.headers['Cache-Control'] = 'no-store'
+
+    return response
+
 @app.route("/", methods = ["POST", "GET"])
 def index():#add authentication part here
     #print("made it")
