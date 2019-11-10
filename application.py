@@ -213,6 +213,8 @@ def spotify(spotifyAPI):
     except Exception as e:
         print (e)
 
+    if not os.path.exists("./static/" + str(x) + ".jpg"):
+        time.sleep(.5)
 
     if user != None:
         if "long_term" in spotifyAPI:
