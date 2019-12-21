@@ -185,7 +185,7 @@ def spotify(spotifyAPI):
     links = []
     filteredlinks = []
 
-    while(len(tracks_data < 30)):
+    while(len(tracks_data) < 30)):
         time.sleep(0.5)
         print(tracks_data)
 
