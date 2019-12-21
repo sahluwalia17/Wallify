@@ -165,6 +165,7 @@ def spotify(spotifyAPI):
         }
     dateTime = random.randint(1,100000)
     try:
+        print("AUTH TOKEN!!!!!!!!!!!!: " + auth_token)
         post_request = requests.post(spotifyTokenURL, data=code_payload)
 
         response_data = json.loads(post_request.text)
