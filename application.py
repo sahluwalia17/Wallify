@@ -179,43 +179,41 @@ def spotify(spotifyAPI):
         top_tracks = requests.get(spotifyAPI, headers = authorization_header)
 
         tracks_data = json.loads(top_tracks.text)
+
+        links = []
+        filteredlinks = []
+
+        try:
+            for x in range(0,50):
+                    for y in range(0,1):
+                            links.append(tracks_data["items"][x]["album"]["images"][1]["url"])
+
+            for i in links:
+                    if i not in filteredlinks:
+                            filteredlinks.append(i)
+
+            #print(filteredlinks)
+            final_links = []
+            try:
+                for x in range(0,18):
+                    link = filteredlinks[x]
+                    final_links.append(link)
+                    urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
+            except Exception as e:
+                print (e)
+
+            if user != None:
+                if "long_term" in spotifyAPI:
+                    database.child(database_key).child("long term").set(final_links, user["idToken"])
+                elif "medium_term" in spotifyAPI:
+                    database.child(database_key).child("mid term").set(final_links, user["idToken"])
+                elif "short_term" in spotifyAPI:
+                    database.child(database_key).child("mid term").set(final_links, user["idToken"])
+        except Exception as e:
+            print (e)
+
     except Exception as e:
         print (e)
-
-    links = []
-    filteredlinks = []
-
-    while len(tracks_data) == 0:
-        time.sleep(0.5)
-
-    try:
-        for x in range(0,50):
-                for y in range(0,1):
-                        links.append(tracks_data["items"][x]["album"]["images"][1]["url"])
-    except Exception as e:
-        print (e)
-
-    for i in links:
-            if i not in filteredlinks:
-                    filteredlinks.append(i)
-
-    #print(filteredlinks)
-    final_links = []
-    try:
-        for x in range(0,18):
-            link = filteredlinks[x]
-            final_links.append(link)
-            urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
-    except Exception as e:
-        print (e)
-
-    if user != None:
-        if "long_term" in spotifyAPI:
-            database.child(database_key).child("long term").set(final_links, user["idToken"])
-        elif "medium_term" in spotifyAPI:
-            database.child(database_key).child("mid term").set(final_links, user["idToken"])
-        elif "short_term" in spotifyAPI:
-            database.child(database_key).child("mid term").set(final_links, user["idToken"])
 
     #return redirect(url_for('wallify'))
 
