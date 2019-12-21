@@ -12,7 +12,6 @@ import json
 import pyrebase
 import random
 import importlib
-import time
 import sys
 
 app = Flask(__name__)
@@ -185,6 +184,11 @@ def spotify(spotifyAPI):
 
     links = []
     filteredlinks = []
+
+    while(len(tracks_data < 30)):
+        time.sleep(0.5)
+        print(tracks_data)
+
     try:
         for x in range(0,50):
                 for y in range(0,1):
