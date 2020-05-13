@@ -22,8 +22,8 @@ auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
-#redirectURL = "http://127.0.0.1:5000/callback/q"
-redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+redirectURL = "http://127.0.0.1:5000/callback/q"
+#redirectURL = "https://wallifyy.herokuapp.com/callback/q"
 #change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
@@ -170,7 +170,6 @@ def spotify(spotifyAPI):
         }
     dateTime = random.randint(1,100000)
     try:
-        print("AUTH TOKEN!!!!!!!!!!!!: " + auth_token)
         post_request = requests.post(spotifyTokenURL, data=code_payload)
 
         response_data = json.loads(post_request.text)
@@ -198,7 +197,6 @@ def spotify(spotifyAPI):
                     if i not in filteredlinks:
                             filteredlinks.append(i)
 
-            #print(filteredlinks)
             final_links = []
             try:
                 for x in range(0,18):
@@ -221,6 +219,7 @@ def spotify(spotifyAPI):
     except Exception as e:
         print (e)
 
+    tracks_data = None
     #return redirect(url_for('wallify'))
 
 @app.route("/choices", methods=["POST","GET"])
