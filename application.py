@@ -1,10 +1,11 @@
 from flask import Flask, render_template, redirect, request, url_for, send_file, jsonify
+from flask_cachebuster import CacheBuster
 import webbrowser
 import re
 import requests
 from urllib.parse import quote
 from PIL import Image
-from os import path
+import os
 import shutil
 import time
 import urllib.request
@@ -12,7 +13,6 @@ import json
 import pyrebase
 import random
 import importlib
-import time
 import sys
 
 app = Flask(__name__)
@@ -22,14 +22,18 @@ auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
-#redirectURL = "http://127.0.0.1:5000/callback/q"
-redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+redirectURL = "http://127.0.0.1:5000/callback/q"
+#redirectURL = "https://wallifyy.herokuapp.com/callback/q"
 #change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 refresh_token = ""
 refreshTime = 0
 token = 0
+
+config = { 'extensions': ['.jpg'], 'hash_size': 5 }
+cache_buster = CacheBuster(config=config)
+cache_buster.init_app(app)
 
 #spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
@@ -43,9 +47,9 @@ config = {
     "messagingSenderId": "974113509801"
 }
 
-with open ("config.txt") as f:
-    apiKey = str(f.readline())
-    config["apiKey"] = apiKey
+#with open ("config.txt") as f:
+#    apiKey = str(f.readline())
+#    config["apiKey"] = apiKey
 
 fb = pyrebase.initialize_app(config)
 #begin
@@ -112,9 +116,8 @@ def spotify(spotifyAPI):
             "client_secret": clientSecret,
         }
     dateTime = random.randint(1,100000)
-
+    
     try:
-
         post_request = requests.post(spotifyTokenURL, data=code_payload)
 
         response_data = json.loads(post_request.text)
@@ -129,46 +132,41 @@ def spotify(spotifyAPI):
         top_tracks = requests.get(spotifyAPI, headers = authorization_header)
         tracks_data = json.loads(top_tracks.text)
         
+        links = []
+        filteredlinks = []
 
-    except Exception as e:
-        print (e)
-
-    links = []
-    filteredlinks = []
-
-    try:
-        for x in range(0,50):
-                for y in range(0,1):
-                        if not tracks_data["items"][x]["album"]["images"]:
-                            continue
-                        else:
+        try:
+            for x in range(0,50):
+                    for y in range(0,1):
                             links.append(tracks_data["items"][x]["album"]["images"][1]["url"])
+
+            for i in links:
+                    if i not in filteredlinks:
+                            filteredlinks.append(i)
+
+            final_links = []
+            try:
+                for x in range(0,18):
+                    link = filteredlinks[x]
+                    final_links.append(link)
+                    urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
+            except Exception as e:
+                print (e)
+
+            if user != None:
+                if "long_term" in spotifyAPI:
+                    database.child(database_key).child("long term").set(final_links, user["idToken"])
+                elif "medium_term" in spotifyAPI:
+                    database.child(database_key).child("mid term").set(final_links, user["idToken"])
+                elif "short_term" in spotifyAPI:
+                    database.child(database_key).child("mid term").set(final_links, user["idToken"])
+        except Exception as e:
+            print (e)
+            
     except Exception as e:
         print (e)
 
-
-    for i in links:
-            if i not in filteredlinks:
-                    filteredlinks.append(i)
-
-    final_links = []
-    try:
-        for x in range(0,18):
-            link = filteredlinks[x]
-            final_links.append(link)
-            urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
-    except Exception as e:
-        print (e)
-
-
-    if user != None:
-        if "long_term" in spotifyAPI:
-            database.child(database_key).child("long term").set(final_links, user["idToken"])
-        elif "medium_term" in spotifyAPI:
-            database.child(database_key).child("mid term").set(final_links, user["idToken"])
-        elif "short_term" in spotifyAPI:
-            database.child(database_key).child("mid term").set(final_links, user["idToken"])
-
+    tracks_data = None
     #return redirect(url_for('wallify'))
 
 @app.route("/choices", methods=["POST","GET"])
