@@ -136,8 +136,6 @@ def spotify(spotifyAPI):
     links = []
     filteredlinks = []
 
-    # print("printing #9 no image")
-    # print(tracks_data["items"][8]["album"]["images"])
     try:
         for x in range(0,50):
                 for y in range(0,1):
@@ -148,13 +146,11 @@ def spotify(spotifyAPI):
     except Exception as e:
         print (e)
 
-    # print(links)
 
     for i in links:
             if i not in filteredlinks:
                     filteredlinks.append(i)
 
-    # print(filteredlinks)
     final_links = []
     try:
         for x in range(0,18):
