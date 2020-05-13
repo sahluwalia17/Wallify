@@ -1,6 +1,5 @@
 from flask import Flask, render_template, redirect, request, url_for, send_file, jsonify, session
 from flask_cachebuster import CacheBuster
-
 import webbrowser
 import re
 import requests
@@ -39,10 +38,6 @@ config = { 'extensions': ['.jpg'], 'hash_size': 5 }
 cache_buster = CacheBuster(config=config)
 cache_buster.init_app(app)
 
-
-#spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
-
-
 config = {
     "apiKey": None,
     "authDomain": "wallify-bea20.firebaseapp.com",
@@ -51,11 +46,6 @@ config = {
     "storageBucket": "wallify-bea20.appspot.com",
     "messagingSenderId": "974113509801"
 }
-
-#with open ("config.txt") as f:
-#    apiKey = str(f.readline())
-#    config["apiKey"] = apiKey
-
 fb = pyrebase.initialize_app(config)
 #begin
 authentication = fb.auth()
@@ -112,13 +102,13 @@ def spotify(spotifyAPI):
             "client_secret": clientSecret,
         }
     dateTime = random.randint(1,100000)
-    
+
     try:
-      
+
         authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(session["token"])}
         top_tracks = requests.get(spotifyAPI, headers = authorization_header)
         tracks_data = json.loads(top_tracks.text)
-        
+
         links = []
         filteredlinks = []
 
@@ -152,7 +142,7 @@ def spotify(spotifyAPI):
                     database.child(database_key).child("mid term").set(final_links, user["idToken"])
         except Exception as e:
             print (e)
-            
+
     except Exception as e:
         print (e)
 
