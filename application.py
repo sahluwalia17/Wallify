@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, send_file, jsonify
+from flask import Flask, render_template, redirect, request, url_for, send_file, jsonify, session
 import webbrowser
 import re
 import requests
@@ -18,7 +18,6 @@ import sys
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 user = None #This becomes the user after signing in
-auth_token = None
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
@@ -30,6 +29,9 @@ spotifyTokenURL = "https://accounts.spotify.com/api/token"
 refresh_token = ""
 refreshTime = 0
 token = 0
+
+#need to change this
+app.secret_key = clientSecret
 
 #spotifyAPI = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50"
 
@@ -69,8 +71,7 @@ def add_header(response):
     return response
 
 @app.route("/", methods = ["POST", "GET"])
-def index():#add authentication part here
-    
+def index():
     if request.method ==  "POST":
         if request.form["sign"] == 'Get Started!':
             return redirect(url_for('authorize'))
@@ -96,15 +97,7 @@ def spotify(spotifyAPI):
     global refreshTime
     global refresh_token
 
-    if refreshTime == 0:
-        code_payload = {
-            "grant_type": "authorization_code",
-            "code": str(auth_token),
-            "redirect_uri": redirectURL,
-            "client_id": clientId,
-            "client_secret": clientSecret
-        }
-    elif refreshTime > 0:
+    if refreshTime > 0:
         code_payload = {
             "grant_type": "refresh_token",
             "refresh_token": refresh_token,
@@ -115,17 +108,7 @@ def spotify(spotifyAPI):
 
     try:
 
-        post_request = requests.post(spotifyTokenURL, data=code_payload)
-
-        response_data = json.loads(post_request.text)
-
-        access_token = response_data["access_token"]
-
-        if refreshTime == 0:
-            refresh_token = response_data["refresh_token"]
-            refreshTime = refreshTime + 1
-
-        authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(access_token)}
+        authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(session["token"])}
         top_tracks = requests.get(spotifyAPI, headers = authorization_header)
         tracks_data = json.loads(top_tracks.text)
         
@@ -190,8 +173,31 @@ def intermediate():
 
 @app.route("/callback/q")
 def callback():
-    global auth_token
+    global refreshTime
+    global refresh_token
+    session.clear()
     auth_token = request.args['code']
+
+    if refreshTime == 0:
+        code_payload = {
+            "grant_type": "authorization_code",
+            "code": str(auth_token),
+            "redirect_uri": redirectURL,
+            "client_id": clientId,
+            "client_secret": clientSecret
+        }
+
+    post_request = requests.post(spotifyTokenURL, data=code_payload)
+
+    response_data = json.loads(post_request.text)
+
+    access_token = response_data["access_token"]
+    session["token"] = access_token
+
+    if refreshTime == 0:
+        refresh_token = response_data["refresh_token"]
+        refreshTime = refreshTime + 1
+
     return redirect(url_for('intermediate'))
     #return render_template("intermediate.html")
 
