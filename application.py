@@ -173,14 +173,13 @@ def callback():
     session.clear()
     auth_token = request.args['code']
 
-    if refreshTime == 0:
-        code_payload = {
-            "grant_type": "authorization_code",
-            "code": str(auth_token),
-            "redirect_uri": redirectURL,
-            "client_id": clientId,
-            "client_secret": clientSecret
-        }
+    code_payload = {
+        "grant_type": "authorization_code",
+        "code": str(auth_token),
+        "redirect_uri": redirectURL,
+        "client_id": clientId,
+        "client_secret": clientSecret
+    }
 
     post_request = requests.post(spotifyTokenURL, data=code_payload)
 
