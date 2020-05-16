@@ -118,7 +118,7 @@ def spotify(spotifyAPI):
                             if not tracks_data["items"][x]["album"]["images"]:
                                 continue
                             else:
-                                links.append(tracks_data["items"][x]["album"]["images"][1]["url"])
+                                links.append(tracks_data["items"][x]["album"]["images"][0]["url"])
 
             for i in links:
                     if i not in filteredlinks:
