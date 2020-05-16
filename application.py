@@ -14,6 +14,7 @@ import pyrebase
 import random
 import importlib
 import sys
+import logging
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -21,14 +22,15 @@ user = None #This becomes the user after signing in
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
-#redirectURL = "http://127.0.0.1:5000/callback/q"
-redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+redirectURL = "http://127.0.0.1:5000/callback/q"
+#redirectURL = "https://wallifyy.herokuapp.com/callback/q"
 #change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 refresh_token = ""
 refreshTime = 0
 token = 0
+logging.basicConfig(level=logging.DEBUG)
 
 
 #need to change this
@@ -111,6 +113,7 @@ def spotify(spotifyAPI):
 
         links = []
         filteredlinks = []
+        trackinfo = {}
 
         try:
             for x in range(0,50):
@@ -118,16 +121,20 @@ def spotify(spotifyAPI):
                             if not tracks_data["items"][x]["album"]["images"]:
                                 continue
                             else:
-                                links.append(tracks_data["items"][x]["album"]["images"][0]["url"])
-
-            for i in links:
-                    if i not in filteredlinks:
-                            filteredlinks.append(i)
+                                albumurl = tracks_data["items"][x]["album"]["images"][0]["url"]
+                                if albumurl not in links:
+                                    links.append(albumurl)
+                                    artistname = tracks_data["items"][x]["artists"][0]["name"]
+                                    trackname = tracks_data["items"][x]["name"]
+                                    trackinfo[trackname] = artistname
 
             final_links = []
+
+            app.logger.info(trackinfo)
+
             try:
                 for x in range(0,18):
-                    link = filteredlinks[x]
+                    link = links[x]
                     final_links.append(link)
                     urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
             except Exception as e:
