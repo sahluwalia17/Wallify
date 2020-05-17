@@ -25,6 +25,10 @@ function drag(dragEvent) {
   dragId = dragEvent.target.id;
 }
 
+function trackhover(x) {
+  console.log(x);
+}
+
 function download() {
         var token;
         $.ajax({
