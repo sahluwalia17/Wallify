@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <script>populate({{ trackdata|tojson }});</script>
     <form action="/medium" method="POST">
         <div class="top-button">
             <button class="short-term-button" name="option" value="Short Term">
@@ -89,7 +90,7 @@
     </div>
     <div class="bottom-navbar">
         <div class="leftbar">
-            <form action="/short" method="POST">
+            <form action="/choices" method="GET">
                 <button class="intermediate" name="option" value="back">&#x21B2;</button>
             </form>
             <button onclick="download()" class="download">Download</button>
