@@ -13,20 +13,6 @@ function populate(trackdata) {
     }
 }
 
-function init()
-{
-  token = Math.floor((Math.random() * 1000) + 1);
-  tokenARR.push(token);
-  $.ajax({
-    type: "POST",
-    contentType: "application/json;charset=utf-8",
-    url: "/receive_token",
-    traditional: "true",
-    data: JSON.stringify({tokenARR}),
-    dataType: "json"
-    });
-}
-
 function allowDrop(ev) {
   ev.preventDefault();
 }
