@@ -1,9 +1,16 @@
 var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 var tokenARR = [];
 var dragId;
+var tracknames = []
+var artistnames = []
 
 function populate(trackdata) {
-  console.log(trackdata);
+    var jsonstring = JSON.stringify(trackdata);
+    var json = JSON.parse(jsonstring);
+    for (var key in json) {
+      tracknames.push(key);
+      artistnames.push(json[key]);
+    }
 }
 
 function init()
@@ -30,7 +37,7 @@ function drag(dragEvent) {
 }
 
 function trackhover(x) {
-  console.log(x);
+  console.log(tracknames[x-1] + " by " + artistnames[x-1]);
 }
 
 function download() {

@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <script>populate({{ trackdata|tojson }});</script>
+    <script>populate({{ trackdata|safe }});</script>
     <form action="/medium" method="POST">
         <div class="top-button">
             <button class="short-term-button" name="option" value="Short Term">
