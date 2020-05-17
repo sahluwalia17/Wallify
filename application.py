@@ -130,8 +130,6 @@ def spotify(spotifyAPI):
 
             final_links = []
 
-            app.logger.info(trackinfo)
-
             try:
                 for x in range(0,18):
                     link = links[x]
@@ -153,24 +151,21 @@ def spotify(spotifyAPI):
     except Exception as e:
         print (e)
 
-    tracks_data = None
+    return trackinfo
     #return redirect(url_for('wallify'))
 
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
     if request.method == "POST":
         if request.form["option"] == "Recent Bops":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
-            # return redirect(url_for('wallify'))
-            return redirect(url_for('short'))
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+            return redirect(url_for('short',data=trackinfo))
         elif request.form["option"] == "Semester Jams":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
-            # return redirect(url_for('wallify'))
-            return redirect(url_for('medium'))
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+            return redirect(url_for('medium',data=trackinfo))
         elif request.form["option"] == "Run It Back Turbo":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
-            # return redirect(url_for('wallify'))
-            return redirect(url_for('long'))
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+            return redirect(url_for('long',data=trackinfo))
     return render_template("intermediate.html")
 
 @app.route("/callback/q")
@@ -209,15 +204,15 @@ def returnImage():
     name = "final.jpg"
     return send_file('./static/' + name, 'final.jpg')
 
-@app.route("/short", methods=["POST", "GET"])
-def short():
+@app.route("/short/<data>", methods=["POST", "GET"])
+def short(data):
     if request.method == "POST":
         if request.form["option"] == "Medium Term":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
             return redirect(url_for('medium'))
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
-    return render_template('short.html')
+    return render_template('short.html',trackdata=data)
 
 @app.route("/medium", methods=["POST", "GET"])
 def medium():

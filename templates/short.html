@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <script>populate({{ trackdata|tojson }});</script>
     <form action="/short" method="POST">
         <div class="top-button">
             <button class="medium-term-button" name="option" value="Medium Term">

@@ -2,6 +2,10 @@ var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 var tokenARR = [];
 var dragId;
 
+function populate(trackdata) {
+  console.log(trackdata);
+}
+
 function init()
 {
   token = Math.floor((Math.random() * 1000) + 1);
