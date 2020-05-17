@@ -24,6 +24,16 @@ function drag(dragEvent) {
 
 function trackhover(x) {
   console.log(tracknames[x-1] + " by " + artistnames[x-1]);
+  var box = "box" + String(x);
+  var element = document.getElementById(box);
+  element.setAttribute("style","opacity: 0.5;")
+}
+
+function trackleave(x) {
+  console.log(tracknames[x-1] + " by " + artistnames[x-1]);
+  var box = "box" + String(x);
+  var element = document.getElementById(box);
+  element.setAttribute("style","opacity: 1;")
 }
 
 function download() {
