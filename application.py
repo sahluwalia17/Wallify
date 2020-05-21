@@ -124,11 +124,19 @@ def spotify(spotifyAPI):
                                 albumurl = tracks_data["items"][x]["album"]["images"][0]["url"]
                                 if albumurl not in links:
                                     links.append(albumurl)
+                                    urlid = trackname = tracks_data["items"][x]["id"]
                                     artistname = tracks_data["items"][x]["artists"][0]["name"]
                                     trackname = tracks_data["items"][x]["name"]
-                                    trackinfo[trackname] = artistname
+                                    albumname = tracks_data["items"][x]["album"]["name"]
+                                    trackinfolist = []
+                                    trackinfolist.append(artistname)
+                                    trackinfolist.append(trackname)
+                                    trackinfolist.append(albumname)
+                                    trackinfo[urlid] = trackinfolist
 
             final_links = []
+
+            app.logger.info(trackinfo)
 
             try:
                 for x in range(0,18):
