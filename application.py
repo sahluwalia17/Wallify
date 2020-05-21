@@ -30,6 +30,7 @@ refresh_token = ""
 refreshTime = 0
 token = 0
 app.secret_key = clientSecret
+#cache-buster config
 config = { 'extensions': ['.jpg'], 'hash_size': 5 }
 cache_buster = CacheBuster(config=config)
 cache_buster.init_app(app)
@@ -48,6 +49,7 @@ database_key = None
 
 @app.after_request
 def add_header(response):
+    #attach no_cache headers
     response.cache_control.public = True
     response.no_cache = True
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -63,6 +65,7 @@ def add_header(response):
 
 @app.route("/", methods = ["POST", "GET"])
 def index():
+    #landing page for users
     if request.method ==  "POST":
         if request.form["sign"] == 'Get Started!':
             return redirect(url_for('authorize'))
@@ -70,6 +73,7 @@ def index():
 
 @app.route("/authorize")
 def authorize():
+    #redirect to spotify authorization
     global refreshTime
     refreshTime = 0
 
@@ -85,9 +89,11 @@ def authorize():
     return redirect(auth_url)
 
 def spotify(spotifyAPI):
+    #authorization succeeded -> download tracks
     global refreshTime
     global refresh_token
 
+    #organize payload to push to API
     if refreshTime > 0:
         code_payload = {
             "grant_type": "refresh_token",
@@ -101,7 +107,7 @@ def spotify(spotifyAPI):
     try:
 
         authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(session["token"])}
-        top_tracks = requests.get(spotifyAPI, headers = authorization_header)
+        top_tracks = requests.get(spotifyAPI, headers = authorization_header) #request made and received
         tracks_data = json.loads(top_tracks.text)
 
         links = []
@@ -113,7 +119,7 @@ def spotify(spotifyAPI):
                             if not tracks_data["items"][x]["album"]["images"]:
                                 continue
                             else:
-                                links.append(tracks_data["items"][x]["album"]["images"][0]["url"])
+                                links.append(tracks_data["items"][x]["album"]["images"][0]["url"]) #get relevant image links
 
             for i in links:
                     if i not in filteredlinks:
@@ -125,7 +131,7 @@ def spotify(spotifyAPI):
                 for x in range(0,18):
                     link = filteredlinks[x]
                     final_links.append(link)
-                    urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
+                    urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg") #download images
             except Exception as e:
                 print (e)
 
@@ -145,23 +151,22 @@ def spotify(spotifyAPI):
 
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
+    #perform redirects based on the option that the user picks
     if request.method == "POST":
         if request.form["option"] == "Recent Bops":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
-            # return redirect(url_for('wallify'))
             return redirect(url_for('short'))
         elif request.form["option"] == "Semester Jams":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
-            # return redirect(url_for('wallify'))
             return redirect(url_for('medium'))
         elif request.form["option"] == "Run It Back Turbo":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
-            # return redirect(url_for('wallify'))
             return redirect(url_for('long'))
     return render_template("intermediate.html")
 
 @app.route("/callback/q")
 def callback():
+    #upon successful authorization, redirect for intermediate on callback
     global refreshTime
     global refresh_token
     session.clear()
@@ -190,6 +195,7 @@ def callback():
 
 @app.route("/final.jpg")
 def returnImage():
+    #download wallpaper that has been created
     time.sleep(2)
     global token
     name = "final.jpg"
@@ -197,16 +203,19 @@ def returnImage():
 
 @app.route("/short", methods=["POST", "GET"])
 def short():
+    #POST if redirected from medium.html
     if request.method == "POST":
         if request.form["option"] == "Medium Term":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
             return redirect(url_for('medium'))
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
+    #GET if from intermediate
     return render_template('short.html')
 
 @app.route("/medium", methods=["POST", "GET"])
 def medium():
+    #POST if redirected from short.html or long.html
     if request.method == "POST":
         if request.form["option"] == "Short Term":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
@@ -216,16 +225,19 @@ def medium():
             return redirect(url_for('long'))
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
+    #GET if from intermediate
     return render_template('medium.html')
 
 @app.route("/long", methods=["POST", "GET"])
 def long():
+    #POST if redirected from long.html
     if request.method == "POST":
         if request.form["option"] == "Medium Term":
             spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
             return redirect(url_for('medium'))
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
+    #GET if from intermediate
     return render_template('long.html')
 
 @app.route("/wallify")
@@ -234,6 +246,7 @@ def wallify():
 
 @app.route("/receive",methods=["POST"])
 def get_data():
+    #javascript makes an AJAX POST request to pass array here; assemble wallpaper based on sequence of integers in array
     if request.method == "POST":
         ints = request.get_json()
         data = ints.get("ints")
