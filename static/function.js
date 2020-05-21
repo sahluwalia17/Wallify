@@ -24,9 +24,17 @@ function drag(dragEvent) {
 
 function trackhover(x) {
   console.log(tracknames[x-1] + " by " + artistnames[x-1]);
-  var box = "box" + String(x);
-  var element = document.getElementById(box);
-  element.setAttribute("style","filter: contrast(15%);");
+
+  var htmlStr = '<ul>';
+  htmlStr += '<li class="song">' + tracknames[x-1] + '</li>';
+  htmlStr += '<li>' + artistnames[x-1] + '</li>';
+  htmlStr += '</ul>';
+  console.log(htmlStr);
+  var x = document.getElementsByClassName("album-info");
+  for(var i = 0; i<x.length; i++){
+    x[i].innerHTML = htmlStr;
+  }
+
 }
 
 function trackleave(x) {
