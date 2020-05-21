@@ -50,9 +50,7 @@ function drop(dropEvent) {
   var temp = swap1;
   inswap1 = ints.indexOf(swap1);
   inswap2 = ints.indexOf(swap2);
-  // ints[ints.indexOf(swap1)] = swap2;
   ints[inswap1] = swap2;
-  //ints[ints.indexOf(swap2)] = temp;
   ints[inswap2] = temp;
   prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
   dropEvent.target.id = dropItems[0];

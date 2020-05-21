@@ -15,6 +15,7 @@ import random
 import importlib
 import sys
 
+#Global Declarations
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 user = None #This becomes the user after signing in
@@ -23,21 +24,15 @@ clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
 #redirectURL = "http://127.0.0.1:5000/callback/q"
 redirectURL = "https://wallifyy.herokuapp.com/callback/q"
-#change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 refresh_token = ""
 refreshTime = 0
 token = 0
-
-
-#need to change this
 app.secret_key = clientSecret
-
 config = { 'extensions': ['.jpg'], 'hash_size': 5 }
 cache_buster = CacheBuster(config=config)
 cache_buster.init_app(app)
-
 config = {
     "apiKey": None,
     "authDomain": "wallify-bea20.firebaseapp.com",
@@ -47,7 +42,6 @@ config = {
     "messagingSenderId": "974113509801"
 }
 fb = pyrebase.initialize_app(config)
-#begin
 authentication = fb.auth()
 database = fb.database()
 database_key = None
@@ -101,6 +95,7 @@ def spotify(spotifyAPI):
             "client_id": clientId,
             "client_secret": clientSecret,
         }
+
     dateTime = random.randint(1,100000)
 
     try:
@@ -125,6 +120,7 @@ def spotify(spotifyAPI):
                             filteredlinks.append(i)
 
             final_links = []
+
             try:
                 for x in range(0,18):
                     link = filteredlinks[x]
@@ -140,14 +136,12 @@ def spotify(spotifyAPI):
                     database.child(database_key).child("mid term").set(final_links, user["idToken"])
                 elif "short_term" in spotifyAPI:
                     database.child(database_key).child("mid term").set(final_links, user["idToken"])
+
         except Exception as e:
             print (e)
 
     except Exception as e:
         print (e)
-
-    tracks_data = None
-    #return redirect(url_for('wallify'))
 
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
@@ -193,7 +187,6 @@ def callback():
         refreshTime = refreshTime + 1
 
     return redirect(url_for('intermediate'))
-    #return render_template("intermediate.html")
 
 @app.route("/final.jpg")
 def returnImage():
@@ -244,7 +237,6 @@ def get_data():
     if request.method == "POST":
         ints = request.get_json()
         data = ints.get("ints")
-
         global token
         token = random.randint(1,100)
 
@@ -342,7 +334,6 @@ def get_data():
         (widthres4, heightres4) = imageres4.size
         (widthres5, heightres5) = imageres5.size
         (widthres6, heightres6) = imageres6.size
-
 
         result_width = widthres1 + widthres2 + widthres3 + widthres4 + widthres5 + widthres6
         result_heigth = heightres1
