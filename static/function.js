@@ -1,6 +1,8 @@
 var ints = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 var tokenARR = [];
 var dragId;
+var urls = []
+var albumnames = []
 var tracknames = []
 var artistnames = []
 
@@ -8,9 +10,13 @@ function populate(trackdata) {
     var jsonstring = JSON.stringify(trackdata);
     var json = JSON.parse(jsonstring);
     for (var key in json) {
-      tracknames.push(key);
-      artistnames.push(json[key]);
+      urls.push(key);
+      var information = json[key];
+      artistnames.push(information[0]);
+      tracknames.push(information[1]);
+      albumnames.push(information[2]);
     }
+    //key is the track id; for exact url append https://open.spotify.com/track/{trackid}
 }
 
 function allowDrop(ev) {
@@ -23,10 +29,18 @@ function drag(dragEvent) {
 }
 
 function trackhover(x) {
-  console.log(tracknames[x-1] + " by " + artistnames[x-1]);
-  var box = "box" + String(x);
-  var element = document.getElementById(box);
-  element.setAttribute("style","filter: contrast(15%);");
+  console.log(tracknames[x-1] + " by " + artistnames[x-1] + " in " + albumnames[x-1]);
+
+  var htmlStr = '<ul>';
+  htmlStr += '<li class="song">' + tracknames[x-1] + '</li>';
+  htmlStr += '<li>' + artistnames[x-1] + '</li>';
+  htmlStr += '</ul>';
+  console.log(htmlStr);
+  var x = document.getElementsByClassName("album-info");
+  for(var i = 0; i<x.length; i++){
+    x[i].innerHTML = htmlStr;
+  }
+
 }
 
 function trackleave(x) {

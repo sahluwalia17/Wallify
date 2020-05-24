@@ -119,13 +119,30 @@ def spotify(spotifyAPI):
                             if not tracks_data["items"][x]["album"]["images"]:
                                 continue
                             else:
+<<<<<<< HEAD
                                 links.append(tracks_data["items"][x]["album"]["images"][0]["url"]) #get relevant image links
 
             for i in links:
                     if i not in filteredlinks:
                             filteredlinks.append(i)
+=======
+                                albumurl = tracks_data["items"][x]["album"]["images"][0]["url"]
+                                if albumurl not in links:
+                                    links.append(albumurl)
+                                    urlid = trackname = tracks_data["items"][x]["id"]
+                                    artistname = tracks_data["items"][x]["artists"][0]["name"]
+                                    trackname = tracks_data["items"][x]["name"]
+                                    albumname = tracks_data["items"][x]["album"]["name"]
+                                    trackinfolist = []
+                                    trackinfolist.append(artistname)
+                                    trackinfolist.append(trackname)
+                                    trackinfolist.append(albumname)
+                                    trackinfo[urlid] = trackinfolist
+>>>>>>> 26a284ed7fedd4be4628caeedb1fbaf63ff8047e
 
             final_links = []
+
+            app.logger.info(trackinfo)
 
             try:
                 for x in range(0,18):

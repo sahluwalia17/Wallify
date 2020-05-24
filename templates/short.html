@@ -4,6 +4,7 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta http-equiv="Cache-Control" content="max-age=0" />
     <meta http-equiv="Cache-Control" content="no-cache" />
@@ -27,62 +28,153 @@
     <div class="wallpaper">
         <div class="column">
             <div id="boxA" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box1" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(1)" onmouseleave="trackleave(1)"></div>
+                <div class="mover zoom" id="box1" draggable="true" ondragstart="drag(event)" 
+                    onmouseover="trackhover(1)" onmouseleave="trackleave(1)">
+                        <div class="overlay">
+                            <div class = "album-info">
+                            </div>
+                        </div>
+                </div>
             </div>
             <div id="boxB" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box2" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(2)" onmouseleave="trackleave(2)"></div>
+                <div class="mover zoom" id="box2" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(2)" onmouseleave="trackleave(2)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxC" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box3" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(3)" onmouseleave="trackleave(3)"></div>
+                <div class="mover zoom" id="box3" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(3)" onmouseleave="trackleave(3)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxD" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box4" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(4)" onmouseleave="trackleave(4)"></div>
+                <div class="mover zoom" id="box4" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(4)" onmouseleave="trackleave(4)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxE" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box5" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(5)" onmouseleave="trackleave(5)"></div>
+                <div class="mover zoom" id="box5" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(5)" onmouseleave="trackleave(5)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxF" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box6" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(6)" onmouseleave="trackleave(6)"></div>
+                <div class="mover zoom" id="box6" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(6)" onmouseleave="trackleave(6)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="column">
             <div id="boxG" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box7" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(7)" onmouseleave="trackleave(7)"></div>
+                <div class="mover zoom" id="box7" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(7)" onmouseleave="trackleave(7)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxH" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box8" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(8)" onmouseleave="trackleave(8)"></div>
+                <div class="mover zoom" id="box8" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(8)" onmouseleave="trackleave(8)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxI" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box9" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(9)" onmouseleave="trackleave(9)"></div>
+                <div class="mover zoom" id="box9" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(9)" onmouseleave="trackleave(9)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxJ" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box10" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(10)" onmouseleave="trackleave(10)"></div>
+                <div class="mover zoom" id="box10" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(10)" onmouseleave="trackleave(10)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxK" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box11" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(11)" onmouseleave="trackleave(11)"></div>
+                <div class="mover zoom" id="box11" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(11)" onmouseleave="trackleave(11)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxL" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box12" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(12)" onmouseleave="trackleave(12)"></div>
+                <div class="mover zoom" id="box12" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(12)" onmouseleave="trackleave(12)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="column">
             <div id="boxM" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box13" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(13)" onmouseleave="trackleave(13)"></div>
+                <div class="mover zoom" id="box13" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(13)" onmouseleave="trackleave(13)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxN" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box14" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(14)" onmouseleave="trackleave(14)"></div>
+                <div class="mover zoom" id="box14" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(14)" onmouseleave="trackleave(14)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxO" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box15" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(15)" onmouseleave="trackleave(15)"></div>
+                <div class="mover zoom" id="box15" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(15)" onmouseleave="trackleave(15)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxP" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box16" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(16)" onmouseleave="trackleave(16)"></div>
+                <div class="mover zoom" id="box16" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(16)" onmouseleave="trackleave(16)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxQ" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box17" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(17)" onmouseleave="trackleave(17)"></div>
+                <div class="mover zoom" id="box17" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(17)" onmouseleave="trackleave(17)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="boxR" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box18" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(18)" onmouseleave="trackleave(18)"></div>
+                <div class="mover zoom" id="box18" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(18)" onmouseleave="trackleave(18)">
+                    <div class="overlay">
+                        <div class = "album-info">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -102,6 +194,12 @@
 <style>
     body {
         background-color: #FF2153;
+    }
+
+    ul{
+        list-style: none;
+        padding:0;
+        margin:0;
     }
 
     .top-button {
@@ -148,6 +246,7 @@
         float: left;
         text-align: center;
     }
+
 
     .zoom {
         transition: transform .2s;
@@ -248,8 +347,45 @@
     #box1 {
       background-size: cover;
       background-position: right;
-      background-image: url("{{ url_for('static',filename='1.jpg') }}")
+      background-image: url("{{ url_for('static',filename='1.jpg') }}");
     }
+
+    .overlay{
+        width: 13vw !important;
+        height:13vw !important;
+        float: left;
+        text-align: center;  
+        overflow: hidden;
+
+    }
+
+    .album-info{
+        text-align: center;
+        color:white;
+        opacity:0;
+    }
+
+    .album-info ul{
+        display: flex;
+        flex-direction:column;
+        justify-content: center;
+    }
+
+    .zoom:hover .overlay{
+        background-color:rgba(196,196,196,0.7);
+    }
+
+    .zoom:hover .album-info{
+        color:rgb(255,255,255);
+        opacity:1;
+    } 
+
+    .song{
+        font-family: 'Montserrat', sans-serif;
+        font-weight:bolder;
+    }
+
+
 
     #box2 {
       background-size: cover;
