@@ -14,8 +14,8 @@ import pyrebase
 import random
 import importlib
 import sys
+import logging
 
-#Global Declarations
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 user = None #This becomes the user after signing in
@@ -24,16 +24,22 @@ clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
 redirectURL = "http://127.0.0.1:5000/callback/q"
 #redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+#change redirect URL to proper URL
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 refresh_token = ""
 refreshTime = 0
 token = 0
+logging.basicConfig(level=logging.DEBUG)
+
+
+#need to change this
 app.secret_key = clientSecret
-#cache-buster config
+
 config = { 'extensions': ['.jpg'], 'hash_size': 5 }
 cache_buster = CacheBuster(config=config)
 cache_buster.init_app(app)
+
 config = {
     "apiKey": None,
     "authDomain": "wallify-bea20.firebaseapp.com",
@@ -43,13 +49,13 @@ config = {
     "messagingSenderId": "974113509801"
 }
 fb = pyrebase.initialize_app(config)
+#begin
 authentication = fb.auth()
 database = fb.database()
 database_key = None
 
 @app.after_request
 def add_header(response):
-    #attach no_cache headers
     response.cache_control.public = True
     response.no_cache = True
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -65,7 +71,6 @@ def add_header(response):
 
 @app.route("/", methods = ["POST", "GET"])
 def index():
-    #landing page for users
     if request.method ==  "POST":
         if request.form["sign"] == 'Get Started!':
             return redirect(url_for('authorize'))
@@ -73,7 +78,6 @@ def index():
 
 @app.route("/authorize")
 def authorize():
-    #redirect to spotify authorization
     global refreshTime
     refreshTime = 0
 
@@ -89,11 +93,9 @@ def authorize():
     return redirect(auth_url)
 
 def spotify(spotifyAPI):
-    #authorization succeeded -> download tracks
     global refreshTime
     global refresh_token
 
-    #organize payload to push to API
     if refreshTime > 0:
         code_payload = {
             "grant_type": "refresh_token",
@@ -101,17 +103,17 @@ def spotify(spotifyAPI):
             "client_id": clientId,
             "client_secret": clientSecret,
         }
-
     dateTime = random.randint(1,100000)
 
     try:
 
         authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(session["token"])}
-        top_tracks = requests.get(spotifyAPI, headers = authorization_header) #request made and received
+        top_tracks = requests.get(spotifyAPI, headers = authorization_header)
         tracks_data = json.loads(top_tracks.text)
 
         links = []
         filteredlinks = []
+        trackinfo = {}
 
         try:
             for x in range(0,50):
@@ -119,13 +121,6 @@ def spotify(spotifyAPI):
                             if not tracks_data["items"][x]["album"]["images"]:
                                 continue
                             else:
-<<<<<<< HEAD
-                                links.append(tracks_data["items"][x]["album"]["images"][0]["url"]) #get relevant image links
-
-            for i in links:
-                    if i not in filteredlinks:
-                            filteredlinks.append(i)
-=======
                                 albumurl = tracks_data["items"][x]["album"]["images"][0]["url"]
                                 if albumurl not in links:
                                     links.append(albumurl)
@@ -138,7 +133,6 @@ def spotify(spotifyAPI):
                                     trackinfolist.append(trackname)
                                     trackinfolist.append(albumname)
                                     trackinfo[urlid] = trackinfolist
->>>>>>> 26a284ed7fedd4be4628caeedb1fbaf63ff8047e
 
             final_links = []
 
@@ -146,9 +140,9 @@ def spotify(spotifyAPI):
 
             try:
                 for x in range(0,18):
-                    link = filteredlinks[x]
+                    link = links[x]
                     final_links.append(link)
-                    urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg") #download images
+                    urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
             except Exception as e:
                 print (e)
 
@@ -159,32 +153,31 @@ def spotify(spotifyAPI):
                     database.child(database_key).child("mid term").set(final_links, user["idToken"])
                 elif "short_term" in spotifyAPI:
                     database.child(database_key).child("mid term").set(final_links, user["idToken"])
-
         except Exception as e:
             print (e)
 
     except Exception as e:
         print (e)
 
+    return trackinfo
+    #return redirect(url_for('wallify'))
+
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
-    #perform redirects based on the option that the user picks
     if request.method == "POST":
         if request.form["option"] == "Recent Bops":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
-            return redirect(url_for('short'))
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+            return redirect(url_for('short',data=trackinfo))
         elif request.form["option"] == "Semester Jams":
-            #app.logger.info(:)
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
-            return redirect(url_for('medium'))
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+            return redirect(url_for('medium',data=trackinfo))
         elif request.form["option"] == "Run It Back Turbo":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
-            return redirect(url_for('long'))
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+            return redirect(url_for('long',data=trackinfo))
     return render_template("intermediate.html")
 
 @app.route("/callback/q")
 def callback():
-    #upon successful authorization, redirect for intermediate on callback
     global refreshTime
     global refresh_token
     session.clear()
@@ -210,41 +203,35 @@ def callback():
         refreshTime = refreshTime + 1
 
     return redirect(url_for('intermediate'))
+    #return render_template("intermediate.html")
 
 @app.route("/final.jpg")
 def returnImage():
-    #download wallpaper that has been created
     time.sleep(2)
     global token
     name = "final.jpg"
     return send_file('./static/' + name, 'final.jpg')
 
-@app.route("/short", methods=["POST", "GET"])
-def short():
-    #POST if redirected from medium.html
+@app.route("/short/<data>", methods=["POST", "GET"])
+def short(data):
     if request.method == "POST":
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
-    #GET if from intermediate
-    return render_template('short.html')
+    return render_template('short.html',trackdata=data)
 
-@app.route("/medium", methods=["POST", "GET"])
-def medium():
-    #POST if redirected from short.html or long.html
+@app.route("/medium/<data>", methods=["POST", "GET"])
+def medium(data):
     if request.method == "POST":
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
-    #GET if from intermediate
-    return render_template('medium.html')
+    return render_template('medium.html',trackdata=data)
 
-@app.route("/long", methods=["POST", "GET"])
-def long():
-    #POST if redirected from long.html
+@app.route("/long/<data>", methods=["POST", "GET"])
+def long(data):
     if request.method == "POST":
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
-    #GET if from intermediate
-    return render_template('long.html')
+    return render_template('long.html',trackdata=data)
 
 @app.route("/wallify")
 def wallify():
@@ -252,10 +239,10 @@ def wallify():
 
 @app.route("/receive",methods=["POST"])
 def get_data():
-    #javascript makes an AJAX POST request to pass array here; assemble wallpaper based on sequence of integers in array
     if request.method == "POST":
         ints = request.get_json()
         data = ints.get("ints")
+
         global token
         token = random.randint(1,100)
 
@@ -353,6 +340,7 @@ def get_data():
         (widthres4, heightres4) = imageres4.size
         (widthres5, heightres5) = imageres5.size
         (widthres6, heightres6) = imageres6.size
+
 
         result_width = widthres1 + widthres2 + widthres3 + widthres4 + widthres5 + widthres6
         result_heigth = heightres1
