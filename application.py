@@ -15,6 +15,7 @@ import random
 import importlib
 import sys
 import logging
+import re
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -124,10 +125,13 @@ def spotify(spotifyAPI):
                                 albumurl = tracks_data["items"][x]["album"]["images"][0]["url"]
                                 if albumurl not in links:
                                     links.append(albumurl)
-                                    urlid = trackname = tracks_data["items"][x]["id"]
-                                    artistname = tracks_data["items"][x]["artists"][0]["name"]
-                                    trackname = tracks_data["items"][x]["name"]
-                                    albumname = tracks_data["items"][x]["album"]["name"]
+                                    urlid = tracks_data["items"][x]["id"]
+                                    aname = tracks_data["items"][x]["artists"][0]["name"]
+                                    artistname = re.sub(r'[^A-Za-z0-9\s$-_.+!*(),\']', '', aname)
+                                    tname = tracks_data["items"][x]["name"]
+                                    trackname = re.sub(r'[^A-Za-z0-9\s$-_.+!*(),\']', '', tname)
+                                    alname = tracks_data["items"][x]["album"]["name"]
+                                    albumname = re.sub(r'[^A-Za-z0-9\s$-_.+!*(),\']', '', alname)
                                     trackinfolist = []
                                     trackinfolist.append(artistname)
                                     trackinfolist.append(trackname)
