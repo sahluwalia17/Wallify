@@ -24,18 +24,24 @@ function allowDrop(ev) {
 }
 
 function drag(dragEvent) {
+  console.log("DRAG: ");
+  console.log(dragEvent);
+
   dragEvent.dataTransfer.setData("Id",    dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
   dragId = dragEvent.target.id;
+  //swap box3 & box6
+  //dragId = box3
+  console.log(dragId);
 }
 
 function trackhover(x) {
-  console.log(tracknames[x-1] + " by " + artistnames[x-1] + " in " + albumnames[x-1]);
+  // console.log(tracknames[x-1] + " by " + artistnames[x-1] + " in " + albumnames[x-1]);
 
   var htmlStr = '<ul>';
   htmlStr += '<li class="song">' + tracknames[x-1] + '</li>';
   htmlStr += '<li>' + artistnames[x-1] + '</li>';
   htmlStr += '</ul>';
-  console.log(htmlStr);
+  // console.log(htmlStr);
   var x = document.getElementsByClassName("album-info");
   for(var i = 0; i<x.length; i++){
     x[i].innerHTML = htmlStr;
@@ -44,7 +50,7 @@ function trackhover(x) {
 }
 
 function trackleave(x) {
-  console.log(tracknames[x-1] + " by " + artistnames[x-1]);
+  // console.log(tracknames[x-1] + " by " + artistnames[x-1]);
   var box = "box" + String(x);
   var element = document.getElementById(box);
   element.setAttribute("style","filter: contrast(100%);");
@@ -80,14 +86,56 @@ function download() {
 
 function drop(dropEvent) {
   var dropData = dropEvent.dataTransfer.getData("Id");
+  console.log("DROP data: " + dropData);
+  console.log(dropEvent);
   dropItems = dropData.split("|");
   var prevElem = document.getElementById(dropItems[1]);
   var swap1 = parseInt(dropEvent.target.id.substring(3));
   var swap2 = parseInt(dragId.substring(3));
-  var temp = swap1;
-  ints[ints.indexOf(swap1)] = swap2;
-  ints[ints.indexOf(swap2)] = temp;
+  var in1 = ints.indexOf(swap1);
+  var in2 = ints.indexOf(swap2);
+
+  var tempimg = swap1;
+  var temptrack = tracknames[in1];
+  var tempart = artistnames[in1];
+  var tempalb = albumnames[in1];
+
+  ints[in1] = swap2;
+  ints[in2] = tempimg;
+  tracknames[in1] = tracknames[in2];
+  tracknames[in2] = temptrack;
+  artistnames[in1] = artistnames[in2];
+  artistnames[in2] = tempart;
+  albumnames[in1] = albumnames[in2];
+  albumnames[in2] = tempalb;
+
   prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
   dropEvent.target.id = dropItems[0];
   dropEvent.preventDefault();
+
+  // var dropData = dropEvent.dataTransfer.getData("Id");
+  // dropItems = dropData.split("|");
+  // var prevElem = document.getElementById(dropItems[1]);
+  // var swap1 = parseInt(dropEvent.target.id.substring(3));
+  // var swap2 = parseInt(dragId.substring(3));
+  // var temp = swap1;
+  // ints[ints.indexOf(swap1)] = swap2;
+  // ints[ints.indexOf(swap2)] = temp;
+  // prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
+  // dropEvent.target.id = dropItems[0];
+  // dropEvent.preventDefault();
+
 }
+
+// function drop(ev) {
+//   console.log("DROP");
+//   ev.preventDefault();
+//   var src = document.getElementById(ev.dataTransfer.getData("src"));
+//   var srcParent = src.parentNode;
+//   var tgt = ev.currentTarget.firstElementChild;
+
+//   ev.currentTarget.replaceChild(src, tgt);
+//   srcParent.appendChild(tgt);
+
+//   console.log(tracknames);
+// }
