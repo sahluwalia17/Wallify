@@ -24,36 +24,30 @@ function allowDrop(ev) {
 }
 
 function drag(dragEvent) {
-  console.log("DRAG: ");
-  console.log(dragEvent);
-
   dragEvent.dataTransfer.setData("Id",    dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
   dragId = dragEvent.target.id;
-  //swap box3 & box6
-  //dragId = box3
-  console.log(dragId);
 }
 
 function trackhover(x) {
-  // console.log(tracknames[x-1] + " by " + artistnames[x-1] + " in " + albumnames[x-1]);
+  var static = document.getElementsByClassName("static");
+  static[0].style.display = "none";
 
-  var htmlStr = '<ul>';
-  htmlStr += '<li class="song">' + tracknames[x-1] + '</li>';
-  htmlStr += '<li>' + artistnames[x-1] + '</li>';
-  htmlStr += '</ul>';
-  // console.log(htmlStr);
-  var x = document.getElementsByClassName("album-info");
-  for(var i = 0; i<x.length; i++){
-    x[i].innerHTML = htmlStr;
-  }
+  var songStr = tracknames[x-1] + " by " + artistnames[x-1] + " in " + albumnames[x-1];
 
+  var dynamic = document.getElementsByClassName("dynamic");
+  dynamic[0].innerHTML = songStr;
+  dynamic[0].style.display = "";
 }
 
 function trackleave(x) {
-  // console.log(tracknames[x-1] + " by " + artistnames[x-1]);
-  var box = "box" + String(x);
-  var element = document.getElementById(box);
-  element.setAttribute("style","filter: contrast(100%);");
+  var static = document.getElementsByClassName("static");
+  static[0].style.display="";
+
+  var dynamic = document.getElementsByClassName("dynamic");
+  dynamic[0].innerHTML = "";
+  dynamic[0].style.display = "none";
+
+
 }
 
 function download() {
@@ -86,8 +80,6 @@ function download() {
 
 function drop(dropEvent) {
   var dropData = dropEvent.dataTransfer.getData("Id");
-  console.log("DROP data: " + dropData);
-  console.log(dropEvent);
   dropItems = dropData.split("|");
   var prevElem = document.getElementById(dropItems[1]);
   var swap1 = parseInt(dropEvent.target.id.substring(3));
@@ -113,29 +105,4 @@ function drop(dropEvent) {
   dropEvent.target.id = dropItems[0];
   dropEvent.preventDefault();
 
-  // var dropData = dropEvent.dataTransfer.getData("Id");
-  // dropItems = dropData.split("|");
-  // var prevElem = document.getElementById(dropItems[1]);
-  // var swap1 = parseInt(dropEvent.target.id.substring(3));
-  // var swap2 = parseInt(dragId.substring(3));
-  // var temp = swap1;
-  // ints[ints.indexOf(swap1)] = swap2;
-  // ints[ints.indexOf(swap2)] = temp;
-  // prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
-  // dropEvent.target.id = dropItems[0];
-  // dropEvent.preventDefault();
-
 }
-
-// function drop(ev) {
-//   console.log("DROP");
-//   ev.preventDefault();
-//   var src = document.getElementById(ev.dataTransfer.getData("src"));
-//   var srcParent = src.parentNode;
-//   var tgt = ev.currentTarget.firstElementChild;
-
-//   ev.currentTarget.replaceChild(src, tgt);
-//   srcParent.appendChild(tgt);
-
-//   console.log(tracknames);
-// }
