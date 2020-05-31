@@ -102,8 +102,8 @@
         </div>
     </div>
     <div class="trackname">
-        <p class = "static">Recent Bops</p>
-        <p class = "dynamic"></p>
+        <p class = "static">Recent Bops.</p>
+        <p class = "dynamic" style="display: none;"></p>
     </div>
     <div class="bottom-navbar">
         <div class="container">
@@ -122,7 +122,7 @@
 </body>
 <style>
     body {
-        background-color: #FF2153;
+        background-color: #333;
         margin:0;
         /* position: relative; */
         /* min-height: 100vh; */
@@ -154,11 +154,11 @@
     }
 
     .medium-term-button:hover{
-        color:#10E7E2;
+        color:#43D99D;
     }
 
     h3 {
-        font-family: 'Julius Sans One', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-size: 10px;
     }
 
@@ -187,6 +187,7 @@
         outline: none;
         padding-right: 10px;
         font-size: 20px;
+        color:white;
 
         /* color:black;
         text-decoration: none; */
@@ -197,7 +198,7 @@
         height: 35px;
         background: #FFFFFF;
         border-radius: 90px;
-        font-family: 'Julius Sans One', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         color: black;
         border: none;
         cursor: pointer;
@@ -207,7 +208,7 @@
     }
 
     .download:hover{
-        color:#10E7E2;
+        color:#43D99D;
 
     }
 
@@ -247,15 +248,17 @@
         text-decoration: none;
         border-radius: 70%;
         columns: #000000;
-        color: black;
+        color: white;
         z-index: 99;
         padding-right: 30px;
     }
 
     h2 {
-        font-family: 'Julius Sans One', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-size: 20px;
         padding-right: 15px;
+        color:white;
+        text-transform: uppercase;
     }
 
     .images .box:hover{
@@ -283,14 +286,15 @@
         font-family: 'Montserrat', sans-serif;
         font-weight: bolder;
         color:white;
-        letter-spacing: 2em;
+        letter-spacing: 1em;
+        word-spacing: 1em;
         text-transform: uppercase;
 
         margin:auto;
         text-align: center;
     }
 
-    .trackname .dynamic{
+    .dynamic{
         font-family: 'Montserrat', sans-serif;
         font-weight: bolder;
         color:white;

@@ -4,6 +4,7 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta http-equiv="Cache-Control" content="max-age=0" />
     <meta http-equiv="Cache-Control" content="no-cache" />
@@ -26,84 +27,115 @@
             </button>
         </div>
     </form>
+
     <div class="wallpaper">
-        <div class="column">
-            <div id="boxA" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box1" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(1)"></div>
+        <div class="images">
+            <div id="boxA" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box1" draggable="true" ondragstart="drag(event)" 
+                    onmouseover="trackhover(1)" onmouseleave="trackleave(1)">
+                </div>
             </div>
-            <div id="boxB" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box2" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(2)"></div>
+            <div id="boxB" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box2" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(2)" onmouseleave="trackleave(2)">
+                </div>
             </div>
-            <div id="boxC" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box3" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(3)"></div>
+            <div id="boxC" class="box"ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box3" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(3)" onmouseleave="trackleave(3)">
+                </div>
             </div>
-            <div id="boxD" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box4" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(4)"></div>
+            <div id="boxD" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box4" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(4)" onmouseleave="trackleave(4)">
+                </div>
             </div>
-            <div id="boxE" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box5" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(5)"></div>
+            <div id="boxE" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box5" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(5)" onmouseleave="trackleave(5)">
+                </div>
             </div>
-            <div id="boxF" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box6" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(6)"></div>
+            <div id="boxF" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box6" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(6)" onmouseleave="trackleave(6)">
+                </div>
             </div>
-        </div>
-        <div class="column">
-            <div id="boxG" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box7" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(7)"></div>
+            <div id="boxG" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box7" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(7)" onmouseleave="trackleave(7)">
+                </div>
             </div>
-            <div id="boxH" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box8" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(8)"></div>
+            <div id="boxH" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box8" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(8)" onmouseleave="trackleave(8)">
+                </div>
             </div>
-            <div id="boxI" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box9" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(9)"></div>
+            <div id="boxI" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box9" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(9)" onmouseleave="trackleave(9)">
+                </div>
             </div>
-            <div id="boxJ" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box10" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(10)"></div>
+            <div id="boxJ" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box10" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(10)" onmouseleave="trackleave(10)">
+                </div>
             </div>
-            <div id="boxK" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box11" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(11)"></div>
+            <div id="boxK" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box11" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(11)" onmouseleave="trackleave(11)">
+                </div>
             </div>
-            <div id="boxL" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box12" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(12)"></div>
+            <div id="boxL" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box12" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(12)" onmouseleave="trackleave(12)">
+                </div>
             </div>
-        </div>
-        <div class="column">
-            <div id="boxM" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box13" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(13)"></div>
+            <div id="boxM" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box13" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(13)" onmouseleave="trackleave(13)">
+                </div>
             </div>
-            <div id="boxN" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box14" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(14)"></div>
+            <div id="boxN" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box14" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(14)" onmouseleave="trackleave(14)">
+                </div>
             </div>
-            <div id="boxO" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box15" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(15)"></div>
+            <div id="boxO" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box15" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(15)" onmouseleave="trackleave(15)">
+                </div>
             </div>
-            <div id="boxP" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box16" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(16)"></div>
+            <div id="boxP" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box16" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(16)" onmouseleave="trackleave(16)">
+                </div>
             </div>
-            <div id="boxQ" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box17" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(17)"></div>
+            <div id="boxQ" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box17" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(17)" onmouseleave="trackleave(17)">
+                </div>
             </div>
-            <div id="boxR" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box18" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(18)"></div>
+            <div id="boxR" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
+                <div class="mover zoom" id="box18" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(18)" onmouseleave="trackleave(18)">
+                </div>
             </div>
         </div>
     </div>
+    <div class="trackname">
+        <p class = "static">Semester Jams.</p>
+        <p class = "dynamic" style="display: none;"></p>
+    </div>
     <div class="bottom-navbar">
-        <div class="leftbar">
-            <form action="/choices" method="GET">
-                <button class="intermediate" name="option" value="back">&#x21B2;</button>
-            </form>
-            <button onclick="download()" class="download">Download</button>
-        </div>
-        <div class="rightbar">
-            <h2>Wallify</h2>
-            <a href="https://github.com/sahluwalia17/Wallify" class="fa fa-github"></a>
+        <div class="container">
+            <div class="leftbar">
+                <form action="/choices" method="GET">
+                    <button class="intermediate" name="option" value="back">&#x21B2;</button>
+                </form>
+                <button onclick="download()" class="download">Download</button>
+            </div>
+            <div class="rightbar">
+                <h2>Wallify</h2>
+                <a href="https://github.com/sahluwalia17/Wallify" class="fa fa-github"></a>
+            </div>
         </div>
     </div>
 </body>
 <style>
     body {
-        background-color: #FFE03F;
+        background-color: #333;
+        margin:0;
+        /* position: relative; */
+        /* min-height: 100vh; */
+    }
+
+    ul{
+        list-style: none;
+        padding:0;
+        margin:0;
     }
 
     .top-button {
@@ -127,38 +159,44 @@
     }
 
     .short-term-button:hover, .long-term-button:hover{
-        color:#10E7E2;
+        color:#43D99D;
 
+    }
+
+    .medium-term-button {
+        width: 120px;
+        height: 40px;
+        background: #FFFFFF;
+        border: 1px solid #000000;
+        box-sizing: border-box;
+        border-radius: 12px;
+        cursor: pointer;
+        outline:none;
+    }
+
+    .medium-term-button:hover{
+        color:#43D99D;
     }
 
     h3 {
-        font-family: 'Julius Sans One', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-size: 10px;
     }
 
-    .column {
-        float: left;
-        width: 100%;
-        display: flex;
-        justify-content: center;
+    .images{
+        display: grid;
+        grid-template-columns: repeat(6,1fr);
     }
 
-    .mover {
-        width: 13vw !important;
-        height:13vw !important;
-        float: left;
-        text-align: center;
+    .images .box{
+        position: relative;
     }
 
-    .zoom {
-        transition: transform .2s;
-        margin: 0 auto;
-    }
-
-    .zoom:hover {
-        -ms-transform: scale(1.5);
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
+    .images .box .mover {
+        width: calc(75vw/6);
+        height:calc(75vw/6);
+        /* float: left;
+        text-align: center; */
     }
 
     .intermediate {
@@ -170,6 +208,7 @@
         outline: none;
         padding-right: 10px;
         font-size: 20px;
+        color:white;
 
         /* color:black;
         text-decoration: none; */
@@ -180,36 +219,34 @@
         height: 35px;
         background: #FFFFFF;
         border-radius: 90px;
-        font-family: 'Julius Sans One', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         color: black;
         border: none;
         cursor: pointer;
         margin-left: 10px;
         font-size: 12px;
-        outline:none
+        outline:none;
     }
 
     .download:hover{
-        color:#10E7E2;
+        color:#43D99D;
+
     }
 
     .wallpaper {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 0;
-        right: 0;
+        width:75%;
+        margin:auto;
+        margin-top:20px;
     }
 
     .bottom-navbar {
+        margin-top:20px;
+    }
+
+    .bottom-navbar .container{
         display: flex;
         justify-content: space-between;
         flex-direction: row;
-        position: absolute;
-        top: 98%;
-        transform: translateY(-98%);
-        left: 0;
-        right: 0;
     }
 
     .leftbar {
@@ -232,21 +269,65 @@
         text-decoration: none;
         border-radius: 70%;
         columns: #000000;
-        color: black;
+        color: white;
         z-index: 99;
         padding-right: 30px;
     }
 
     h2 {
-        font-family: 'Julius Sans One', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-size: 20px;
         padding-right: 15px;
+        color:white;
+        text-transform: uppercase;
+    }
+
+    .images .box:hover{
+        -ms-transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+        transition: 0.5s;
+        z-index:9;
+    }
+
+    .trackname{
+        width:65vw;
+        height: 40px;
+
+        margin-left:17.5vw;
+        margin-top:40px;
+        display: flex;
+        align-content: center;
+
+        background: #43D99D;
+        border-radius: 10px;
+    }
+
+    .trackname .static{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bolder;
+        color:white;
+        letter-spacing: 1em;
+        word-spacing: 1em;
+        text-transform: uppercase;
+
+        margin:auto;
+        text-align: center;
+    }
+
+    .dynamic{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bolder;
+        color:white;
+
+        margin:auto;
+        text-align: center;
     }
 
     #box1 {
       background-size: cover;
       background-position: right;
-      background-image: url("{{ url_for('static',filename='1.jpg') }}")
+      background-image: url("{{ url_for('static',filename='1.jpg') }}");
     }
 
     #box2 {
