@@ -17,15 +17,18 @@ import sys
 import logging
 import re
 
+#Global Declarations
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 user = None #This becomes the user after signing in
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
-redirectURL = "http://127.0.0.1:5000/callback/q"
-#redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+
 #change redirect URL to proper URL
+#redirectURL = "http://127.0.0.1:5000/callback/q"
+redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 refresh_token = ""
@@ -35,12 +38,12 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 #need to change this
-app.secret_key = clientSecret
 
+app.secret_key = clientSecret
+#cache-buster config
 config = { 'extensions': ['.jpg'], 'hash_size': 5 }
 cache_buster = CacheBuster(config=config)
 cache_buster.init_app(app)
-
 config = {
     "apiKey": None,
     "authDomain": "wallify-bea20.firebaseapp.com",
@@ -50,13 +53,13 @@ config = {
     "messagingSenderId": "974113509801"
 }
 fb = pyrebase.initialize_app(config)
-#begin
 authentication = fb.auth()
 database = fb.database()
 database_key = None
 
 @app.after_request
 def add_header(response):
+    #attach no_cache headers
     response.cache_control.public = True
     response.no_cache = True
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -72,6 +75,7 @@ def add_header(response):
 
 @app.route("/", methods = ["POST", "GET"])
 def index():
+    #landing page for users
     if request.method ==  "POST":
         if request.form["sign"] == 'Get Started!':
             return redirect(url_for('authorize'))
@@ -79,6 +83,7 @@ def index():
 
 @app.route("/authorize")
 def authorize():
+    #redirect to spotify authorization
     global refreshTime
     refreshTime = 0
 
@@ -94,9 +99,11 @@ def authorize():
     return redirect(auth_url)
 
 def spotify(spotifyAPI):
+    #authorization succeeded -> download tracks
     global refreshTime
     global refresh_token
 
+    #organize payload to push to API
     if refreshTime > 0:
         code_payload = {
             "grant_type": "refresh_token",
@@ -104,12 +111,13 @@ def spotify(spotifyAPI):
             "client_id": clientId,
             "client_secret": clientSecret,
         }
+
     dateTime = random.randint(1,100000)
 
     try:
 
         authorization_header = {"Accept":"application/json", "Authorization":"Bearer {}".format(session["token"])}
-        top_tracks = requests.get(spotifyAPI, headers = authorization_header)
+        top_tracks = requests.get(spotifyAPI, headers = authorization_header) #request made and received
         tracks_data = json.loads(top_tracks.text)
 
         links = []
@@ -146,7 +154,7 @@ def spotify(spotifyAPI):
                 for x in range(0,18):
                     link = links[x]
                     final_links.append(link)
-                    urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg")
+                    urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg") #download images
             except Exception as e:
                 print (e)
 
@@ -157,6 +165,7 @@ def spotify(spotifyAPI):
                     database.child(database_key).child("mid term").set(final_links, user["idToken"])
                 elif "short_term" in spotifyAPI:
                     database.child(database_key).child("mid term").set(final_links, user["idToken"])
+
         except Exception as e:
             print (e)
 
@@ -168,6 +177,7 @@ def spotify(spotifyAPI):
 
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
+    #perform redirects based on the option that the user picks
     if request.method == "POST":
         if request.form["option"] == "Recent Bops":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
@@ -178,10 +188,12 @@ def intermediate():
         elif request.form["option"] == "Run It Back Turbo":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
             return redirect(url_for('long',data=trackinfo))
+
     return render_template("intermediate.html")
 
 @app.route("/callback/q")
 def callback():
+    #upon successful authorization, redirect for intermediate on callback
     global refreshTime
     global refresh_token
     session.clear()
@@ -207,10 +219,10 @@ def callback():
         refreshTime = refreshTime + 1
 
     return redirect(url_for('intermediate'))
-    #return render_template("intermediate.html")
 
 @app.route("/final.jpg")
 def returnImage():
+    #download wallpaper that has been created
     time.sleep(2)
     global token
     name = "final.jpg"
@@ -237,16 +249,17 @@ def long(data):
             return redirect(url_for('intermediate'))
     return render_template('long.html',trackdata=data)
 
+
 @app.route("/wallify")
 def wallify():
     return render_template('wallify.html')
 
 @app.route("/receive",methods=["POST"])
 def get_data():
+    #javascript makes an AJAX POST request to pass array here; assemble wallpaper based on sequence of integers in array
     if request.method == "POST":
         ints = request.get_json()
         data = ints.get("ints")
-
         global token
         token = random.randint(1,100)
 
@@ -344,7 +357,6 @@ def get_data():
         (widthres4, heightres4) = imageres4.size
         (widthres5, heightres5) = imageres5.size
         (widthres6, heightres6) = imageres6.size
-
 
         result_width = widthres1 + widthres2 + widthres3 + widthres4 + widthres5 + widthres6
         result_heigth = heightres1
