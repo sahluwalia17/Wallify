@@ -64,7 +64,7 @@ function download() {
               {
                   token = response.toString();
                   var a = document.createElement('a');
-                  a.href = "./final.jpg";
+                  a.href = "../final.jpg";
                   a.download = "final.jpg";
                   document.body.appendChild(a);
                   a.click();
