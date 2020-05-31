@@ -19,12 +19,15 @@ function populate(trackdata) {
     //key is the track id; for exact url append https://open.spotify.com/track/{trackid}
 }
 
+
 function allowDrop(ev) {
   ev.preventDefault();
 }
 
 function drag(dragEvent) {
-  dragEvent.dataTransfer.setData("Id",    dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
+  console.log("drag: ");
+  console.log(dragEvent);
+  dragEvent.dataTransfer.setData("Id", dragEvent.target.id+"|"+dragEvent.target.parentNode.id);
   dragId = dragEvent.target.id;
 }
 
@@ -100,6 +103,7 @@ function drop(dropEvent) {
   artistnames[in2] = tempart;
   albumnames[in1] = albumnames[in2];
   albumnames[in2] = tempalb;
+
 
   prevElem.getElementsByTagName("div")[0].id = dropEvent.target.id;
   dropEvent.target.id = dropItems[0];
