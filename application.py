@@ -14,6 +14,8 @@ import pyrebase
 import random
 import importlib
 import sys
+import logging
+import re
 
 #Global Declarations
 app = Flask(__name__)
@@ -22,13 +24,21 @@ user = None #This becomes the user after signing in
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
-#redirectURL = "http://127.0.0.1:5000/callback/q"
+
+#change redirect URL to proper URL
+# redirectURL = "http://127.0.0.1:5000/callback/q"
 redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
 refresh_token = ""
 refreshTime = 0
 token = 0
+logging.basicConfig(level=logging.DEBUG)
+
+
+#need to change this
+
 app.secret_key = clientSecret
 #cache-buster config
 config = { 'extensions': ['.jpg'], 'hash_size': 5 }
@@ -112,6 +122,7 @@ def spotify(spotifyAPI):
 
         links = []
         filteredlinks = []
+        trackinfo = {}
 
         try:
             for x in range(0,50):
@@ -119,17 +130,29 @@ def spotify(spotifyAPI):
                             if not tracks_data["items"][x]["album"]["images"]:
                                 continue
                             else:
-                                links.append(tracks_data["items"][x]["album"]["images"][0]["url"]) #get relevant image links
-
-            for i in links:
-                    if i not in filteredlinks:
-                            filteredlinks.append(i)
+                                albumurl = tracks_data["items"][x]["album"]["images"][0]["url"]
+                                if albumurl not in links:
+                                    links.append(albumurl)
+                                    urlid = tracks_data["items"][x]["id"]
+                                    aname = tracks_data["items"][x]["artists"][0]["name"]
+                                    artistname = re.sub(r'[^A-Za-z0-9\s$-_.+!*(),\']', '', aname)
+                                    tname = tracks_data["items"][x]["name"]
+                                    trackname = re.sub(r'[^A-Za-z0-9\s$-_.+!*(),\']', '', tname)
+                                    alname = tracks_data["items"][x]["album"]["name"]
+                                    albumname = re.sub(r'[^A-Za-z0-9\s$-_.+!*(),\']', '', alname)
+                                    trackinfolist = []
+                                    trackinfolist.append(artistname)
+                                    trackinfolist.append(trackname)
+                                    trackinfolist.append(albumname)
+                                    trackinfo[urlid] = trackinfolist
 
             final_links = []
 
+            app.logger.info(trackinfo)
+
             try:
                 for x in range(0,18):
-                    link = filteredlinks[x]
+                    link = links[x]
                     final_links.append(link)
                     urllib.request.urlretrieve(link, "./static/" + str(x+1) + ".jpg") #download images
             except Exception as e:
@@ -149,19 +172,23 @@ def spotify(spotifyAPI):
     except Exception as e:
         print (e)
 
+    return trackinfo
+    #return redirect(url_for('wallify'))
+
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
     #perform redirects based on the option that the user picks
     if request.method == "POST":
         if request.form["option"] == "Recent Bops":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
-            return redirect(url_for('short'))
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+            return redirect(url_for('short',data=trackinfo))
         elif request.form["option"] == "Semester Jams":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
-            return redirect(url_for('medium'))
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+            return redirect(url_for('medium',data=trackinfo))
         elif request.form["option"] == "Run It Back Turbo":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
-            return redirect(url_for('long'))
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+            return redirect(url_for('long',data=trackinfo))
+
     return render_template("intermediate.html")
 
 @app.route("/callback/q")
@@ -201,44 +228,27 @@ def returnImage():
     name = "final.jpg"
     return send_file('./static/' + name, 'final.jpg')
 
-@app.route("/short", methods=["POST", "GET"])
-def short():
-    #POST if redirected from medium.html
+@app.route("/short/<data>", methods=["POST", "GET"])
+def short(data):
     if request.method == "POST":
-        if request.form["option"] == "Medium Term":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
-            return redirect(url_for('medium'))
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
-    #GET if from intermediate
-    return render_template('short.html')
+    return render_template('short.html',trackdata=data)
 
-@app.route("/medium", methods=["POST", "GET"])
-def medium():
-    #POST if redirected from short.html or long.html
+@app.route("/medium/<data>", methods=["POST", "GET"])
+def medium(data):
     if request.method == "POST":
-        if request.form["option"] == "Short Term":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
-            return redirect(url_for('short'))
-        if request.form["option"] == "Long Term":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
-            return redirect(url_for('long'))
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
-    #GET if from intermediate
-    return render_template('medium.html')
+    return render_template('medium.html',trackdata=data)
 
-@app.route("/long", methods=["POST", "GET"])
-def long():
-    #POST if redirected from long.html
+@app.route("/long/<data>", methods=["POST", "GET"])
+def long(data):
     if request.method == "POST":
-        if request.form["option"] == "Medium Term":
-            spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
-            return redirect(url_for('medium'))
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
-    #GET if from intermediate
-    return render_template('long.html')
+    return render_template('long.html',trackdata=data)
+
 
 @app.route("/wallify")
 def wallify():
