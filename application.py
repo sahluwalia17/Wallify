@@ -24,10 +24,9 @@ user = None #This becomes the user after signing in
 clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
-
 #change redirect URL to proper URL
-# redirectURL = "http://127.0.0.1:5000/callback/q"
-redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+redirectURL = "http://127.0.0.1:5000/callback/q"
+#redirectURL = "https://wallifyy.herokuapp.com/callback/q"
 
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
@@ -124,6 +123,8 @@ def spotify(spotifyAPI):
         filteredlinks = []
         trackinfo = {}
 
+        counter = 0
+
         try:
             for x in range(0,50):
                     for y in range(0,1):
@@ -131,7 +132,7 @@ def spotify(spotifyAPI):
                                 continue
                             else:
                                 albumurl = tracks_data["items"][x]["album"]["images"][0]["url"]
-                                if albumurl not in links:
+                                if albumurl not in links and counter < 18:
                                     links.append(albumurl)
                                     urlid = tracks_data["items"][x]["id"]
                                     aname = tracks_data["items"][x]["artists"][0]["name"]
@@ -145,10 +146,14 @@ def spotify(spotifyAPI):
                                     trackinfolist.append(trackname)
                                     trackinfolist.append(albumname)
                                     trackinfo[urlid] = trackinfolist
+                                    counter = counter + 1
+                                if counter == 18:
+                                    break
 
             final_links = []
 
             app.logger.info(trackinfo)
+            app.logger.info("size of trackinfo:" + str(len(trackinfo)))
 
             try:
                 for x in range(0,18):
