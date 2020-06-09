@@ -55,13 +55,13 @@
 
         (width,height) = imageres.size
 
-        result_width = width * 5
+        result_width = width * 3
         result_height = height
         result = Image.new('RGB', (result_width, result_height))
 
         result.paste(im = imageres, box=(0, 0))
-        result.paste(im = imageres2, box=(widthres1,0))
-        result.paste(im = imageres3, box=(widthres1 * 2,0))
+        result.paste(im = imageres2, box=(width,0))
+        result.paste(im = imageres3, box=(width * 2,0))
 
         name = "final.jpg"
         result.save(name)
