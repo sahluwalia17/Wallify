@@ -77,6 +77,7 @@ def add_header(response):
 @app.route("/", methods = ["POST", "GET"])
 def index():
     global onMobile
+    onMobile = False
     #landing page for users
     for key in request.form:
         if key.startswith('true'):
