@@ -35,6 +35,8 @@ refreshTime = 0
 token = 0
 logging.basicConfig(level=logging.DEBUG)
 
+onMobile = False
+
 
 #need to change this
 
@@ -74,7 +76,13 @@ def add_header(response):
 
 @app.route("/", methods = ["POST", "GET"])
 def index():
+    global onMobile
     #landing page for users
+    for key in request.form:
+        if key.startswith('true'):
+            onMobile = True
+    print(onMobile)
+
     if request.method ==  "POST":
         if request.form["sign"] == 'Get Started!':
             return redirect(url_for('authorize'))
