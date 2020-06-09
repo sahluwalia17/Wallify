@@ -110,3 +110,10 @@ function drop(dropEvent) {
   dropEvent.preventDefault();
 
 }
+
+function sizing() {
+  console.log(window.outerWidth);
+    if (window.outerWidth <= 600) {
+      document.getElementById("sizing").name = "true";
+    } 
+}
