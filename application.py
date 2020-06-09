@@ -191,6 +191,7 @@ def spotify(spotifyAPI):
 
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
+    global onMobile
     #perform redirects based on the option that the user picks
     if request.method == "POST" and onMobile == False:
         if request.form["option"] == "Recent Bops":
