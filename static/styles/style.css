@@ -213,9 +213,8 @@ outline:none;
 .navbar .menu {
   display:grid;
 }
-
 }
-
+/* to hamburger nav*/
 @media screen and (max-width: 880px) {
 .navbarresponsive {
   position: relative;
@@ -260,5 +259,4 @@ h2{
 h3{
   font-size:10px;
 }
-
 }
