@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -11,63 +13,66 @@
     <script type="text/javascript" src="../static/function.js?n=1"></script>
   </head>
   <body>
-    <div id="backgroundImage">
-    <!-- do not modify r,i,w,x
-    only modify what it looks like -->
-    <div class="sign-in">
+
+    <script>
+      function responsiveNav(){
+        var x = document.getElementById("navbar");
+        if(x.className == "navbar"){
+          x.className += "responsive";
+          console.log(x.cl)
+        } else {
+          x.className = "navbar";
+        }
+      }
+    </script>
+
+    <div class="header">
+      <div class="container">
+        <div class="name">
+          <a href="/"><h1>W</h1></a>
+        </div>
+  
+        <div class="navbar" id="navbar">
+            <ul>
+              <li><a href="">About</a></li>
+              <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
+  
+              <li><a href="#" class="menu" onclick="responsiveNav()">
+                  <i class="fas fa-bars bars"></i>
+                  <i class="fas fa-times close"></i>
+              </a></li>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="rectangle">
+        <form action="/" method="POST">
+          <h2>Wallify</h2>
+          <h3>where personality and music intersect</h3>
+          <input id = "sizing" name="false">
+          <script>sizing();</script>
+          <input type="submit" name = "sign" class = "guest" value="Get Started!">
+        </form>
+      </div>
+    </div>
+    <!-- <img src="../static/wallpaper.png"> -->
+
+    <!-- <div class="sign-in">
       <form action="/" method="POST">
-        <img src = "../static/signin2.png" alt = "logo">
         <h1> Get your Wallpaper! </h1>
-         <!-- {% if r %}
-        <div class="alert alert-danger">
-          <h3>{{r}}</h3>
-        </div>
-      {% endif %}
-      {% if i %}
-        <div class="alert alert-danger">
-          <h3>{{i}}</h3>
-        </div>
-      {% endif %}
-      {% if w %}
-        <div class="alert alert-danger">
-          <h3>{{w}}</h3>
-        </div>
-      {% endif %}
-      {% if x %}
-        <div class="alert alert-danger">
-          <h3>{{x}}</h3>
-        </div>
-      {% endif %}
-        <input type="text" name = "email" class ="email" placeholder="Email" >
-        <input type="password" name= "pwd" class= "pswd" placeholder="Password" > -->
-        <!--button type="submit" class="signinbtn">Sign In</button-->
-     <!-- <div class = "side-by-side">
-          <div style="float:left">
-          <input type="submit" name = "sign" value="Sign In">
-          </div>
-          <div style="float:right">
-          <input type="submit" name = "sign" value="Sign Up">
-          </div>
-        </div>
-        <h2><span>OR</span></h2> -->
-        <!-- <input type="submit" name = "sign" class = "guest" value="Guest"> -->
+        <input id = "sizing" name="false">
+        <script>sizing();</script>
         <input type="submit" name = "sign" class = "guest" value="Get Started!">
 
-        <!--
-        <script>
-          $(document).ready(function(){
-            $(".guest").click(function(){
-              $(".email").removeAttr("required");
-              $(".pswd").removeAttr("required");
-            });
-          });
-        </script>-->
-
       </form>
-    </div>
+    </div> -->
   </div>
   <!--a href="/authorize">AUTHORIZE</a-->
   </body>
+<<<<<<< HEAD
   <style>
 
 /*  body{
@@ -214,4 +219,6 @@
 
 
   </style>
+=======
+>>>>>>> most of the index.html refactored + w/ new UI
 </html>
