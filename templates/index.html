@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -11,213 +13,63 @@
     <script type="text/javascript" src="../static/function.js?n=1"></script>
   </head>
   <body>
-    <div id="backgroundImage">
-    <!-- do not modify r,i,w,x
-    only modify what it looks like -->
-    <div class="sign-in">
+
+    <script>
+      function responsiveNav(){
+        var x = document.getElementById("navbar");
+        if(x.className == "navbar"){
+          x.className += "responsive";
+          console.log(x.cl)
+        } else {
+          x.className = "navbar";
+        }
+      }
+    </script>
+
+    <div class="header">
+      <div class="container">
+        <div class="name">
+          <a href="/"><h1>W</h1></a>
+        </div>
+  
+        <div class="navbar" id="navbar">
+            <ul>
+              <li><a href="">About</a></li>
+              <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
+  
+              <li><a href="#" class="menu" onclick="responsiveNav()">
+                  <i class="fas fa-bars bars"></i>
+                  <i class="fas fa-times close"></i>
+              </a></li>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="rectangle">
+        <form action="/" method="POST">
+          <h2>Wallify</h2>
+          <h3>where personality and music intersect</h3>
+          <input id = "sizing" name="false">
+          <script>sizing();</script>
+          <input type="submit" name = "sign" class = "guest" value="Get Started!">
+        </form>
+      </div>
+    </div>
+    <!-- <img src="../static/wallpaper.png"> -->
+
+    <!-- <div class="sign-in">
       <form action="/" method="POST">
-        <img src = "../static/signin2.png" alt = "logo">
         <h1> Get your Wallpaper! </h1>
-         <!-- {% if r %}
-        <div class="alert alert-danger">
-          <h3>{{r}}</h3>
-        </div>
-      {% endif %}
-      {% if i %}
-        <div class="alert alert-danger">
-          <h3>{{i}}</h3>
-        </div>
-      {% endif %}
-      {% if w %}
-        <div class="alert alert-danger">
-          <h3>{{w}}</h3>
-        </div>
-      {% endif %}
-      {% if x %}
-        <div class="alert alert-danger">
-          <h3>{{x}}</h3>
-        </div>
-      {% endif %}
-        <input type="text" name = "email" class ="email" placeholder="Email" >
-        <input type="password" name= "pwd" class= "pswd" placeholder="Password" > -->
-        <!--button type="submit" class="signinbtn">Sign In</button-->
-     <!-- <div class = "side-by-side">
-          <div style="float:left">
-          <input type="submit" name = "sign" value="Sign In">
-          </div>
-          <div style="float:right">
-          <input type="submit" name = "sign" value="Sign Up">
-          </div>
-        </div>
-        <h2><span>OR</span></h2> -->
-        <!-- <input type="submit" name = "sign" class = "guest" value="Guest"> -->
         <input id = "sizing" name="false">
         <script>sizing();</script>
         <input type="submit" name = "sign" class = "guest" value="Get Started!">
 
-        <!--
-        <script>
-          $(document).ready(function(){
-            $(".guest").click(function(){
-              $(".email").removeAttr("required");
-              $(".pswd").removeAttr("required");
-            });
-          });
-        </script>-->
-
       </form>
-    </div>
+    </div> -->
   </div>
   <!--a href="/authorize">AUTHORIZE</a-->
   </body>
-  <style>
-
-/*  body{
-    background-color: #065471;
-    background: url(../static/wallpaper.png);
-    background-size: 100% auto;
-    height: 100%;
-    width: auto;
-    background-size:     cover;
-    background-repeat:   no-repeat;
-    background-image:url(../static/wallpaper.png);
-    background: rgba(255, 255,255, 0.5);
-  }*/
-
-    #sizing {
-      display: none;
-    }
-
-    #backgroundImage:before{
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: -1;
-      background-image: url(../static/wallpaper.png);
-      opacity: 0.6;
-      background-size:     cover;
-      background-repeat:   no-repeat;
-    }
-
-    .sign-in{
-      background: white;
-      position: absolute;
-      top:50%;
-      left:50%;
-      width:400px;
-      padding-bottom: 20px;
-      text-align: center;
-      color:black;
-      transform: translate(-50%,-50%);
-      border-radius: 7%;
-      display: flex;
-      -webkit-box-shadow: 2px 2px 17px 11px rgba(0,0,0,0.4);
-      -moz-box-shadow: 2px 2px 17px 11px rgba(0,0,0,0.4);
-      box-shadow: 2px 2px 17px 11px rgba(0,0,0,0.4);
-    /*  box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, .3);*/
-    }
-    .sign-in h1{
-      font-family: 'Nova Mono', monospace;
-      margin-top: 15px;
-    }
-    .sign-in img{
-      width:30%;
-      text-align: center;
-      margin-top:20px;
-    }
-
-    .sign-in input[type=text]{
-      width: 70%;
-      padding: 12px;
-      margin: 10px;
-      text-align: center;
-      box-sizing: border-box;
-      font-size: 13px;
-      font-family: 'Cormorant Unicase', serif;
-    }
-
-
-    .sign-in input[type=password]{
-      width: 70%;
-      padding: 12px;
-      margin: 10px;
-      text-align: center;
-      box-sizing: border-box;
-      font-size: 13px;
-      font-family: 'Cormorant Unicase', serif;
-    }
-
-
-    .sign-in .side-by-side{
-      display: inline-block;
-      text-align: center;
-      box-sizing: border-box;
-    }
-
-    .sign-in .side-by-side input[type=submit]{
-      width: 120px;
-      font-family: 'Cormorant Unicase', serif;
-      font-size:13px;
-
-    }
-
-    .sign-in input[type=submit]{
-      background-color: #3968CB;
-      color:#fff;
-      width: 70%;
-      padding: 12px;
-      margin:10px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-family: 'Cormorant Unicase', serif;
-      font-size:13px;
-      outline:none;
-    }
-
-    h2 {
-      position:relative;
-      text-align:center;
-      font-size: 12px;
-      font-weight: normal;
-      color: #a6a6a6;
-      font-family: 'Cormorant Unicase', serif;
-    }
-
-    h2 span {
-        display:inline-block;
-        padding:0 10px;
-        background:#fff;
-    }
-
-
-    h2:before {
-        content:"";
-        display:block;
-        position:absolute;
-        z-index:-1;
-        left:20%;
-        right:20%;
-        top:50%;
-        height:1px;
-        background:#ccc;
-    }
-
-    .sign-in h3{
-      color:red;
-      font-size: 12px;
-      font-weight: normal;
-      text-align: center;
-      margin: 10px;
-      font-family: 'Cormorant Unicase', serif;
-    }
-
-    .alert .alert-danger{
-      text-align: center;
-    }
-
-
-  </style>
 </html>
