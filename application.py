@@ -25,8 +25,8 @@ clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
 #change redirect URL to proper URL
-#redirectURL = "http://127.0.0.1:5000/callback/q"
-redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+redirectURL = "http://127.0.0.1:5000/callback/q"
+# redirectURL = "https://wallifyy.herokuapp.com/callback/q"
 
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
@@ -34,8 +34,6 @@ refresh_token = ""
 refreshTime = 0
 token = 0
 logging.basicConfig(level=logging.DEBUG)
-
-onMobile = False
 
 
 #need to change this
@@ -76,14 +74,7 @@ def add_header(response):
 
 @app.route("/", methods = ["POST", "GET"])
 def index():
-    global onMobile
-    onMobile = False
     #landing page for users
-    for key in request.form:
-        if key.startswith('true'):
-            onMobile = True
-    print(onMobile)
-
     if request.method ==  "POST":
         if request.form["sign"] == 'Get Started!':
             return redirect(url_for('authorize'))
@@ -191,7 +182,12 @@ def spotify(spotifyAPI):
 
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
-    global onMobile
+    onMobile = False
+    #landing page for users
+    for key in request.form:
+        if key.startswith('true'):
+            onMobile = True
+    print(onMobile)
     #perform redirects based on the option that the user picks
     if request.method == "POST" and onMobile == False:
         if request.form["option"] == "Recent Bops":
