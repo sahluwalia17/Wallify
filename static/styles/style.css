@@ -17,7 +17,7 @@
     margin:0;
     position: relative;
     min-height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
     /* background-size: cover;
     background-repeat: no-repeat;
     z-index:-1; */
@@ -41,7 +41,8 @@ h1 {
   }
   
   .container{
-    max-width: 1100px;
+    /* max-width: 1100px; */
+    width:80%;
     margin:auto;
     overflow: hidden;
   }
@@ -139,6 +140,7 @@ h1{
   opacity:1;
   text-align: center;
   justify-content: center;
+  overflow:hidden;
 }
 
 /* BODY INFO */
@@ -146,7 +148,8 @@ h1{
 h2{
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-  font-size:40px;
+  font-size:35px;
+  font-size:4.5vw;
   text-transform: uppercase;
   letter-spacing: 1em;
   margin-right: -.3em;
@@ -161,6 +164,7 @@ h3{
   font-weight: normal;
   font-style: italic;
   font-size:20px;
+  font-size:1.75vw;
   margin-top:5px;
   padding:0;
   color:rgba(0,0,0,1);
@@ -177,11 +181,13 @@ h3{
   text-align:center;
   width: 15vw;
   height:40px;
+  height:3.5vw;
   background-color: var(--secondary-color);
   color:var(--fourth-color);
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size:20px;
+  font-size: 1.75vw;
   border:none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
@@ -258,7 +264,7 @@ h3{
 /* MEDIA QUERIES */
 
 /* to hamburger nav*/
-/* @media screen and (max-width:880px){
+@media screen and (max-width:880px){
   .navbar li:not(:last-child){
     display: none;
   }
@@ -270,7 +276,7 @@ h3{
 
   .navbar{
     justify-self: right;
-    grid-column-end: 5;
+    grid-column-end: 8;
   }
 
   .navbar .menu {
@@ -279,11 +285,13 @@ h3{
 
 }
 
+/* opening hamburger nav */
 @media screen and (max-width: 880px) {
   .navbarresponsive {
     position: relative;
-    grid-column-end:5;
+    grid-column-end:8;
     justify-self: flex-end;
+    color:var(--fourth-color);
   }
 
   .navbarresponsive .bars{
@@ -292,6 +300,10 @@ h3{
 
   .navbarresponsive a:hover{
     color: var(--third-color);
+  }
+
+  .navbarresponsive a{
+    color:var(--fourth-color);
   }
 }
 
@@ -302,7 +314,7 @@ h3{
   .footer{
     padding:2px;
   }
-} */
+}
   /* OLD CSS  */
 
 /*  body{
