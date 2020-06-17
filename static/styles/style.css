@@ -192,6 +192,10 @@ background-color: var(--third-color);
 outline:none;
 }
 
+.main input[type=submit]:focus {
+  outline:none;
+}
+
 /* MEDIA QUERIES */
 
 /* to hamburger nav*/
