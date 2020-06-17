@@ -1,0 +1,386 @@
+:root {
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --third-color: #43D99D;
+    --fourth-color: #000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--primary-color);
+    margin: 0;
+    position: relative;
+    min-height: 100vh;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* a:visited{
+    color:var(--third-color);
+  } */
+
+ul {
+    list-style: none;
+}
+
+.container {
+    margin: auto;
+    overflow: hidden;
+}
+
+
+/* HEADER & HEADER SPACING*/
+
+.header {
+    display: flex;
+    background-color: var(--primary-color);
+    z-index: 100000;
+    border-bottom: 1px solid #000000;
+}
+
+h1 {
+    color: var(--third-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 60px;
+    padding: 10px 10px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.header .container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+
+/* name spacing */
+
+.name {
+    justify-self: center;
+}
+
+
+/* navbar spacing */
+
+nav {
+    grid-column-end: 8;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+
+/* NAVBAR */
+
+button {
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+    font-size: unset;
+    box-shadow: none;
+    outline: none;
+}
+
+nav a,
+.link {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--secondary-color);
+    display: inline-block;
+}
+
+nav a:hover {
+    color: var(--third-color);
+}
+
+.link:hover {
+    color: var(--third-color);
+}
+
+ul li {
+    display: inline-block;
+}
+
+ul li:last-child {
+    margin-right: 60px;
+}
+
+ul ul li:last-child {
+    margin-right: 0px;
+}
+
+ul li a,
+.link {
+    text-decoration: none;
+    padding: 30px 15px 10px 15px;
+    display: block;
+    color: var(--secondary-color);
+}
+
+ul ul li a,
+.link {
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+ul ul {
+    position: absolute;
+    min-width: auto;
+    display: none;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+ul ul li {
+    display: block;
+}
+
+ul li:hover ul {
+    display: block;
+}
+
+ul li i {
+    float: right;
+    padding-left: 5px;
+}
+
+nav div {
+    color: var(--secondary-color);
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+
+@media(max-width: 768px) {
+    .header .container {
+        align-items: center;
+    }
+    nav div {
+        display: grid;
+        position: relative;
+        grid-column-end: 8;
+        justify-content: center;
+        color: var(--secondary-color);
+    }
+    nav div .close {
+        display: none;
+    }
+    nav div:hover {
+        color: var(--third-color);
+    }
+    ul {
+        display: none;
+        position: static;
+    }
+    ul li {
+        display: block;
+    }
+    ul li i {
+        padding: 0px;
+    }
+    ul li a,
+    .link {
+        padding: 5px;
+    }
+    ul ul li a,
+    .link {
+        text-transform: none;
+        text-decoration: none;
+        justify-content: center;
+        justify-self: center;
+        padding: 5px 0px 0px 25px;
+        display: block;
+    }
+    ul ul {
+        position: static;
+        box-shadow: none;
+    }
+}
+
+
+/* PAGE HEADERS */
+
+.base .container {
+    width: 80%;
+    margin-top: 30px;
+}
+
+h2 {
+    color: var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 80px;
+    font-size: 5vw;
+    text-align: center;
+}
+
+h3 {
+    color: var(--secondary-color);
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 15px;
+    font-size: 1.25vw;
+    text-align: center;
+}
+
+
+/* BUTTONS TO WALLPAPERS */
+
+.buttons .container {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 50px;
+}
+
+.button {
+    background-color: var(--primary-color);
+    width: 80%;
+    height: 20vw;
+    justify-self: center;
+    border: none;
+    outline: none;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    z-index: 999;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 20vw;
+    justify-self: center;
+}
+
+.overlay:hover {
+    background-color: var(--third-color);
+    transition: 0.25s;
+}
+
+h4 {
+    text-transform: uppercase;
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: 30px;
+    font-size: 1.75vw;
+    color: var(--secondary-color);
+    line-height: 20vw;
+}
+
+.short-term {
+    background-image: url(../clock.svg);
+}
+
+.medium-term {
+    background-image: url(../calendar.svg);
+}
+
+.long-term {
+    background-image: url(../2020.svg);
+}
+
+
+/* FOOTER */
+
+.footer .container {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    width: 100%;
+}
+
+h5 {
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    font-size: 1.5vw;
+}
+
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width:700px) {
+    h2 {
+        font-size: 50px;
+        font-size: 10vw;
+    }
+    h3 {
+        font-size: 10px;
+        font-size: 2.5vw;
+    }
+    .buttons .container {
+        width: 70%;
+        display: grid;
+        grid-template-columns: none;
+        grid-template-rows: repeat(3, 1fr);
+    }
+    .button {
+        padding-top: 10px;
+        width: 50%;
+        height: 30vw;
+    }
+    .overlay {
+        height: 30vw;
+    }
+    .image {
+        background-size: 80%;
+    }
+    h4 {
+        line-height: 30vw;
+        font-size: 17px;
+        font-size: 2.5vw;
+    }
+    .footer .container {
+        padding-top: 10px;
+        bottom: auto;
+    }
+    h5 {
+        font-size: 15px;
+    }
+}
+
+@media(max-width:600px) {
+    h1 {
+        font-size: 40px;
+    }
+    .button {
+        margin-top: 20px;
+        width: 70%;
+        height: 45vw;
+    }
+    .buttons .container {
+        margin-top: 10px;
+    }
+    .overlay {
+        height: 45vw;
+    }
+    h4 {
+        line-height: 45vw;
+        font-size: 15px;
+    }
+    .footer .container {
+        padding-top: 30px;
+        bottom: auto;
+    }
+}
