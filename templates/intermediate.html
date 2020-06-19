@@ -2,6 +2,7 @@
 <html>
 
 <head>
+<<<<<<< HEAD
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/intermediate.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,164 +15,117 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="../static/function.js?n=1"></script>
   
+=======
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/intermediate.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/f74dc3ff01.js" crossorigin="anonymous"></script>
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/function.js?n=1"></script>
+>>>>>>> working on wallpapers, not done
 </head>
 
 <body>
-
-  <script type="text/javascript">
-    // function responsiveNav(){
-    //   var x = document.getElementById("navbar");
-    //   if(x.className == "navbar"){
-    //     x.className += "responsive";
-    //   } else {
-    //     x.className = "navbar";
-    //   }
-    // }
-
-    $("nav div").click(function() {
-      console.log("HEREEE");
-      $("ul").slideToggle();
-      $("ul ul").css("display", "none");
-    });
-  </script>
-
-  <div class="header">
-    <div class="container">
-      <div class="name">
-        <a href="/"><h1>W</h1></a>
-      </div>
-
-      <!-- <div class="navbar" id="navbar"> -->
-          <!-- <ul> -->
-            <!-- <li><a href="">Wallpapers</a></li> -->
-            <!-- <div class="dropdown">
-              <li><a href="">Wallpapers</a></li>
-              <form action="/choices" method="POST">
-                <div class="dropdown-content">
-                    <button class="dropbtn" name="option" value="Recent Bops">
-                        <p>Short Term</p>
-                    </button>
-                    <button class="dropbtn" name="option" value="Semester Jams">
-                      <p>Medium Term</p>
-                  </button>
-                    <button class="dropbtn" name="option" value="Run It Back Turbo">
-                        <p>Long Term</p>
-                    </button>
-                </div>
-            </form>
+    <div class="header">
+        <div class="container">
+            <div class="name">
+                <a href="/">
+                    <h1>W</h1>
+                </a>
             </div>
-            <li><a href="">About</a></li>
-            <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
+            <nav>
+                <div>
+                    <i class="fa fa-bars bars"></i>
+                    <i class="fa fa-times close"></i>
+                </div>
+                <ul>
+                    <li><a href="#">Wallpapers <i class="fa fa-sort-desc"></i></a>
+                        <ul>
+                            <form id="choices" action="/choices" method="POST">
+                                <li>
+                                    <button class="link" name="option" value="Recent Bops">Recent Bops</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Semester Jams">Semester Jams</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Run It Back Turbo">Run It Back Turbo</button>
+                                </li>
+                            </form>
+                        </ul>
+                    </li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
+                </ul>
+            </nav>
 
-            <li><a href="#" class="menu" onclick="responsiveNav()">
-                <i class="fas fa-bars bars"></i>
-                <i class="fas fa-times close"></i>
-            </a></li>
-          </ul>
-      </div> -->
+            <script type="text/javascript">
+                var count = 0;
 
-      <nav>
-        <div>
-          <i class="fa fa-bars bars"></i>
-          <i class="fa fa-times close"></i>
+                $("nav div").click(function() {
+                    count = count + 1;
+                    if (count % 2 != 0) {
+                        $("nav div .bars").css("display", "none");
+                        $("nav div .close").css("display", "grid");
+                    } else {
+                        $("nav div .close").css("display", "none");
+                        $("nav div .bars").css("display", "grid");
+                    }
+                    $("ul").slideToggle();
+                    $("ul ul").css("display", "none");
+                });
 
+                $("ul li").click(function() {
+                    $(this).find('ul').slideToggle();
+                });
+
+                $(window).resize(function() {
+                    if ($(window).width() > 768) {
+                        $("ul").removeAttr('style');
+                    }
+                });
+            </script>
         </div>
-        <ul>
-          <li><a href="#">Wallpapers <i class="fa fa-sort-desc"></i></a>
-            <ul>
-              <form id="choices" action="/choices" method="POST">
-                <!-- <div name="option" value="Recent Bops"> -->
-                  <!-- <li><a href="#">Short Term</a></li> -->
-                  <!-- <input type="button" name="option" id="name" value="hi" onclick="choices.submit();"> -->
-                  <!-- <li input="button" name="option" value="Recent Bops" onclick="choices.submit();">Short Term</li> -->
-                <!-- </div> -->
-                <li>                    
-                  <button class="link" name="option" value="Recent Bops">Recent Bops</button>
-                </li>
-                <li>
-                  <button class="link" name="option" value="Semester Jams">Semester Jams</button>
-                </li>
-                <li>
-                  <button class="link" name="option" value="Run It Back Turbo">Run It Back Turbo</button>
-                </li>
-              </form>
-            </ul>
-        </li>
-          <li><a href="#">About</a></li>
-          <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
-        </ul>
-      </nav>
-
-      <script type="text/javascript">
-        // function responsiveNav(){
-        //   var x = document.getElementById("navbar");
-        //   if(x.className == "navbar"){
-        //     x.className += "responsive";
-        //   } else {
-        //     x.className = "navbar";
-        //   }
-        // }
-        var count = 0;
-    
-        $("nav div").click(function() {
-          count = count +1;
-          if(count%2!=0){
-            $("nav div .bars").css("display","none");
-            $("nav div .close").css("display", "grid");
-          } else {
-            $("nav div .close").css("display","none");
-            $("nav div .bars").css("display", "grid");
-          }
-          $("ul").slideToggle();
-          $("ul ul").css("display", "none");
-        });
-
-        $("ul li").click(function(){
-          // $("ul ul").slideUp();
-          $(this).find('ul').slideToggle();
-        });
-
-        $(window).resize(function(){
-          if($(window).width() > 768) {
-            $("ul").removeAttr('style');
-          }
-        });
-      </script>
-
     </div>
-  </div>
 
-  <div class="base">
-    <div class="container">
-      <h2> Select Term </h2>
-      <h3> Select which time range you would like your wallpaper to reflect! </h3>
+    <div class="base">
+        <div class="container">
+            <h2> Select Term </h2>
+            <h3> Select which time range you would like your wallpaper to reflect! </h3>
+        </div>
     </div>
-  </div>
 
-<form action="/choices" method="POST">
-  <div class="buttons">
-    <div class="container">
-      <button class="button" name="option" value="Recent Bops">
+    <form action="/choices" method="POST">
+        <div class="buttons">
+            <div class="container">
+                <button class="button" name="option" value="Recent Bops">
         <div class="image short-term">
           <div class="overlay">
             <h4>Recent Bops</h4>
           </div>
         </div>
       </button>
-      <button class="button" name="option" value="Semester Jams">
+                <button class="button" name="option" value="Semester Jams">
         <div class="image medium-term">
           <div class="overlay">
             <h4>Semester Jams</h4>
           </div>
         </div>
       </button>
-      <button class="button" ame="option" value="Run It Back Turbo">
+                <button class="button" ame="option" value="Run It Back Turbo">
         <div class="image long-term">
           <div class="overlay">
             <h4>Run It Back Turbo</h4>
           </div>
         </div>
       </button>
+<<<<<<< HEAD
     </div>
 <<<<<<< HEAD
     <input id = "sizing" name="false">
@@ -181,12 +135,17 @@
   </div>
 </form> 
 >>>>>>> changes for intermediate in
+=======
+            </div>
+        </div>
+    </form>
+>>>>>>> working on wallpapers, not done
 
-<footer class="footer icons">
-  <div class = "container">
-    <h5> Wallify </h5>
-  </div>
-</footer> 
+    <footer class="footer icons">
+        <div class="container">
+            <h5> Wallify </h5>
+        </div>
+    </footer>
 
 </body>
 <<<<<<< HEAD
