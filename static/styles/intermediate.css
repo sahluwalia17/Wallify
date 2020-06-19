@@ -101,6 +101,10 @@ nav a,
     display: inline-block;
 }
 
+.link {
+    font-weight: 400;
+}
+
 nav a:hover {
     color: var(--third-color);
 }
