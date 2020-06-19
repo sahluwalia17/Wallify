@@ -4,6 +4,7 @@
 <head>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> changes for intermediate in
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/intermediate.css') }}">
@@ -19,6 +20,8 @@
   <script type="text/javascript" src="../static/function.js?n=1"></script>
   
 =======
+=======
+>>>>>>> working on wallpapers, not done
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/intermediate.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
@@ -31,6 +34,9 @@
     <meta http-equiv="pragma" content="no-cache" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="../static/function.js?n=1"></script>
+<<<<<<< HEAD
+>>>>>>> working on wallpapers, not done
+=======
 >>>>>>> working on wallpapers, not done
 </head>
 
@@ -41,6 +47,7 @@
                 <a href="/">
                     <h1>W</h1>
                 </a>
+<<<<<<< HEAD
             </div>
             <nav>
                 <div>
@@ -151,100 +158,83 @@
                     </button>
                 </div>
             </form>
+=======
+>>>>>>> working on wallpapers, not done
             </div>
-            <li><a href="">About</a></li>
-            <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
+            <nav>
+                <div>
+                    <i class="fa fa-bars bars"></i>
+                    <i class="fa fa-times close"></i>
+                </div>
+                <ul>
+                    <li><a href="#">Wallpapers <i class="fa fa-sort-desc"></i></a>
+                        <ul>
+                            <form id="choices" action="/choices" method="POST">
+                                <li>
+                                    <button class="link" name="option" value="Recent Bops">Recent Bops</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Semester Jams">Semester Jams</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Run It Back Turbo">Run It Back Turbo</button>
+                                </li>
+                            </form>
+                        </ul>
+                    </li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
+                </ul>
+            </nav>
 
-            <li><a href="#" class="menu" onclick="responsiveNav()">
-                <i class="fas fa-bars bars"></i>
-                <i class="fas fa-times close"></i>
-            </a></li>
-          </ul>
-      </div> -->
+            <script type="text/javascript">
+                var count = 0;
 
-      <nav>
-        <div>
-          <i class="fa fa-bars bars"></i>
-          <i class="fa fa-times close"></i>
+                $("nav div").click(function() {
+                    count = count + 1;
+                    if (count % 2 != 0) {
+                        $("nav div .bars").css("display", "none");
+                        $("nav div .close").css("display", "grid");
+                    } else {
+                        $("nav div .close").css("display", "none");
+                        $("nav div .bars").css("display", "grid");
+                    }
+                    $("ul").slideToggle();
+                    $("ul ul").css("display", "none");
+                });
 
+                $("ul li").click(function() {
+                    $(this).find('ul').slideToggle();
+                });
+
+                $(window).resize(function() {
+                    if ($(window).width() > 768) {
+                        $("ul").removeAttr('style');
+                    }
+                });
+            </script>
         </div>
-        <ul>
-          <li><a href="#">Wallpapers <i class="fa fa-sort-desc"></i></a>
-            <ul>
-              <form id="choices" action="/choices" method="POST">
-                <!-- <div name="option" value="Recent Bops"> -->
-                  <!-- <li><a href="#">Short Term</a></li> -->
-                  <!-- <input type="button" name="option" id="name" value="hi" onclick="choices.submit();"> -->
-                  <!-- <li input="button" name="option" value="Recent Bops" onclick="choices.submit();">Short Term</li> -->
-                <!-- </div> -->
-                <li>                    
-                  <button class="link" name="option" value="Recent Bops">Recent Bops</button>
-                </li>
-                <li>
-                  <button class="link" name="option" value="Semester Jams">Semester Jams</button>
-                </li>
-                <li>
-                  <button class="link" name="option" value="Run It Back Turbo">Run It Back Turbo</button>
-                </li>
-              </form>
-            </ul>
-        </li>
-          <li><a href="#">About</a></li>
-          <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
-        </ul>
-      </nav>
-
-      <script type="text/javascript">
-        // function responsiveNav(){
-        //   var x = document.getElementById("navbar");
-        //   if(x.className == "navbar"){
-        //     x.className += "responsive";
-        //   } else {
-        //     x.className = "navbar";
-        //   }
-        // }
-        var count = 0;
-    
-        $("nav div").click(function() {
-          count = count +1;
-          if(count%2!=0){
-            $("nav div .bars").css("display","none");
-            $("nav div .close").css("display", "grid");
-          } else {
-            $("nav div .close").css("display","none");
-            $("nav div .bars").css("display", "grid");
-          }
-          $("ul").slideToggle();
-          $("ul ul").css("display", "none");
-        });
-
-        $("ul li").click(function(){
-          // $("ul ul").slideUp();
-          $(this).find('ul').slideToggle();
-        });
-
-        $(window).resize(function(){
-          if($(window).width() > 768) {
-            $("ul").removeAttr('style');
-          }
-        });
-      </script>
-
     </div>
-  </div>
 
-  <div class="base">
-    <div class="container">
-      <h2> Select Term </h2>
-      <h3> Select which time range you would like your wallpaper to reflect! </h3>
+    <div class="base">
+        <div class="container">
+            <h2> Select Term </h2>
+            <h3> Select which time range you would like your wallpaper to reflect! </h3>
+        </div>
     </div>
-  </div>
 
+<<<<<<< HEAD
 <form action="/choices" method="POST">
   <div class="buttons">
     <div class="container">
       <button class="button" name="option" value="Recent Bops">
 >>>>>>> changes for intermediate in
+=======
+    <form action="/choices" method="POST">
+        <div class="buttons">
+            <div class="container">
+                <button class="button" name="option" value="Recent Bops">
+>>>>>>> working on wallpapers, not done
         <div class="image short-term">
           <div class="overlay">
             <h4>Recent Bops</h4>
@@ -252,10 +242,14 @@
         </div>
       </button>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <button class="button" name="option" value="Semester Jams">
 =======
       <button class="button" name="option" value="Semester Jams">
 >>>>>>> changes for intermediate in
+=======
+                <button class="button" name="option" value="Semester Jams">
+>>>>>>> working on wallpapers, not done
         <div class="image medium-term">
           <div class="overlay">
             <h4>Semester Jams</h4>
@@ -263,16 +257,21 @@
         </div>
       </button>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <button class="button" name="option" value="Run It Back Turbo">
 =======
       <button class="button" ame="option" value="Run It Back Turbo">
 >>>>>>> changes for intermediate in
+=======
+                <button class="button" name="option" value="Run It Back Turbo">
+>>>>>>> working on wallpapers, not done
         <div class="image long-term">
           <div class="overlay">
             <h4>Run It Back Turbo</h4>
           </div>
         </div>
       </button>
+<<<<<<< HEAD
 <<<<<<< HEAD
     </div>
 <<<<<<< HEAD
@@ -303,123 +302,20 @@
   </div>
 </footer> 
 >>>>>>> changes for intermediate in
+=======
+            </div>
+        </div>
+    <input id = "sizing" name="false">
+    <script>sizing();</script>
+  </form>
+
+    <footer class="footer icons">
+        <div class="container">
+            <h5> Wallify </h5>
+        </div>
+    </footer>
+>>>>>>> working on wallpapers, not done
 
 </body>
-<<<<<<< HEAD
-<style>
-  body {
-    margin: 0;
-    background-color: #EFEEEE;
-  }
-
-  .base {
-    background-color: #3968CB;
-    position: fixed;
-    width: 100%;
-    height: 50%;
-    z-index: -99;
-  }
-
-  h1 {
-    color: white;
-    font-family: 'Merriweather', serif;
-    font-weight: normal;
-    font-size: 60px;
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 0;
-    padding: 0;
-  }
-
-  h2 {
-    color: white;
-    font-family: 'Merriweather', serif;
-    font-weight: normal;
-    text-align: center;
-    font-style: italic;
-    font-size: 10px;
-    margin: 0;
-    padding: 0;
-  }
-
-  .boxContainer {
-    display: flex;
-    justify-content: space-around;
-    z-index: 10;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    right: 0;
-  }
-
-  .boxContainer>button {
-    width: 275px;
-    height: 275px;
-    box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.25);
-    transition: transform .2s;
-    margin: 0 auto;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    /* position: relative;; */
-  }
-
-  .boxContainer>button:hover {
-    -ms-transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-  }
-
-  .short-term {
-    background-color: #FF2153;
-    background-image: url("../static/clock.png");
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: 75%;
-  }
-
-  .name {
-    background-color: white;
-    height: 50px;
-    width: 175px;
-    margin-left: 50%;
-    margin-top: 250px;
-    transform: translateX(-50%);
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
-    font-family: 'Julius Sans One', sans-serif;
-  }
-
-  h3 {
-    font-weight: normal;
-    font-size: 20px;
-    text-align: center;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .medium-term {
-    background-color: #FFE03F;
-    background-image: url("../static/calendar.png");
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: 75%;
-  }
-
-  .long-term {
-    background-color: #CA7CD8;
-    background-image: url("../static/2019.png");
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: 75%;
-  }
-
-  #sizing {
-      display: none;
-    }
-</style>
-=======
->>>>>>> changes for intermediate in
 
 </html>
