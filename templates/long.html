@@ -2,9 +2,10 @@
 <html>
 
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Cormorant+Unicase|Dancing+Script" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/wallpaper.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f74dc3ff01.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta http-equiv="Cache-Control" content="max-age=0" />
     <meta http-equiv="Cache-Control" content="no-cache" />
@@ -12,31 +13,90 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../static/function.js?n=1"></script>
+    <script type="text/javascript" src="../static/function.js"></script>
 </head>
 
 <body>
     <script>populate({{ trackdata|safe }});</script>
-    <form action="/choices" method="POST">
-        <div class="top-button">
-            <button class="medium-term-button" name="option" value="Semester Jams">
-                <h3>&#x27F5; Medium Term</h3>
-            </button>
+    <div class="header">
+        <div class="container">
+            <div class="name">
+                <a href="/">
+                    <h1>W</h1>
+                </a>
+            </div>
+            <nav>
+                <div>
+                    <i class="fa fa-bars bars"></i>
+                    <i class="fa fa-times close"></i>
+                </div>
+                <ul>
+                    <li><a href="#">Wallpapers <i class="fa fa-sort-desc"></i></a>
+                        <ul>
+                            <form id="choices" action="/choices" method="POST">
+                                <li>
+                                    <button class="link" name="option" value="Recent Bops">Recent Bops</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Semester Jams">Semester Jams</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Run It Back Turbo">Run It Back Turbo</button>
+                                </li>
+                            </form>
+                        </ul>
+                    </li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
+                </ul>
+            </nav>
+
+            <script type="text/javascript">
+                var count = 0;
+
+                $("nav div").click(function() {
+                    count = count + 1;
+                    if (count % 2 != 0) {
+                        $("nav div .bars").css("display", "none");
+                        $("nav div .close").css("display", "grid");
+                    } else {
+                        $("nav div .close").css("display", "none");
+                        $("nav div .bars").css("display", "grid");
+                    }
+                    $("ul").slideToggle();
+                    $("ul ul").css("display", "none");
+                });
+
+                $("ul li").click(function() {
+                    $(this).find('ul').slideToggle();
+                });
+
+                $(window).resize(function() {
+                    if ($(window).width() > 768) {
+                        $("ul").removeAttr('style');
+                    }
+                });
+            </script>
         </div>
-    </form>
+    </div>
+
+    <div class="base">
+        <div class="container">
+            <h2>Check out our drag/drop and hover features! </h2>
+        </div>
+    </div>
 
     <div class="wallpaper">
         <div class="images">
             <div id="boxA" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
-                <div class="mover zoom" id="box1" draggable="true" ondragstart="drag(event)" 
-                    onmouseover="trackhover(1)" onmouseleave="trackleave(1)">
+                <div class="mover zoom" id="box1" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(1)" onmouseleave="trackleave(1)">
                 </div>
             </div>
             <div id="boxB" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
                 <div class="mover zoom" id="box2" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(2)" onmouseleave="trackleave(2)">
                 </div>
             </div>
-            <div id="boxC" class="box"ondragover="event.preventDefault()" ondrop="drop(event)">
+            <div id="boxC" class="box" ondragover="event.preventDefault()" ondrop="drop(event)">
                 <div class="mover zoom" id="box3" draggable="true" ondragstart="drag(event)" onmouseover="trackhover(3)" onmouseleave="trackleave(3)">
                 </div>
             </div>
@@ -103,10 +163,20 @@
         </div>
     </div>
     <div class="trackname">
-        <p class = "static">Run It Back Turbo.</p>
-        <p class = "dynamic" style="display: none;"></p>
+        <p class="static">Run It Back Turbo.</p>
+        <p class="dynamic" style="display: none;"></p>
     </div>
-    <div class="bottom-navbar">
+
+    <div class="download">
+        <button onclick="download()" class="download">Download...</button>
+    </div>
+
+    <footer class="footer icons">
+        <div class="container">
+            <h5> Wallify </h5>
+        </div>
+    </footer>
+    <!-- <div class="bottom-navbar">
         <div class="container">
             <div class="leftbar">
                 <form action="/choices" method="GET">
@@ -119,300 +189,7 @@
                 <a href="https://github.com/sahluwalia17/Wallify" class="fa fa-github"></a>
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
-<style>
-    body {
-        background-color: #333;
-        margin:0;
-        /* position: relative; */
-        /* min-height: 100vh; */
-    }
-
-    ul{
-        list-style: none;
-        padding:0;
-        margin:0;
-    }
-
-    .top-button {
-        display: flex;
-        justify-content: flex-start;
-        border: none;
-        padding-right: 30px;
-        padding-top: 25px;
-    }
-
-    .medium-term-button {
-        width: 120px;
-        height: 40px;
-        background: #FFFFFF;
-        border: 1px solid #000000;
-        box-sizing: border-box;
-        border-radius: 12px;
-        cursor: pointer;
-        outline:none;
-        margin-left:30px;
-    }
-
-    .medium-term-button:hover{
-        color:#43D99D;
-    }
-
-    h3 {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 10px;
-    }
-
-    .images{
-        display: grid;
-        grid-template-columns: repeat(6,1fr);
-    }
-
-    .images .box{
-        position: relative;
-    }
-
-    .images .box .mover {
-        width: calc(75vw/6);
-        height:calc(75vw/6);
-        /* float: left;
-        text-align: center; */
-    }
-
-    .intermediate {
-        background-color: Transparent;
-        background-repeat: no-repeat;
-        border: none;
-        cursor: pointer;
-        overflow: hidden;
-        outline: none;
-        padding-right: 10px;
-        font-size: 20px;
-        color:white;
-
-        /* color:black;
-        text-decoration: none; */
-    }
-
-    .download {
-        width: 110px;
-        height: 35px;
-        background: #FFFFFF;
-        border-radius: 90px;
-        font-family: 'Montserrat', sans-serif;
-        color: black;
-        border: none;
-        cursor: pointer;
-        margin-left: 10px;
-        font-size: 12px;
-        outline:none;
-    }
-
-    .download:hover{
-        color:#43D99D;
-
-    }
-
-    .wallpaper {
-        width:75%;
-        margin:auto;
-        margin-top:20px;
-    }
-
-    .bottom-navbar {
-        margin-top:20px;
-    }
-
-    .bottom-navbar .container{
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-    }
-
-    .leftbar {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding-left: 25px;
-    }
-
-    .rightbar {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    .fa {
-        font-size: 30px;
-        width: 30px;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 70%;
-        columns: #000000;
-        color: white;
-        z-index: 99;
-        padding-right: 30px;
-    }
-
-    h2 {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 20px;
-        padding-right: 15px;
-        color:white;
-        text-transform: uppercase;
-    }
-
-    .images .box:hover{
-        -ms-transform: scale(1.5);
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
-        transition: 0.5s;
-        z-index:9;
-    }
-
-    .trackname{
-        width:65vw;
-        height: 40px;
-
-        margin-left:17.5vw;
-        margin-top:40px;
-        display: flex;
-        align-content: center;
-
-        background: #43D99D;
-        border-radius: 10px;
-    }
-
-    .trackname .static{
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bolder;
-        color:white;
-        letter-spacing: 1em;
-        word-spacing: 1em;
-        text-transform: uppercase;
-
-        margin:auto;
-        text-align: center;
-    }
-
-    .dynamic{
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bolder;
-        color:white;
-
-        margin:auto;
-        text-align: center;
-    }
-
-    #box1 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='1.jpg') }}");
-    }
-
-    #box2 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='2.jpg') }}")
-
-    }
-
-    #box3 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='3.jpg') }}")
-    }
-
-    #box4 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='4.jpg') }}")
-    }
-
-    #box5 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='5.jpg') }}")
-    }
-
-    #box6 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='6.jpg') }}")
-    }
-
-    #box7 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='7.jpg') }}")
-    }
-
-    #box8 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='8.jpg') }}")
-    }
-
-    #box9 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='9.jpg') }}")
-    }
-
-    #box10 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='10.jpg') }}")
-    }
-
-    #box11 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='11.jpg') }}")
-    }
-
-    #box12 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='12.jpg') }}")
-    }
-
-    #box13 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='13.jpg') }}")
-    }
-
-    #box14 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='14.jpg') }}")
-    }
-
-    #box15 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='15.jpg') }}")
-    }
-
-    #box16 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='16.jpg') }}")
-    }
-
-    #box17 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='17.jpg') }}")
-    }
-
-    #box18 {
-      background-size: cover;
-      background-position: right;
-      background-image: url("{{ url_for('static',filename='18.jpg') }}")
-    }
-</style>
 
 </html>

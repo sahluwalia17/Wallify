@@ -128,7 +128,7 @@ ul ul li:last-child {
 ul li a,
 .link {
     text-decoration: none;
-    padding: 30px 15px 10px 15px;
+    padding: 30px 15px 5px 15px;
     display: block;
     color: var(--secondary-color);
 }
@@ -136,7 +136,7 @@ ul li a,
 ul ul li a,
 .link {
     text-decoration: none;
-    padding: 10px;
+    padding: 5px 10px 0px 10px;
     display: block;
 }
 
@@ -213,6 +213,22 @@ nav div {
     }
 }
 
+/* PAGE HEADERS */
+/* PAGE HEADERS */
+
+.base .container {
+    width: 80%;
+    margin-top: 30px;
+}
+
+h2 {
+    color: var(--secondary-color);
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 25px;
+    font-size: 2.25vw;
+    text-align: center;
+}
 
 /* WALLPAPER */
 
@@ -257,7 +273,7 @@ nav div {
 
 .trackname .static {
     font-family: 'Montserrat', sans-serif;
-    font-weight: bolder;
+    font-weight: normal;
     color: white;
     letter-spacing: 1em;
     word-spacing: 1em;
@@ -268,7 +284,7 @@ nav div {
 
 .dynamic {
     font-family: 'Montserrat', sans-serif;
-    font-weight: bolder;
+    font-weight: normal;
     color: white;
     margin: auto;
     text-align: center;
@@ -277,28 +293,24 @@ nav div {
 #box1 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='1.jpg') }}"); */
     background-image: url(../1.jpg);
 }
 
 #box2 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='2.jpg') }}") */
     background-image: url(../2.jpg);
 }
 
 #box3 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='3.jpg') }}") */
     background-image: url(../3.jpg);
 }
 
 #box4 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='4.jpg') }}") */
     background-image: url(../4.jpg);
 }
 
@@ -306,119 +318,133 @@ nav div {
     background-size: cover;
     background-position: right;
     background-image: url(../5.jpg);
-    /* background-image: url("{{ url_for('static',filename='5.jpg') }}") */
 }
 
 #box6 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='6.jpg') }}") */
     background-image: url(../6.jpg);
 }
 
 #box7 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='7.jpg') }}") */
     background-image: url(../7.jpg);
 }
 
 #box8 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='8.jpg') }}") */
     background-image: url(../8.jpg);
 }
 
 #box9 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='9.jpg') }}") */
     background-image: url(../9.jpg);
 }
 
 #box10 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='10.jpg') }}") */
     background-image: url(../10.jpg);
 }
 
 #box11 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='11.jpg') }}") */
     background-image: url(../11.jpg);
 }
 
 #box12 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='12.jpg') }}") */
     background-image: url(../12.jpg);
 }
 
 #box13 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='13.jpg') }}") */
     background-image: url(../13.jpg);
 }
 
 #box14 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='14.jpg') }}") */
     background-image: url(../14.jpg);
 }
 
 #box15 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='15.jpg') }}") */
     background-image: url(../15.jpg);
 }
 
 #box16 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='16.jpg') }}") */
     background-image: url(../16.jpg);
 }
 
 #box17 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='17.jpg') }}"); */
     background-image: url(../17.jpg);
 }
 
 #box18 {
     background-size: cover;
     background-position: right;
-    /* background-image: url("{{ url_for('static',filename='18.jpg') }}") */
     background-image: url(../18.jpg);
 }
 
+/* DOWNLOAD */
+.download{
+    text-align:center;
+    margin-top:30px;
+}
 
-/* 
-.download {
-    width: 110px;
-    height: 35px;
-    background: #FFFFFF;
-    border-radius: 90px;
-    font-family: 'Montserrat', sans-serif;
-    color: black;
-    border: none;
+.download button {
     cursor: pointer;
-    margin-left: 10px;
-    font-size: 12px;
     outline: none;
+    background-color: var(--primary-color);
+    color:var(--third-color);
+    font-size: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    font-weight: normal;
+    border: 1px solid var(--third-color);
+    border-radius: 50px;
+    padding: 10px 40px;
 }
 
-.download:hover {
-    color: #43D99D;
+.download button:hover {
+    background-color: var(--third-color);
+    color: var(--secondary-color);
 }
+
+/* FOOTER */
+.footer .container{
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .footer{
+    padding:20px;
+    margin-top:10px;
+    width: 100%;
+    background-color: var(--primary-color);
+  } 
+
+
+  h5 {
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+}
+/* 
+
 
 .bottom-navbar {
     margin-top: 20px;
