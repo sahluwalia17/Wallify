@@ -35,8 +35,6 @@ refreshTime = 0
 token = 0
 logging.basicConfig(level=logging.DEBUG)
 
-onMobile = False
-
 
 #need to change this
 
@@ -76,14 +74,7 @@ def add_header(response):
 
 @app.route("/", methods = ["POST", "GET"])
 def index():
-    global onMobile
-    onMobile = False
     #landing page for users
-    for key in request.form:
-        if key.startswith('true'):
-            onMobile = True
-    print(onMobile)
-
     if request.method ==  "POST":
         if request.form["sign"] == 'Get Started!':
             return redirect(url_for('authorize'))
@@ -191,9 +182,14 @@ def spotify(spotifyAPI):
 
 @app.route("/choices", methods=["POST","GET"])
 def intermediate():
+    onMobile = False
+    #landing page for users
+    for key in request.form:
+        if key.startswith('true'):
+            onMobile = True
+    print(onMobile)
     #perform redirects based on the option that the user picks
-    if request.method == "POST":
-        # print(request.form.getlist('option'))
+    if request.method == "POST" and onMobile == False:
         if request.form["option"] == "Recent Bops":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
             return redirect(url_for('short',data=trackinfo))
@@ -204,6 +200,16 @@ def intermediate():
         elif request.form["option"] == "Run It Back Turbo":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
             return redirect(url_for('long',data=trackinfo))
+
+    if request.method == "POST" and onMobile == True:
+        if request.form["option"] == "Recent Bops":
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+        elif request.form["option"] == "Semester Jams":
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+        elif request.form["option"] == "Run It Back Turbo":
+            trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+        app.logger.info("HERE IN CHOICES-----")
+        return redirect(url_for('mobile'))
 
     return render_template("intermediate.html")
 
@@ -278,118 +284,195 @@ def get_data():
         data = ints.get("ints")
         global token
         token = random.randint(1,100)
-
-        image1 = Image.open("./static/"+str(data[0]) + ".jpg")
-        image2 = Image.open("./static/"+str(data[6]) + ".jpg")
-        image3 = Image.open("./static/"+str(data[12]) + ".jpg")
-
-        image4 = Image.open("./static/"+str(data[1]) + ".jpg")
-        image5 = Image.open("./static/"+str(data[7]) + ".jpg")
-        image6 = Image.open("./static/"+str(data[13]) + ".jpg")
-
-        image7 = Image.open("./static/"+str(data[2]) + ".jpg")
-        image8 = Image.open("./static/"+str(data[8]) + ".jpg")
-        image9 = Image.open("./static/"+str(data[14]) + ".jpg")
-
-        image10 = Image.open("./static/"+str(data[3]) + ".jpg")
-        image11 = Image.open("./static/"+str(data[9]) + ".jpg")
-        image12 = Image.open("./static/"+str(data[15]) + ".jpg")
-
-        image13 = Image.open("./static/"+str(data[4]) + ".jpg")
-        image14 = Image.open("./static/"+str(data[10]) + ".jpg")
-        image15 = Image.open("./static/"+str(data[16]) + ".jpg")
-
-        image16 = Image.open("./static/"+str(data[5]) + ".jpg")
-        image17 = Image.open("./static/"+str(data[11]) + ".jpg")
-        image18 = Image.open("./static/"+str(data[17]) + ".jpg")
-
-        (width1, height1) = image1.size
-        (width2, height2) = image2.size
-        (width3, height3) = image3.size
-        (width4, height4) = image4.size
-        (width5, height5) = image5.size
-        (width6, height6) = image6.size
-
-        result_width = width1
-        result_height = height1 + height2 + height3
-
-
-        result = Image.new('RGB', (result_width, result_height))
-        result2 = Image.new('RGB', (result_width, result_height))
-        result3 = Image.new('RGB', (result_width, result_height))
-        result4 = Image.new('RGB', (result_width, result_height))
-        result5 = Image.new('RGB', (result_width, result_height))
-        result6 = Image.new('RGB', (result_width, result_height))
-
-        result.paste(im=image1, box=(0, 0))
-        result.paste(im=image2, box=(0, height1))
-        result.paste(im=image3, box=(0, 2 * height1))
-
-        result2.paste(im=image4, box=(0, 0))
-        result2.paste(im=image5, box=(0, height3))
-        result2.paste(im=image6, box=(0, 2 * height4))
-
-        result3.paste(im=image7, box=(0, 0))
-        result3.paste(im=image8, box=(0, height1))
-        result3.paste(im=image9, box=(0, 2 * height1))
-
-        result4.paste(im=image10, box=(0, 0))
-        result4.paste(im=image11, box=(0, height3))
-        result4.paste(im=image12, box=(0, 2* height4))
-
-        result5.paste(im=image13, box=(0, 0))
-        result5.paste(im=image14, box=(0, height3))
-        result5.paste(im=image15, box=(0, 2* height4))
-
-        result6.paste(im=image16, box=(0, 0))
-        result6.paste(im=image17, box=(0, height3))
-        result6.paste(im=image18, box=(0, 2* height4))
-
-
-        result.save('result1.jpg')
-        result2.save('result2.jpg')
-        result3.save('result3.jpg')
-        result4.save('result4.jpg')
-        result5.save('result5.jpg')
-        result6.save('result6.jpg')
-
-        shutil.move("./result1.jpg", "./static/result1.jpg")
-        shutil.move("./result2.jpg", "./static/result2.jpg")
-        shutil.move("./result3.jpg", "./static/result3.jpg")
-        shutil.move("./result4.jpg", "./static/result4.jpg")
-        shutil.move("./result5.jpg", "./static/result5.jpg")
-        shutil.move("./result6.jpg", "./static/result6.jpg")
-
-        imageres = Image.open("./static/result1.jpg")
-        imageres2 = Image.open("./static/result2.jpg")
-        imageres3 = Image.open("./static/result3.jpg")
-        imageres4 = Image.open("./static/result4.jpg")
-        imageres5 = Image.open("./static/result5.jpg")
-        imageres6 = Image.open("./static/result6.jpg")
-
-        (widthres1, heightres1) = imageres.size
-        (widthres2, heightres2) = imageres2.size
-        (widthres3, heightres3) = imageres3.size
-        (widthres4, heightres4) = imageres4.size
-        (widthres5, heightres5) = imageres5.size
-        (widthres6, heightres6) = imageres6.size
-
-        result_width = widthres1 + widthres2 + widthres3 + widthres4 + widthres5 + widthres6
-        result_heigth = heightres1
-
-        result = Image.new('RGB', (result_width, result_height))
-
-        result.paste(im = imageres, box=(0, 0))
-        result.paste(im = imageres2, box=(widthres1,0))
-        result.paste(im = imageres3, box=(widthres1 * 2,0))
-        result.paste(im = imageres4, box=(widthres1 * 3,0))
-        result.paste(im = imageres5, box=(widthres1 * 4,0))
-        result.paste(im = imageres6, box=(widthres1 * 5,0))
-
-        name = "final.jpg"
-        result.save(name)
-        shutil.move("./" + name, "./static/" + name)
+        download_desktop(data)
         return str(token),200
+
+@app.route("/mobile")
+def mobile():
+    app.logger.info("HERE IN MOBILE----")
+    image1 = Image.open("./static/1.jpg")
+    image2 = Image.open("./static/2.jpg")
+    image3 = Image.open("./static/3.jpg")
+    image4 = Image.open("./static/4.jpg")
+    image5 = Image.open("./static/5.jpg")
+
+    image6 = Image.open("./static/6.jpg")
+    image7 = Image.open("./static/7.jpg")
+    image8 = Image.open("./static/8.jpg")
+    image9 = Image.open("./static/9.jpg")
+    image10 = Image.open("./static/10.jpg")
+
+    image11 = Image.open("./static/11.jpg")
+    image12 = Image.open("./static/12.jpg")
+    image13 = Image.open("./static/13.jpg")
+    image14 = Image.open("./static/14.jpg")
+    image15 = Image.open("./static/15.jpg")
+
+    (width, height) = image1.size
+    result_width = width
+    result_height = height * 5
+
+    result = Image.new('RGB', (result_width, result_height))
+    result2 = Image.new('RGB', (result_width, result_height))
+    result3 = Image.new('RGB', (result_width, result_height))
+
+    result.paste(im=image1, box=(0, 0))
+    result.paste(im=image2, box=(0, height))
+    result.paste(im=image3, box=(0, 2 * height))
+    result.paste(im=image4, box=(0, 3 * height))
+    result.paste(im=image5, box=(0, 4 * height))
+
+    result2.paste(im=image6, box=(0, 0))
+    result2.paste(im=image7, box=(0, height))
+    result2.paste(im=image8, box=(0, 2 * height))
+    result2.paste(im=image9, box=(0, 3 * height))
+    result2.paste(im=image10, box=(0, 4 * height))
+
+    result3.paste(im=image11, box=(0, 0))
+    result3.paste(im=image12, box=(0, height))
+    result3.paste(im=image13, box=(0, 2 * height))
+    result3.paste(im=image14, box=(0, 3 * height))
+    result3.paste(im=image15, box=(0, 4 * height))
+
+    result.save('result1.jpg')
+    result2.save('result2.jpg')
+    result3.save('result3.jpg')
+    shutil.move("./result1.jpg", "./static/result1.jpg")
+    shutil.move("./result2.jpg", "./static/result2.jpg")
+    shutil.move("./result3.jpg", "./static/result3.jpg")
+
+    imageres = Image.open("./static/result1.jpg")
+    imageres2 = Image.open("./static/result2.jpg")
+    imageres3 = Image.open("./static/result3.jpg")
+
+    (width,height) = imageres.size
+
+    result_width = width * 3
+    result_height = height
+    result = Image.new('RGB', (result_width, result_height))
+
+    result.paste(im = imageres, box=(0, 0))
+    result.paste(im = imageres2, box=(width,0))
+    result.paste(im = imageres3, box=(width * 2,0))
+
+    name = "final.jpg"
+    result.save(name)
+    shutil.move("./" + name, "./static/" + name)
+    return render_template('mobile.html')
+
+
+def download_desktop(data):
+    image1 = Image.open("./static/"+str(data[0]) + ".jpg")
+    image2 = Image.open("./static/"+str(data[6]) + ".jpg")
+    image3 = Image.open("./static/"+str(data[12]) + ".jpg")
+
+    image4 = Image.open("./static/"+str(data[1]) + ".jpg")
+    image5 = Image.open("./static/"+str(data[7]) + ".jpg")
+    image6 = Image.open("./static/"+str(data[13]) + ".jpg")
+
+    image7 = Image.open("./static/"+str(data[2]) + ".jpg")
+    image8 = Image.open("./static/"+str(data[8]) + ".jpg")
+    image9 = Image.open("./static/"+str(data[14]) + ".jpg")
+
+    image10 = Image.open("./static/"+str(data[3]) + ".jpg")
+    image11 = Image.open("./static/"+str(data[9]) + ".jpg")
+    image12 = Image.open("./static/"+str(data[15]) + ".jpg")
+
+    image13 = Image.open("./static/"+str(data[4]) + ".jpg")
+    image14 = Image.open("./static/"+str(data[10]) + ".jpg")
+    image15 = Image.open("./static/"+str(data[16]) + ".jpg")
+
+    image16 = Image.open("./static/"+str(data[5]) + ".jpg")
+    image17 = Image.open("./static/"+str(data[11]) + ".jpg")
+    image18 = Image.open("./static/"+str(data[17]) + ".jpg")
+
+    (width1, height1) = image1.size
+    (width2, height2) = image2.size
+    (width3, height3) = image3.size
+    (width4, height4) = image4.size
+    (width5, height5) = image5.size
+    (width6, height6) = image6.size
+
+    result_width = width1
+    result_height = height1 + height2 + height3
+
+
+    result = Image.new('RGB', (result_width, result_height))
+    result2 = Image.new('RGB', (result_width, result_height))
+    result3 = Image.new('RGB', (result_width, result_height))
+    result4 = Image.new('RGB', (result_width, result_height))
+    result5 = Image.new('RGB', (result_width, result_height))
+    result6 = Image.new('RGB', (result_width, result_height))
+
+    result.paste(im=image1, box=(0, 0))
+    result.paste(im=image2, box=(0, height1))
+    result.paste(im=image3, box=(0, 2 * height1))
+
+    result2.paste(im=image4, box=(0, 0))
+    result2.paste(im=image5, box=(0, height3))
+    result2.paste(im=image6, box=(0, 2 * height4))
+
+    result3.paste(im=image7, box=(0, 0))
+    result3.paste(im=image8, box=(0, height1))
+    result3.paste(im=image9, box=(0, 2 * height1))
+
+    result4.paste(im=image10, box=(0, 0))
+    result4.paste(im=image11, box=(0, height3))
+    result4.paste(im=image12, box=(0, 2* height4))
+
+    result5.paste(im=image13, box=(0, 0))
+    result5.paste(im=image14, box=(0, height3))
+    result5.paste(im=image15, box=(0, 2* height4))
+
+    result6.paste(im=image16, box=(0, 0))
+    result6.paste(im=image17, box=(0, height3))
+    result6.paste(im=image18, box=(0, 2* height4))
+
+
+    result.save('result1.jpg')
+    result2.save('result2.jpg')
+    result3.save('result3.jpg')
+    result4.save('result4.jpg')
+    result5.save('result5.jpg')
+    result6.save('result6.jpg')
+
+    shutil.move("./result1.jpg", "./static/result1.jpg")
+    shutil.move("./result2.jpg", "./static/result2.jpg")
+    shutil.move("./result3.jpg", "./static/result3.jpg")
+    shutil.move("./result4.jpg", "./static/result4.jpg")
+    shutil.move("./result5.jpg", "./static/result5.jpg")
+    shutil.move("./result6.jpg", "./static/result6.jpg")
+
+    imageres = Image.open("./static/result1.jpg")
+    imageres2 = Image.open("./static/result2.jpg")
+    imageres3 = Image.open("./static/result3.jpg")
+    imageres4 = Image.open("./static/result4.jpg")
+    imageres5 = Image.open("./static/result5.jpg")
+    imageres6 = Image.open("./static/result6.jpg")
+
+    (widthres1, heightres1) = imageres.size
+    (widthres2, heightres2) = imageres2.size
+    (widthres3, heightres3) = imageres3.size
+    (widthres4, heightres4) = imageres4.size
+    (widthres5, heightres5) = imageres5.size
+    (widthres6, heightres6) = imageres6.size
+
+    result_width = widthres1 + widthres2 + widthres3 + widthres4 + widthres5 + widthres6
+    result_heigth = heightres1
+
+    result = Image.new('RGB', (result_width, result_height))
+
+    result.paste(im = imageres, box=(0, 0))
+    result.paste(im = imageres2, box=(widthres1,0))
+    result.paste(im = imageres3, box=(widthres1 * 2,0))
+    result.paste(im = imageres4, box=(widthres1 * 3,0))
+    result.paste(im = imageres5, box=(widthres1 * 4,0))
+    result.paste(im = imageres6, box=(widthres1 * 5,0))
+
+    name = "final.jpg"
+    result.save(name)
+    shutil.move("./" + name, "./static/" + name)    
+
 
 if __name__ == "__main__":
     app.run(debug=True)
