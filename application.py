@@ -199,7 +199,6 @@ def intermediate():
             return redirect(url_for('medium',data=trackinfo))
         elif request.form["option"] == "Run It Back Turbo":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
-
             return redirect(url_for('long',data=trackinfo))
 
     if request.method == "POST" and onMobile == True:

@@ -446,6 +446,30 @@ h2 {
 /* 
 
 
+/* FOOTER */
+.footer .container{
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .footer{
+    padding:20px;
+    margin-top:10px;
+    width: 100%;
+    background-color: var(--primary-color);
+  } 
+
+
+  h5 {
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+}
+/* 
+
+
 .bottom-navbar {
     margin-top: 20px;
 }
