@@ -16,6 +16,7 @@ function populate(trackdata) {
         tracknames.push(information[1]);
         albumnames.push(information[2]);
     }
+    console.log("TRACK");
     //key is the track id; for exact url append https://open.spotify.com/track/{trackid}
 }
 

@@ -193,18 +193,16 @@ def spotify(spotifyAPI):
 def intermediate():
     #perform redirects based on the option that the user picks
     if request.method == "POST":
-        print(request.form.getlist('option'))
+        # print(request.form.getlist('option'))
         if request.form["option"] == "Recent Bops":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
             return redirect(url_for('short',data=trackinfo))
         elif request.form["option"] == "Semester Jams":
             print("HEREEE")
-
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
             return redirect(url_for('medium',data=trackinfo))
         elif request.form["option"] == "Run It Back Turbo":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
-
             return redirect(url_for('long',data=trackinfo))
 
     return render_template("intermediate.html")

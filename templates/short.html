@@ -17,14 +17,7 @@
 </head>
 
 <body>
-    <script>
-        populate({
-            {
-                trackdata | safe
-            }
-        });
-    </script>
-
+    <script>populate({{ trackdata|safe }});</script>
     <div class="header">
         <div class="container">
             <div class="name">
@@ -59,11 +52,6 @@
             </nav>
 
             <script type="text/javascript">
-                populate({
-                    {
-                        trackdata | safe
-                    }
-                });
                 var count = 0;
 
                 $("nav div").click(function() {
@@ -89,6 +77,12 @@
                     }
                 });
             </script>
+        </div>
+    </div>
+
+    <div class="base">
+        <div class="container">
+            <h2>Check out our drag/drop and hover features! </h2>
         </div>
     </div>
 
@@ -172,6 +166,16 @@
         <p class="static">Recent Bops.</p>
         <p class="dynamic" style="display: none;"></p>
     </div>
+
+    <div class="download">
+        <button onclick="download()" class="download">Download...</button>
+    </div>
+
+    <footer class="footer icons">
+        <div class="container">
+            <h5> Wallify </h5>
+        </div>
+    </footer>
     <!-- <div class="bottom-navbar">
         <div class="container">
             <div class="leftbar">
