@@ -204,12 +204,15 @@ def intermediate():
     if request.method == "POST" and onMobile == True:
         if request.form["option"] == "Recent Bops":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+            term="Recent Bops"
         elif request.form["option"] == "Semester Jams":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+            term="Semester Jams"
         elif request.form["option"] == "Run It Back Turbo":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+            term="Run It Back Turbo"
         app.logger.info("HERE IN CHOICES-----")
-        return redirect(url_for('mobile'))
+        return redirect(url_for('mobile', termName=term))
 
     return render_template("intermediate.html")
 
@@ -287,8 +290,8 @@ def get_data():
         download_desktop(data)
         return str(token),200
 
-@app.route("/mobile")
-def mobile():
+@app.route("/mobile/<termName>")
+def mobile(termName):
     app.logger.info("HERE IN MOBILE----")
     image1 = Image.open("./static/1.jpg")
     image2 = Image.open("./static/2.jpg")
@@ -358,7 +361,7 @@ def mobile():
     name = "final.jpg"
     result.save(name)
     shutil.move("./" + name, "./static/" + name)
-    return render_template('mobile.html')
+    return render_template('mobile.html', data=termName)
 
 
 def download_desktop(data):
