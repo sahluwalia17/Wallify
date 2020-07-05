@@ -254,9 +254,9 @@ h2 {
 }
 
 .images .box:hover {
-    -ms-transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    transform: scale(1.5);
+    -ms-transform: scale(1.35);
+    -webkit-transform: scale(1.35);
+    transform: scale(1.35);
     transition: 0.5s;
     z-index: 9;
 }
@@ -469,31 +469,25 @@ h2 {
     font-size: 15px;
 }
 /* 
-
-
 .bottom-navbar {
     margin-top: 20px;
 }
-
 .bottom-navbar .container {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
 }
-
 .leftbar {
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding-left: 25px;
 }
-
 .rightbar {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-
 .fa {
     font-size: 30px;
     width: 30px;
@@ -505,7 +499,6 @@ h2 {
     z-index: 99;
     padding-right: 30px;
 }
-
 h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
@@ -513,5 +506,4 @@ h2 {
     color: white;
     text-transform: uppercase;
 }
-
 */
