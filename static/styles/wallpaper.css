@@ -69,7 +69,8 @@ h1 {
 /* name spacing */
 
 .name {
-    justify-self: center;
+    justify-self: start;
+    padding-left:10px;
 }
 
 

@@ -64,7 +64,8 @@ grid-template-columns: repeat(7, 1fr);
 
 /* name spacing */
 .name{
-justify-self: center;
+  justify-self: start;
+  padding-left:10px;
 }
 
 /* navbar spacing */
@@ -76,11 +77,11 @@ display: inline-block;
 
 /* NAVBAR */
 .navbar a{
-text-transform: uppercase;
-font-family: 'Roboto', sans-serif;
-color: var(--fourth-color);
-padding:30px 0px;
-display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: var(--fourth-color);
+  padding:30px 0px;
+  display: inline-block;
 } 
 
 .navbar a:hover{
@@ -231,13 +232,14 @@ outline:none;
   display: none;
 }
 
-.navbarresponsive a:hover{
-  color: var(--fourth-color);
-}
+  .navbarresponsive a:hover{
+    color: var(--third-color);
+  }
 
-.navbarresponsive a{
-  color:var(--fourth-color);
-}
+  .navbarresponsive a{
+    color:var(--fourth-color);
+  }
+
 }
 
 @media(max-width:600px){

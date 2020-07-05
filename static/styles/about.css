@@ -68,7 +68,8 @@ h1 {
 /* name spacing */
 
 .name {
-    justify-self: center;
+    justify-self: start;
+    padding-left:10px;
 }
 
 
@@ -327,7 +328,7 @@ span{
     h3{
         font-size: 35px;
     }
-    
+
     .content {
         padding:45px;
     }
