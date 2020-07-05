@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/about.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f74dc3ff01.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta http-equiv="Cache-Control" content="max-age=0" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/function.js"></script>
+  </head>
+  <body>
+
+    <div class="header">
+        <div class="container">
+            <div class="name">
+                <a href="/">
+                    <h1>W</h1>
+                </a>
+            </div>
+            <nav>
+                <div>
+                    <i class="fa fa-bars bars"></i>
+                    <i class="fa fa-times close"></i>
+                </div>
+                <ul>
+                    <li><a href="#">Wallpapers <i class="fa fa-sort-desc"></i></a>
+                        <ul>
+                            <form id="choices" action="/choices" method="POST">
+                                <li>
+                                    <button class="link" name="option" value="Recent Bops">Recent Bops</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Semester Jams">Semester Jams</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Run It Back Turbo">Run It Back Turbo</button>
+                                </li>
+                            </form>
+                        </ul>
+                    </li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
+                </ul>
+            </nav>
+
+            <script type="text/javascript">
+                var count = 0;
+
+                $("nav div").click(function() {
+                    console.log("HERE");
+                    count = count + 1;
+                    if (count % 2 != 0) {
+                        $("nav div .bars").css("display", "none");
+                        $("nav div .close").css("display", "grid");
+                    } else {
+                        $("nav div .close").css("display", "none");
+                        $("nav div .bars").css("display", "grid");
+                    }
+                    $("ul").slideToggle();
+                    $("ul ul").css("display", "none");
+                });
+
+                $("ul li").click(function() {
+                    $(this).find('ul').slideToggle();
+                });
+
+                $(window).resize(function() {
+                    if ($(window).width() > 768) {
+                        $("ul").removeAttr('style');
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+    <h2>About</h2>
+
+    <h3>The idea.</h3>
+    <div class="content">
+        <p>We have always believed that music plays a big role in defining one’s personality. 
+            Therefore, we wanted to make a project that helped encapsulate one’s personality and visualize it, 
+            and the perfect way to do so was through a wallpaper. If you are a regular mobile or computer user, 
+            this wallpaper is the first thing you would see when you wake your device, a regular reminder of who 
+            you are and where your interests lay. We give you the means of forming this wallpaper in your own 
+            personal ways whether it be through picking the time period of music you listened to, or drag & dropping
+             album covers on the website to make the most aesthetic wallpaper possible. This wallpaper is completely
+              up to you to design, and we are so honored to be part of that process with you. This project has been 
+              one of our proudest accomplishments. Sahil came up with the idea 3 years ago, and since then it has 
+              evolved from being a hackathon project, to a class project, to what it is today. Here’s to more updates
+               to come and bringing even more meaning to this project!</p>
+    </div>
+
+    <h3>The creators.</h3>
+    <div class="content2">
+        <div class="row">
+            <div class="column">
+                <img src="../static/puja_headshot.jpg">
+            </div>
+            <div class="column second">
+              <p>  <span>Puja Maheshwari</span>
+                is a senior at Purdue University majoring in computer science with an emphasis 
+                  in machine learning at Purdue University. She loves working on a variety of coding projects
+                   with her friends in her free time. Aside from coding, she enjoys traveling, taking pictures,
+                    and dancing!</p>
+            </div>
+        </div>
+        <div class="row sahil">
+            <div class="column">
+              <p> <span>Sahil Ahluwalia</span> is a senior at Purdue University studying computer science and data science. 
+                  He loves to build projects that help him express his creativity and help out with day 
+                  to day life! In his free time, you can always catch him on a basketball court or taking
+                   pictures for his photography page.</p>
+            </div>
+            <div class="column second">
+                <img src="../static/sahil_headshot.jpeg">
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer icons">
+        <div class="container">
+            <h5> Wallify </h5>
+        </div>
+    </footer>
+  </body>
+</html>
