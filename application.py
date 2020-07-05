@@ -279,6 +279,10 @@ def long(data):
 def wallify():
     return render_template('wallify.html')
 
+@app.route("/about")
+def about():
+    return render_template('about.html')
+
 @app.route("/receive",methods=["POST"])
 def get_data():
     #javascript makes an AJAX POST request to pass array here; assemble wallpaper based on sequence of integers in array
