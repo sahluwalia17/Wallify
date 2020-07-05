@@ -64,7 +64,8 @@ grid-template-columns: repeat(7, 1fr);
 
 /* name spacing */
 .name{
-justify-self: center;
+justify-self: start;
+padding-left: 10px;
 }
 
 /* navbar spacing */
@@ -229,7 +230,7 @@ outline:none;
 }
 
 .navbarresponsive a:hover{
-  color: var(--fourth-color);
+  color: var(--third-color);
 }
 
 .navbarresponsive a{
