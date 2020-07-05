@@ -69,12 +69,8 @@ h1 {
 /* name spacing */
 
 .name {
-<<<<<<< HEAD
     justify-self: start;
     padding-left:10px;
-=======
-    justify-self: center;
->>>>>>> df3a12c544cc88ecea70c298f63060e548c5e570
 }
 
 
@@ -257,16 +253,10 @@ h2 {
     margin-top: 20px;
 }
 
-.images .box:hover {
-<<<<<<< HEAD
-    -ms-transform: scale(1.35);
-    -webkit-transform: scale(1.35);
-    transform: scale(1.35);
-=======
-    -ms-transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    transform: scale(1.5);
->>>>>>> df3a12c544cc88ecea70c298f63060e548c5e570
+ .images .box:hover {
+    -ms-transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    transform: scale(1.25);
     transition: 0.5s;
     z-index: 9;
 }
@@ -457,7 +447,6 @@ h2 {
 /* 
 
 
-<<<<<<< HEAD
 /* FOOTER */
 .footer .container{
     display: flex;
@@ -483,40 +472,22 @@ h2 {
 .bottom-navbar {
     margin-top: 20px;
 }
-=======
-.bottom-navbar {
-    margin-top: 20px;
-}
-
->>>>>>> df3a12c544cc88ecea70c298f63060e548c5e570
 .bottom-navbar .container {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> df3a12c544cc88ecea70c298f63060e548c5e570
 .leftbar {
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding-left: 25px;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> df3a12c544cc88ecea70c298f63060e548c5e570
 .rightbar {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> df3a12c544cc88ecea70c298f63060e548c5e570
 .fa {
     font-size: 30px;
     width: 30px;
@@ -528,10 +499,6 @@ h2 {
     z-index: 99;
     padding-right: 30px;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> df3a12c544cc88ecea70c298f63060e548c5e570
 h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
@@ -539,8 +506,4 @@ h2 {
     color: white;
     text-transform: uppercase;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> df3a12c544cc88ecea70c298f63060e548c5e570
 */
