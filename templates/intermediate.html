@@ -2,26 +2,6 @@
 <html>
 
 <head>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> changes for intermediate in
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/intermediate.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://kit.fontawesome.com/f74dc3ff01.js" crossorigin="anonymous"></script>
-  <meta http-equiv="cache-control" content="max-age=0" />
-  <meta http-equiv="cache-control" content="no-cache" />
-  <meta http-equiv="expires" content="0" />
-  <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-  <meta http-equiv="pragma" content="no-cache" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="../static/function.js?n=1"></script>
-  
-=======
-=======
->>>>>>> working on wallpapers, not done
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/intermediate.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
@@ -34,10 +14,6 @@
     <meta http-equiv="pragma" content="no-cache" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="../static/function.js?n=1"></script>
-<<<<<<< HEAD
->>>>>>> working on wallpapers, not done
-=======
->>>>>>> working on wallpapers, not done
 </head>
 
 <body>
@@ -47,119 +23,6 @@
                 <a href="/">
                     <h1>W</h1>
                 </a>
-<<<<<<< HEAD
-            </div>
-            <nav>
-                <div>
-                    <i class="fa fa-bars bars"></i>
-                    <i class="fa fa-times close"></i>
-                </div>
-                <ul>
-                    <li><a href="#">Wallpapers <i class="fa fa-sort-desc"></i></a>
-                        <ul>
-                            <form id="choices" action="/choices" method="POST">
-                                <li>
-                                    <button class="link" name="option" value="Recent Bops">Recent Bops</button>
-                                </li>
-                                <li>
-                                    <button class="link" name="option" value="Semester Jams">Semester Jams</button>
-                                </li>
-                                <li>
-                                    <button class="link" name="option" value="Run It Back Turbo">Run It Back Turbo</button>
-                                </li>
-                            </form>
-                        </ul>
-                    </li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
-                </ul>
-            </nav>
-
-<<<<<<< HEAD
-            <script type="text/javascript">
-                var count = 0;
-
-                $("nav div").click(function() {
-                    count = count + 1;
-                    if (count % 2 != 0) {
-                        $("nav div .bars").css("display", "none");
-                        $("nav div .close").css("display", "grid");
-                    } else {
-                        $("nav div .close").css("display", "none");
-                        $("nav div .bars").css("display", "grid");
-                    }
-                    $("ul").slideToggle();
-                    $("ul ul").css("display", "none");
-                });
-
-                $("ul li").click(function() {
-                    $(this).find('ul').slideToggle();
-                });
-
-                $(window).resize(function() {
-                    if ($(window).width() > 768) {
-                        $("ul").removeAttr('style');
-                    }
-                });
-            </script>
-        </div>
-    </div>
-
-    <div class="base">
-        <div class="container">
-            <h2> Select Term </h2>
-            <h3> Select which time range you would like your wallpaper to reflect! </h3>
-        </div>
-    </div>
-
-    <form action="/choices" method="POST">
-        <div class="buttons">
-            <div class="container">
-                <button class="button" name="option" value="Recent Bops">
-=======
-  <script type="text/javascript">
-    // function responsiveNav(){
-    //   var x = document.getElementById("navbar");
-    //   if(x.className == "navbar"){
-    //     x.className += "responsive";
-    //   } else {
-    //     x.className = "navbar";
-    //   }
-    // }
-
-    $("nav div").click(function() {
-      console.log("HEREEE");
-      $("ul").slideToggle();
-      $("ul ul").css("display", "none");
-    });
-  </script>
-
-  <div class="header">
-    <div class="container">
-      <div class="name">
-        <a href="/"><h1>W</h1></a>
-      </div>
-
-      <!-- <div class="navbar" id="navbar"> -->
-          <!-- <ul> -->
-            <!-- <li><a href="">Wallpapers</a></li> -->
-            <!-- <div class="dropdown">
-              <li><a href="">Wallpapers</a></li>
-              <form action="/choices" method="POST">
-                <div class="dropdown-content">
-                    <button class="dropbtn" name="option" value="Recent Bops">
-                        <p>Short Term</p>
-                    </button>
-                    <button class="dropbtn" name="option" value="Semester Jams">
-                      <p>Medium Term</p>
-                  </button>
-                    <button class="dropbtn" name="option" value="Run It Back Turbo">
-                        <p>Long Term</p>
-                    </button>
-                </div>
-            </form>
-=======
->>>>>>> working on wallpapers, not done
             </div>
             <nav>
                 <div>
@@ -223,86 +86,30 @@
         </div>
     </div>
 
-<<<<<<< HEAD
-<form action="/choices" method="POST">
-  <div class="buttons">
-    <div class="container">
-      <button class="button" name="option" value="Recent Bops">
->>>>>>> changes for intermediate in
-=======
     <form action="/choices" method="POST">
         <div class="buttons">
             <div class="container">
                 <button class="button" name="option" value="Recent Bops">
->>>>>>> working on wallpapers, not done
         <div class="image short-term">
           <div class="overlay">
             <h4>Recent Bops</h4>
           </div>
         </div>
       </button>
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <button class="button" name="option" value="Semester Jams">
-=======
-      <button class="button" name="option" value="Semester Jams">
->>>>>>> changes for intermediate in
-=======
-                <button class="button" name="option" value="Semester Jams">
->>>>>>> working on wallpapers, not done
         <div class="image medium-term">
           <div class="overlay">
             <h4>Semester Jams</h4>
           </div>
         </div>
       </button>
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <button class="button" name="option" value="Run It Back Turbo">
-=======
-      <button class="button" ame="option" value="Run It Back Turbo">
->>>>>>> changes for intermediate in
-=======
-                <button class="button" name="option" value="Run It Back Turbo">
->>>>>>> working on wallpapers, not done
         <div class="image long-term">
           <div class="overlay">
             <h4>Run It Back Turbo</h4>
           </div>
         </div>
       </button>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    </div>
-<<<<<<< HEAD
-    <input id = "sizing" name="false">
-    <script>sizing();</script>
-  </form>
-=======
-  </div>
-</form> 
->>>>>>> changes for intermediate in
-<<<<<<< HEAD
-=======
-            </div>
-        </div>
-    </form>
->>>>>>> working on wallpapers, not done
-
-    <footer class="footer icons">
-        <div class="container">
-            <h5> Wallify </h5>
-        </div>
-    </footer>
-=======
-
-<footer class="footer icons">
-  <div class = "container">
-    <h5> Wallify </h5>
-  </div>
-</footer> 
->>>>>>> changes for intermediate in
-=======
             </div>
         </div>
     <input id = "sizing" name="false">
@@ -314,7 +121,6 @@
             <h5> Wallify </h5>
         </div>
     </footer>
->>>>>>> working on wallpapers, not done
 
 </body>
 

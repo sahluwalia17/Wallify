@@ -64,8 +64,7 @@ grid-template-columns: repeat(7, 1fr);
 
 /* name spacing */
 .name{
-  justify-self: start;
-  padding-left:10px;
+justify-self: center;
 }
 
 /* navbar spacing */
@@ -77,11 +76,11 @@ display: inline-block;
 
 /* NAVBAR */
 .navbar a{
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  color: var(--fourth-color);
-  padding:30px 0px;
-  display: inline-block;
+font-family: 'Montserrat', sans-serif;
+font-weight: 600;
+color: var(--fourth-color);
+padding:30px 0px;
+display: inline-block;
 } 
 
 .navbar a:hover{
@@ -193,10 +192,6 @@ background-color: var(--third-color);
 outline:none;
 }
 
-.main input[type=submit]:focus {
-  outline:none;
-}
-
 /* MEDIA QUERIES */
 
 /* to hamburger nav*/
@@ -218,8 +213,9 @@ outline:none;
 .navbar .menu {
   display:grid;
 }
+
 }
-/* to hamburger nav*/
+
 @media screen and (max-width: 880px) {
 .navbarresponsive {
   position: relative;
@@ -232,14 +228,13 @@ outline:none;
   display: none;
 }
 
-  .navbarresponsive a:hover{
-    color: var(--third-color);
-  }
+.navbarresponsive a:hover{
+  color: var(--fourth-color);
+}
 
-  .navbarresponsive a{
-    color:var(--fourth-color);
-  }
-
+.navbarresponsive a{
+  color:var(--fourth-color);
+}
 }
 
 @media(max-width:600px){
@@ -265,4 +260,5 @@ h2{
 h3{
   font-size:10px;
 }
+
 }
