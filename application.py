@@ -25,8 +25,8 @@ clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
 #change redirect URL to proper URL
-#redirectURL = "http://127.0.0.1:5000/callback/q"
-redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+redirectURL = "http://127.0.0.1:5000/callback/q"
+# redirectURL = "https://wallifyy.herokuapp.com/callback/q"
 
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
@@ -194,6 +194,7 @@ def intermediate():
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
             return redirect(url_for('short',data=trackinfo))
         elif request.form["option"] == "Semester Jams":
+            print("HEREEE")
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
             return redirect(url_for('medium',data=trackinfo))
         elif request.form["option"] == "Run It Back Turbo":
@@ -203,12 +204,15 @@ def intermediate():
     if request.method == "POST" and onMobile == True:
         if request.form["option"] == "Recent Bops":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50")
+            term="Recent Bops"
         elif request.form["option"] == "Semester Jams":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50")
+            term="Semester Jams"
         elif request.form["option"] == "Run It Back Turbo":
             trackinfo = spotify("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50")
+            term="Run It Back Turbo"
         app.logger.info("HERE IN CHOICES-----")
-        return redirect(url_for('mobile'))
+        return redirect(url_for('mobile', termName=term))
 
     return render_template("intermediate.html")
 
@@ -275,6 +279,10 @@ def long(data):
 def wallify():
     return render_template('wallify.html')
 
+@app.route("/about")
+def about():
+    return render_template('about.html')
+
 @app.route("/receive",methods=["POST"])
 def get_data():
     #javascript makes an AJAX POST request to pass array here; assemble wallpaper based on sequence of integers in array
@@ -286,8 +294,8 @@ def get_data():
         download_desktop(data)
         return str(token),200
 
-@app.route("/mobile")
-def mobile():
+@app.route("/mobile/<termName>")
+def mobile(termName):
     app.logger.info("HERE IN MOBILE----")
     image1 = Image.open("./static/1.jpg")
     image2 = Image.open("./static/2.jpg")
@@ -357,7 +365,7 @@ def mobile():
     name = "final.jpg"
     result.save(name)
     shutil.move("./" + name, "./static/" + name)
-    return render_template('mobile.html')
+    return render_template('mobile.html', data=termName)
 
 
 def download_desktop(data):

@@ -1,0 +1,384 @@
+:root {
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --third-color: #43D99D;
+    --fourth-color: #000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--primary-color);
+    margin: 0;
+    position: relative;
+    min-height: 100vh;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* a:visited{
+    color:var(--third-color);
+  } */
+
+ul {
+    list-style: none;
+    display: none;
+    position: static;
+}
+
+.container {
+    margin: auto;
+    overflow: hidden;
+}
+
+
+/* HEADER & HEADER SPACING*/
+
+.header {
+    display: flex;
+    background-color: var(--primary-color);
+    z-index: 100000;
+    border-bottom: 1px solid #000000;
+}
+
+h1 {
+    color: var(--third-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 100px;
+    padding: 10px 10px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.header .container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    align-items: center;
+}
+
+
+/* name spacing */
+
+.name {
+    justify-self: center;
+}
+
+
+/* navbar spacing */
+
+nav {
+    grid-column-end: 8;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+
+/* NAVBAR */
+nav div {
+    display: grid;
+    position: relative;
+    grid-column-end: 8;
+    font-size: 50px;
+    justify-content: center;
+    color: var(--secondary-color);
+}
+
+ button {
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+    font-size: unset;
+    box-shadow: none;
+    outline: none;
+}
+
+nav a,
+.link {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--secondary-color);
+    display: inline-block;
+}
+
+.link {
+    font-weight: 400;
+}
+
+ul li {
+    display: block;
+    font-size:20px;
+}
+
+ul li a,
+.link {
+    text-decoration: none;
+    padding: 5px;
+    display: block;
+    color: var(--secondary-color);
+}
+
+
+/* ul ul {
+    position: absolute;
+    min-width: auto;
+    display: none;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+} */
+/* ul ul li a,
+.link {
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+} */
+
+
+ul ul li {
+    display: block;
+}
+
+ul li i {
+    float: right;
+    padding: 0px;
+} 
+
+    
+nav div .close {
+    display: none;
+    font-size:30px;
+}
+
+
+ul ul li a,
+.link {
+    text-transform: none;
+    text-decoration: none;
+    justify-content: center;
+    justify-self: center;
+    padding: 5px 0px 0px 25px;
+    display: block;
+}
+/* ul ul {
+    position: static;
+    box-shadow: none;
+}  */
+
+/* PAGE HEADER */
+.base .container {
+    width: 80%;
+    margin-top: 30px;
+}
+
+h2 {
+    color: var(--secondary-color);
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 45px;
+    font-size: 4.5vw;
+    text-align: center;
+}
+
+/* BOX BORDER */
+#html-content-holder{
+    margin:auto;
+    margin-top:30px;
+    width: 95vw; 
+    height: 177.78vw; /* height:width ratio = 9/16 = .5625  */
+    max-height: 100vh;
+    max-width: 177.78vh; /* 16/9 = 1.778 */
+    background: var(--primary-color);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* WALLPAPER */
+
+.images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-top:30px;
+    margin:auto;
+    width:90vw;
+}
+
+.images .box {
+    padding-top:30px;
+
+}
+
+.images .box .mover {
+    width: calc(85vw/3);
+    height: calc(85vw/3);
+    margin:auto;
+}
+
+.wallpaper {
+    /* width: 90%; */
+    /* margin: auto;
+    margin-top: 20px; */
+}
+
+#box1 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../1.jpg);
+}
+
+#box2 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../2.jpg);
+}
+
+#box3 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../3.jpg);
+}
+
+#box4 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../4.jpg);
+}
+
+#box5 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../5.jpg);
+}
+
+#box6 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../6.jpg);
+}
+
+#box7 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../7.jpg);
+}
+
+#box8 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../8.jpg);
+}
+
+#box9 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../9.jpg);
+}
+
+#box10 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../10.jpg);
+}
+
+#box11 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../11.jpg);
+}
+
+#box12 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../12.jpg);
+}
+
+#box13 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../13.jpg);
+}
+
+#box14 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../14.jpg);
+}
+
+#box15 {
+    background-size: cover;
+    background-position: right;
+    background-image: url(../15.jpg);
+}
+
+/* LOGO */
+h3 {
+    padding-top:20px;
+    width:90vw;
+    font-family: 'Montserrat', sans-serif;
+    font-size:40px;
+    font-weight: bold;
+    color: var(--third-color);
+    text-align: end;
+}
+
+/* TERM NAME */
+
+h4{
+    padding-top:7px;
+    width:90vw;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 35px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    text-align: end;
+}
+
+/* DOWNLOAD BUTTON */
+
+.download {
+    text-align: center;
+    margin-top:40px;
+}
+
+#btn-Convert-Html2Image{
+    margin:auto;
+    outline: none;
+    background-color: var(--third-color);
+    color:var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    font-weight: normal;
+    border-radius: 50px;
+    padding: 10px 30px;
+}
+
+/* FOOTER */
+.footer .container{
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .footer{
+    padding:20px 40px;
+    margin-top:10px;
+    width: 100%;
+    background-color: var(--primary-color);
+  } 
+
+
+  h5 {
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+}
