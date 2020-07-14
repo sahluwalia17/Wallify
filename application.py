@@ -40,7 +40,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 app.secret_key = clientSecret
 #cache-buster config
-config = { 'extensions': ['.jpg'], 'hash_size': 5 }
+config = { 'extensions': ['.jpg', '.css'], 'hash_size': 5 }
 cache_buster = CacheBuster(config=config)
 cache_buster.init_app(app)
 config = {
@@ -64,7 +64,7 @@ def add_header(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "0"
-    response.headers['Cache-Control'] = 'public, max-age=0'
+    # response.headers['Cache-Control'] = 'public, max-age=0'
     response.cache_control.max_age = 0
 
     if 'Cache-Control' not in response.headers:
