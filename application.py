@@ -136,11 +136,11 @@ def spotify(spotifyAPI):
                                     links.append(albumurl)
                                     urlid = tracks_data["items"][x]["id"]
                                     aname = tracks_data["items"][x]["artists"][0]["name"]
-                                    artistname = re.sub(r'[^A-Za-z0-9\s$-_.+!*(),\']', '', aname)
+                                    artistname = re.sub(r'[^A-Za-z0-9\s$_.+!*(),\']', '', aname)
                                     tname = tracks_data["items"][x]["name"]
-                                    trackname = re.sub(r'[^A-Za-z0-9\s$-_.+!*(),\']', '', tname)
+                                    trackname = re.sub(r'[^A-Za-z0-9\s$_.+!*(),\']', '', tname)
                                     alname = tracks_data["items"][x]["album"]["name"]
-                                    albumname = re.sub(r'[^A-Za-z0-9\s$-_.+!*(),\']', '', alname)
+                                    albumname = re.sub(r'[^A-Za-z0-9\s$_.+!*(),\']', '', alname)
                                     trackinfolist = []
                                     trackinfolist.append(artistname)
                                     trackinfolist.append(trackname)
