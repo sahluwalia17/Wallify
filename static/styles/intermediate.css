@@ -246,14 +246,14 @@ h3 {
 .buttons .container {
     width: 80%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     margin-top: 50px;
 }
 
 .button {
     background-color: var(--primary-color);
     width: 80%;
-    height: 20vw;
+    height: 15vw;
     justify-self: center;
     border: none;
     outline: none;
@@ -270,7 +270,7 @@ h3 {
 
 .overlay {
     background-color: rgba(0, 0, 0, 0.4);
-    height: 20vw;
+    height: 15vw;
     justify-self: center;
 }
 
@@ -284,9 +284,9 @@ h4 {
     font-family: 'Lora', serif;
     font-weight: 500;
     font-size: 30px;
-    font-size: 1.75vw;
+    font-size: 1.4vw;
     color: var(--secondary-color);
-    line-height: 20vw;
+    line-height: 15vw;
 }
 
 .short-term {
@@ -299,6 +299,10 @@ h4 {
 
 .long-term {
     background-image: url(../2020.svg);
+}
+
+.custom-term {
+    background-image: url(../custom.svg);
 }
 
 #sizing {
@@ -345,7 +349,7 @@ h4 {
         width: 70%;
         display: grid;
         grid-template-columns: none;
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
     }
     .button {
         padding-top: 10px;

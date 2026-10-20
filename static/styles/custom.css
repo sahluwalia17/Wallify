@@ -1,0 +1,243 @@
+.custom-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    width: 92%;
+    margin: 30px auto 0;
+}
+
+.canvas-panel {
+    flex: 1;
+    min-width: 0;
+}
+
+.custom-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    aspect-ratio: var(--cols) / var(--rows);
+    background: #1f1f1f;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.slot {
+    position: relative;
+    aspect-ratio: 1;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    box-sizing: border-box;
+    transition: background 0.15s;
+}
+
+.slot.filled {
+    border-color: transparent;
+}
+
+.slot.over {
+    background: rgba(67, 217, 157, 0.25);
+    border-color: var(--third-color);
+}
+
+.slot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: grab;
+}
+
+.slot .remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    line-height: 20px;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--secondary-color);
+    font-size: 16px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.slot:hover .remove,
+.slot .remove:focus-visible {
+    opacity: 1;
+}
+
+.slot .remove:hover {
+    background: var(--third-color);
+}
+
+.custom-info {
+    margin-top: 20px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    background: var(--third-color);
+    border-radius: 10px;
+}
+
+.custom-info p {
+    margin: auto;
+    padding: 0 20px;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+.custom-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.action-button {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--third-color);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid var(--third-color);
+    border-radius: 50px;
+    padding: 10px 40px;
+}
+
+.action-button:hover:not(:disabled) {
+    background-color: var(--third-color);
+    color: var(--secondary-color);
+}
+
+.action-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.action-button.secondary {
+    color: var(--secondary-color);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.search-panel {
+    width: 380px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 40px);
+    background: #2a2a2a;
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1f1f1f;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    padding: 10px 16px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-box:focus-within {
+    border-color: var(--third-color);
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+}
+
+.search-status {
+    min-height: 20px;
+    margin: 12px 0 8px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-status:empty {
+    display: none;
+}
+
+.search-results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    padding: 0;
+    text-align: left;
+    cursor: grab;
+}
+
+.result img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    transition: transform 0.15s;
+}
+
+.result:hover img,
+.result:focus-visible img {
+    transform: scale(1.04);
+}
+
+.result:focus-visible {
+    outline: 2px solid var(--third-color);
+    outline-offset: 2px;
+}
+
+.result-name,
+.result-artist {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: var(--secondary-color);
+}
+
+.result-artist {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+}
+
+@media (max-width: 900px) {
+    .custom-layout {
+        flex-direction: column;
+    }
+
+    .search-panel {
+        position: static;
+        width: 100%;
+        max-height: none;
+    }
+
+    .search-results {
+        max-height: 60vh;
+    }
+}

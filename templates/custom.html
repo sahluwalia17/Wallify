@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Wallify - Custom</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/wallpaper.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f74dc3ff01.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/custom.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="name">
+                <a href="/">
+                    <h1>W</h1>
+                </a>
+            </div>
+            <nav>
+                <div>
+                    <i class="fa fa-bars bars"></i>
+                    <i class="fa fa-times close"></i>
+                </div>
+                <ul>
+                    <li><a href="#">Wallpapers <i class="fa fa-sort-desc"></i></a>
+                        <ul>
+                            <form id="choices" action="/choices" method="POST">
+                                <li>
+                                    <button class="link" name="option" value="Recent Bops">Recent Bops</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Semester Jams">Semester Jams</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Run It Back Turbo">Run It Back
+                                        Turbo</button>
+                                </li>
+                                <li>
+                                    <button class="link" name="option" value="Custom">Custom</button>
+                                </li>
+                            </form>
+                        </ul>
+                    </li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="https://github.com/sahluwalia17/Wallify">Github</a></li>
+                </ul>
+            </nav>
+
+            <script type="text/javascript">
+                var count = 0;
+
+                $("nav div").click(function () {
+                    count = count + 1;
+                    if (count % 2 != 0) {
+                        $("nav div .bars").css("display", "none");
+                        $("nav div .close").css("display", "grid");
+                    } else {
+                        $("nav div .close").css("display", "none");
+                        $("nav div .bars").css("display", "grid");
+                    }
+                    $("ul").slideToggle();
+                    $("ul ul").css("display", "none");
+                });
+
+                $("ul li").click(function () {
+                    $(this).find('ul').slideToggle();
+                });
+
+                $(window).resize(function () {
+                    if ($(window).width() > 768) {
+                        $("ul").removeAttr('style');
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="base">
+        <div class="container">
+            <h2>Design your own wallpaper</h2>
+        </div>
+    </div>
+
+    <main class="custom-layout" id="custom" data-cols="{{ cols }}" data-rows="{{ rows }}">
+        <section class="canvas-panel">
+            <div class="custom-grid" id="grid" style="--cols: {{ cols }}; --rows: {{ rows }};"></div>
+            <div class="custom-info" id="info" aria-live="polite">
+                <p>Search for an album, then drag it onto the wallpaper or click it to add</p>
+            </div>
+            <div class="custom-actions">
+                <button type="button" class="action-button secondary" id="clear">Clear</button>
+                <button type="button" class="action-button" id="download" disabled>Download</button>
+            </div>
+        </section>
+
+        <aside class="search-panel">
+            <label class="search-box">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input id="search" type="search" placeholder="Search albums or artists" autocomplete="off" aria-label="Search albums">
+            </label>
+            <div class="search-status" id="status">Start typing to find album covers</div>
+            <div class="search-results" id="results"></div>
+        </aside>
+    </main>
+
+    <footer class="footer icons">
+        <div class="container">
+            <h5> Wallify </h5>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='custom.js') }}"></script>
+</body>
+
+</html>

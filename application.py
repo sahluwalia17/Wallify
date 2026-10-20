@@ -16,6 +16,8 @@ import importlib
 import sys
 import logging
 import re
+import io
+from concurrent.futures import ThreadPoolExecutor
 
 #Global Declarations
 app = Flask(__name__)
@@ -25,8 +27,7 @@ clientId = "45ba6741126e4af1b9c7fef7f6bd7568"
 clientSecret = "be75f467163b4812aee28c45e3bcf860"
 baseURL = "https://accounts.spotify.com/authorize"
 #change redirect URL to proper URL
-# redirectURL = "http://127.0.0.1:5000/callback/q"
-redirectURL = "https://wallifyy.herokuapp.com/callback/q"
+redirectURL = "http://127.0.0.1:5000/callback/q"
 
 scope = "user-top-read"
 spotifyTokenURL = "https://accounts.spotify.com/api/token"
@@ -44,7 +45,7 @@ config = { 'extensions': ['.jpg', '.css'], 'hash_size': 5 }
 cache_buster = CacheBuster(config=config)
 cache_buster.init_app(app)
 config = {
-    "apiKey": None,
+    "apiKey": open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.txt")).read().strip(),
     "authDomain": "wallify-bea20.firebaseapp.com",
     "databaseURL": "https://wallify-bea20.firebaseio.com",
     "projectId": "wallify-bea20",
@@ -188,6 +189,9 @@ def intermediate():
         if key.startswith('true'):
             onMobile = True
     print(onMobile)
+    if request.method == "POST" and request.form.get("option") == "Custom":
+        return redirect(url_for('custom'))
+
     #perform redirects based on the option that the user picks
     if request.method == "POST" and onMobile == False:
         if request.form["option"] == "Recent Bops":
@@ -221,6 +225,8 @@ def callback():
     global refreshTime
     global refresh_token
     session.clear()
+    if 'code' not in request.args:
+        return "Spotify authorization failed: {}".format(request.args.get('error', 'no code returned')), 400
     auth_token = request.args['code']
 
     code_payload = {
@@ -272,6 +278,101 @@ def long(data):
         if request.form["option"] == "back":
             return redirect(url_for('intermediate'))
     return render_template('long.html',trackdata=data)
+
+
+
+CUSTOM_COLS = 6
+CUSTOM_ROWS = 3
+CUSTOM_TILE = 640
+CUSTOM_IMAGE_URL = re.compile(r"^https://i\.scdn\.co/image/[A-Za-z0-9]+$")
+appToken = {"value": None, "expires": 0}
+
+def get_app_token():
+    #client credentials token so album search works without a user login
+    if appToken["value"] and time.time() < appToken["expires"] - 30:
+        return appToken["value"]
+    resp = requests.post(spotifyTokenURL, data={
+        "grant_type": "client_credentials",
+        "client_id": clientId,
+        "client_secret": clientSecret
+    }, timeout=10)
+    resp.raise_for_status()
+    data = resp.json()
+    appToken["value"] = data["access_token"]
+    appToken["expires"] = time.time() + data["expires_in"]
+    return appToken["value"]
+
+@app.route("/custom")
+def custom():
+    return render_template("custom.html", cols=CUSTOM_COLS, rows=CUSTOM_ROWS)
+
+@app.route("/custom/search")
+def custom_search():
+    query = request.args.get("q", "").strip()
+    if not query:
+        return jsonify([])
+    try:
+        resp = requests.get(
+            "https://api.spotify.com/v1/search",
+            params={"q": query, "type": "album", "limit": 30},
+            headers={"Authorization": "Bearer {}".format(get_app_token())},
+            timeout=10
+        )
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        app.logger.error("album search failed: %s", e)
+        return jsonify({"error": "Spotify search failed"}), 502
+
+    results = []
+    for album in resp.json().get("albums", {}).get("items", []):
+        images = album.get("images") or []
+        if not images:
+            continue
+        results.append({
+            "id": album["id"],
+            "name": album["name"],
+            "artist": ", ".join(a["name"] for a in album.get("artists", [])),
+            "thumb": images[1]["url"] if len(images) > 1 else images[0]["url"],
+            "image": images[0]["url"]
+        })
+    return jsonify(results)
+
+def fetch_cover(url):
+    resp = requests.get(url, timeout=15)
+    resp.raise_for_status()
+    return Image.open(io.BytesIO(resp.content)).convert("RGB").resize((CUSTOM_TILE, CUSTOM_TILE))
+
+@app.route("/custom/download", methods=["POST"])
+def custom_download():
+    #slots is row-major list of cover urls (or null for empty tiles)
+    slots = (request.get_json(silent=True) or {}).get("slots")
+    total = CUSTOM_COLS * CUSTOM_ROWS
+    if not isinstance(slots, list) or len(slots) != total:
+        return jsonify({"error": "expected {} slots".format(total)}), 400
+    for url in slots:
+        if url is not None and not (isinstance(url, str) and CUSTOM_IMAGE_URL.match(url)):
+            return jsonify({"error": "invalid cover url"}), 400
+    if all(url is None for url in slots):
+        return jsonify({"error": "add at least one album"}), 400
+
+    unique = list({url for url in slots if url})
+    try:
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            covers = dict(zip(unique, pool.map(fetch_cover, unique)))
+    except Exception as e:
+        app.logger.error("cover download failed: %s", e)
+        return jsonify({"error": "could not fetch album covers"}), 502
+
+    result = Image.new("RGB", (CUSTOM_COLS * CUSTOM_TILE, CUSTOM_ROWS * CUSTOM_TILE), (24, 24, 24))
+    for index, url in enumerate(slots):
+        if url:
+            row, col = divmod(index, CUSTOM_COLS)
+            result.paste(covers[url], (col * CUSTOM_TILE, row * CUSTOM_TILE))
+
+    buffer = io.BytesIO()
+    result.save(buffer, "JPEG", quality=95)
+    buffer.seek(0)
+    return send_file(buffer, mimetype="image/jpeg", as_attachment=True, download_name="wallify-custom.jpg")
 
 
 @app.route("/wallify")
